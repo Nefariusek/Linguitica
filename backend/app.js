@@ -1,8 +1,4 @@
-const debug = require('debug')('app:startup');
-const morgan = require('morgan');
-const helmet = require('helmet');
 const express = require('express');
-const path = require('path');
 const db = require('./db');
 
 const main = async () => {
@@ -10,11 +6,12 @@ const main = async () => {
 
   const connection = await db.connect();
   const models = db.load(connection);
+
   //[WARNING] Uncommenting lines below will drop your current database and initialize default one.
-  //if (process.env.NODE_ENV === 'dev') {
-  await connection.dropDatabase();
-  await db.initialize(models);
-  //}
+  if (process.env.NODE_ENV === 'dev') {
+    await connection.dropDatabase();
+    await db.initialize(models);
+  }
 
   db.register(app, connection, models);
 
