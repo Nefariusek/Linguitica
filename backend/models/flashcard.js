@@ -17,7 +17,7 @@ const flashcardSchema = new mongoose.Schema({
     trim: true,
   },
   polish_tips: {
-    type: String,
+    type: [String],
     maxlength: 255,
     required: true,
     trim: true,
