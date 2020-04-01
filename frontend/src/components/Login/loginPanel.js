@@ -1,7 +1,7 @@
 import React from 'react';
 import './login.css';
 import logo from './logo.png';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
 class LoginPanel extends React.Component {
@@ -68,9 +68,9 @@ class LoginPanel extends React.Component {
               <input type="submit" value="ZALOGUJ" />
             </p>
           </form>
-          <Link to="/login/passwordreset">Nie pamiętam hasła</Link>
+          <NavLink to="/login/passwordreset">Nie pamiętam hasła</NavLink>
           <div></div>
-          <Link to="/register">Zarejestruj się</Link>
+          <NavLink to="/register">Zarejestruj się</NavLink>
         </div>
       </div>
     );

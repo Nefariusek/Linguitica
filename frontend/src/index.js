@@ -4,13 +4,15 @@ import Login from './views/Login';
 import Register from './views/Register';
 import Homepage from './components/Homepage/Homepage';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import PasswordReset from './components/Login/passwordReset';
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/homepage" component={Homepage} />
+        <Route exact path="/login/passwordreset" component={PasswordReset} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/homepage" component={Homepage} />
       </Switch>
     </BrowserRouter>
   );
