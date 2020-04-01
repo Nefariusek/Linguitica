@@ -11,8 +11,8 @@ const config = {
   protocol: getByMode(process.env.DB_PROT, process.env.DB_PROT_DEV),
 };
 
-const mongoURL = `${config.protocol}://${config.username}:${config.password}@${config.host}:${config.port}/${config.name}`;
-
+const mongoURL = `${config.protocol}://${config.host}:${config.port}/${config.name}`;
+// ${config.username}:${config.password}@
 const connectionOnFulfilledHandler = connection => {
   console.log(`[MongoDB] Connection to ${mongoURL} established!`);
   return connection;
