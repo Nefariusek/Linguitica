@@ -44,8 +44,8 @@ input {
   box-sizing: border-box;
   display: flex;
   width: auto;
-  margin-left: 50%;
-
+  margin-right: auto;
+  margin-left: auto;
   border-width: 1px;
   border-style: solid;
   padding: 16px;
