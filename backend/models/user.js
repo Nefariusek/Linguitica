@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
 
 const validateUser = user => {
   const schema = Joi.object({
-    name: Joi.string()
+    username: Joi.string()
       .required()
       .min(6)
       .max(16)
