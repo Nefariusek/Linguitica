@@ -39,8 +39,6 @@
 .spacer {
   flex: 1;
 }
-
-.button {
-  height: 50px;
-  width: auto;
+h2 {
+  color: #0070ad;
 }

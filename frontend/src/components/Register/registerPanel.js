@@ -70,7 +70,7 @@ class RegisterPanel extends React.Component {
             </p>
           </form>
           <div className="test">
-            jeśli masz już konto -<Link to="/">zaloguj się</Link>
+            jeśli masz już konto -<Link to="/login">zaloguj się</Link>
           </div>
         </div>
       </div>

@@ -1,15 +1,15 @@
 import React from 'react';
-import HomePanel from './Homepage';
+import startpage from './startpage';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
-const HomeContent = () => {
+const startContent = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/homepanel" component={HomePanel} />
+        <Route exact path="/startpage" component={startpage} />
       </Switch>
     </BrowserRouter>
   );
 };
 
-export default HomeContent;
+export default startContent;

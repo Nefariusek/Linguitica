@@ -3,6 +3,8 @@ import './login.css';
 import logo from './logo.png';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
+import Start from '../../views/Startpage';
+import startpage from '../Startpage';
 
 class LoginPanel extends React.Component {
   state = {
@@ -35,7 +37,7 @@ class LoginPanel extends React.Component {
 
   //return if logging was succesful
   render() {
-    if (this.state.isLogged) return <Redirect to="/homepage" />;
+    if (this.state.isLogged) return <Redirect to="/startpage" />;
 
     return (
       <div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import './body.css';
 import check from '../../pictures/check.png';
-import roslinka from '../../pictures/roslinka.png';
-import wybor from '../../pictures/wybor.png';
-import statystyki from '../../pictures/statystyki.jpg';
+import flower from '../../pictures/flower.png';
+import choiceForm from '../../pictures/choiceForm.png';
+import statistics from '../../pictures/statistics.jpg';
 import fiszka from '../../pictures/fiszka.png';
 import { Redirect } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ class Body extends React.Component {
           </div>
 
           <div className="picRoslinka">
-            <img src={roslinka} alt="roslinka" />
+            <img src={flower} alt="roslinka" />
           </div>
         </div>
 
@@ -37,7 +37,7 @@ class Body extends React.Component {
           </div>
 
           <div className="pic">
-            <img src={wybor} alt=""></img>
+            <img src={choiceForm} alt=""></img>
           </div>
         </div>
 
@@ -59,7 +59,7 @@ class Body extends React.Component {
           </div>
 
           <div className="pic">
-            <img src={statystyki}></img>
+            <img src={statistics}></img>
           </div>
         </div>
 
