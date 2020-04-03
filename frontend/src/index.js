@@ -1,20 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './views/Login';
-import Register from './views/Register';
-import Homepage from './components/Homepage/Homepage';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import PasswordReset from './components/Login/passwordReset';
+
+import NavBar from './components/NavBar';
+import Login from './components/Login';
+import Register from './components/Register';
+import Guestpage from './components/Guestpage';
+import Homepage from './components/Homepage';
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/login/passwordreset" component={PasswordReset} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/homepage" component={Homepage} />
-      </Switch>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={Guestpage} />
+          <Route exact path="/home" component={Homepage} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 };
 

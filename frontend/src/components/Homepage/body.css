@@ -1,0 +1,48 @@
+.action {
+  align-items: center;
+  display: flex;
+  height: 40%;
+  width: auto;
+  margin: 25% 10px;
+  color: #0070ad;
+}
+
+h2 {
+  text-align: center;
+}
+.startBody {
+  margin-right: 15%;
+  margin-left: 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 5%;
+  height: 100%;
+}
+
+.properties {
+  align-items: center;
+  display: flex;
+  height: 20%;
+  width: auto;
+  margin: 25% 10px;
+  color: black;
+}
+.properties img,
+.action img {
+  height: 30px;
+}
+.picture {
+  margin-top: 100px;
+  width: 300px;
+}
+.picture img {
+  width: 85%;
+  border: 2px solid #0070ad;
+}
+.properties img:hover,
+.action h2:hover {
+  height: 35px;
+  font-size: 130%;
+  width: auto;
+  cursor: pointer;
+}
