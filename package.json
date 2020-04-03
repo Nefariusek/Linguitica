@@ -1,0 +1,19 @@
+{
+  "name": "linguitica",
+  "version": "1.0.0",
+  "description": "Information for team",
+  "scripts": {
+    "start": "cd backend && node -r dotenv/config ./app.js",
+    "heroku-postbuild": "cd frontend && npm install && npm run build-web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nefariusek/Linguitica.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nefariusek/Linguitica/issues"
+  },
+  "homepage": "https://github.com/Nefariusek/Linguitica#readme"
+}
