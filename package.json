@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Information for team",
   "scripts": {
-    "start": "cd backend && node -r dotenv/config ./app.js",
+    "start": "cd backend && npm install && node -r dotenv/config ./app.js",
     "heroku-postbuild": "cd frontend && npm install && npm run build-web"
   },
   "repository": {
