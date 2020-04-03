@@ -16,6 +16,7 @@ body {
   letter-spacing: 0.1em;
   color: #0070ad;
   margin: 75px auto;
+  padding-top: 80px;
 }
 
 .login {

@@ -1,7 +1,8 @@
 import React from 'react';
-import '../Homepage/navBar.css';
 import { Link } from 'react-router-dom';
-import logo from '../../pictures/logo.png';
+
+import logo from '../../images/logo.png';
+import './navBar.css';
 
 const NavBar = props => (
   <header className="navbar">
@@ -15,7 +16,10 @@ const NavBar = props => (
       <div className="navbarItems">
         <ul>
           <li>
-            <h2>UŻYTKOWNIK: </h2>
+            <Link to="/login">Zaloguj się</Link>
+          </li>
+          <li>
+            <Link to="/register">Zarejestruj się</Link>
           </li>
         </ul>
       </div>

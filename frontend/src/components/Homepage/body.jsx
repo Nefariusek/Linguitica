@@ -1,13 +1,11 @@
 import React from 'react';
-import './startBody.css';
-import bugIcon from '../../pictures/bugIcon.png';
-import flowerIcon from '../../pictures/flowerIcon.png';
-import infoIcon from '../../pictures/infoIcon.png';
+import './body.css';
+import bugIcon from '../../images/bugIcon.png';
+import flowerIcon from '../../images/flowerIcon.png';
+import infoIcon from '../../images/infoIcon.png';
 
-import check from '../../pictures/check.png';
-import flowerLevel from '../../pictures/flowerLevel.png';
-
-import { Redirect } from 'react-router-dom';
+import check from '../../images/check.png';
+import flowerLevel from '../../images/flowerLevel.png';
 
 class Body extends React.Component {
   render() {

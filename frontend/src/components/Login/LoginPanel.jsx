@@ -1,10 +1,10 @@
 import React from 'react';
 import './login.css';
-import logo from './logo.png';
+import logo from '../../images/logo.png';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import Start from '../../views/Startpage';
-import startpage from '../Startpage';
+// import Start from '../../views/Guestpage';
+// import startpage from '../Guestpage';
 
 class LoginPanel extends React.Component {
   state = {
@@ -37,7 +37,7 @@ class LoginPanel extends React.Component {
 
   //return if logging was succesful
   render() {
-    if (this.state.isLogged) return <Redirect to="/startpage" />;
+    if (this.state.isLogged) return <Redirect to="/home" />;
 
     return (
       <div>
@@ -70,7 +70,7 @@ class LoginPanel extends React.Component {
               <input type="submit" value="ZALOGUJ" />
             </p>
           </form>
-          <NavLink to="/login/passwordreset">Nie pamiętam hasła</NavLink>
+          <NavLink to="/passwordreset">Nie pamiętam hasła</NavLink>
           <div></div>
           <NavLink to="/register">Zarejestruj się</NavLink>
         </div>

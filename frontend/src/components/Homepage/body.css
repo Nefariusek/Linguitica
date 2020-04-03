@@ -1,74 +1,48 @@
-.slogan {
+.action {
   align-items: center;
   display: flex;
-  height: 300px;
+  height: 40%;
   width: auto;
-  margin: 40px 10px;
-  justify-content: space-between;
-  margin-right: 20%;
+  margin: 25% 10px;
   color: #0070ad;
 }
 
-.part {
-  margin-right: 15%;
-  margin-left: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5%;
-}
-
-.bodyBox {
-  position: static;
-  top: 5px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.pic img {
-  height: 500px;
-  width: auto;
-  margin-right: 15%;
-}
-.picRoslinka img {
-  width: 400px;
-  height: 200px;
-  border: 1.5px solid #0070ad;
-  margin-right: 10%;
-}
-.pic img:hover {
-  height: 520px;
-  width: auto;
-}
-
-.picRoslinka img:hover {
-  width: 420px;
-  height: 210px;
-}
 h2 {
   text-align: center;
 }
-input {
-  box-sizing: border-box;
-  display: flex;
-  width: auto;
-  margin-right: auto;
-  margin-left: auto;
-  border-width: 1px;
-  border-style: solid;
-  padding: 16px;
-  margin-bottom: 20px;
-  justify-content: center;
-  outline: 0;
-  font-family: inherit;
-  font-size: 0.95em;
-  border-radius: 16px;
-  background: #0070ad;
-  border-color: transparent;
-  color: #fff;
-  cursor: pointer;
+.startBody {
+  margin-right: 15%;
+  margin-left: 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 5%;
+  height: 100%;
 }
 
-input:hover {
-  background: #17c;
+.properties {
+  align-items: center;
+  display: flex;
+  height: 20%;
+  width: auto;
+  margin: 25% 10px;
+  color: black;
+}
+.properties img,
+.action img {
+  height: 30px;
+}
+.picture {
+  margin-top: 100px;
+  width: 300px;
+}
+.picture img {
+  width: 85%;
+  border: 2px solid #0070ad;
+}
+.properties img:hover,
+.action h2:hover {
+  height: 35px;
+  font-size: 130%;
+  width: auto;
+  cursor: pointer;
 }
