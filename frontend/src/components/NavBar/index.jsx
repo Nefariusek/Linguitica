@@ -1,11 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import logo from '../../images/logo.png';
-import './navBar.css';
+import { Layout, Menu } from 'antd';
 
-const NavBar = props => (
-  <header className="navbar">
+const { Header } = Layout;
+const NavBar = (props) => (
+  <Layout className="layout-navbar">
+    <Header className="header">
+      <div className="logo">
+        <img src={logo} alt="logo-kwiatek"></img>
+        <a href="/">LINGUITICA</a>
+      </div>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']} className="menuBar">
+        <Menu.Item key="1" className="menuItem">
+          <Link to="/flashsets">Twoje zestawy</Link>
+        </Menu.Item>
+        <Menu.Item key="2" className="menuItem">
+          <Link to="/login">Zaloguj się</Link>
+        </Menu.Item>
+        <Menu.Item key="3" className="menuItem">
+          <Link to="/register">Zarejestruj się</Link>
+        </Menu.Item>
+      </Menu>
+    </Header>
+  </Layout>
+
+  /*<header className="navbar">
     <nav className="navbarNavigation">
       <div></div>
       <div className="navbarLogo">
@@ -24,7 +44,7 @@ const NavBar = props => (
         </ul>
       </div>
     </nav>
-  </header>
+  </header> */
 );
 
 export default NavBar;

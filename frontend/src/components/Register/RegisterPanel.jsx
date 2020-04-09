@@ -1,7 +1,6 @@
 import React from 'react';
-import './register.css';
 import logo from '../../images/logo.png';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class RegisterPanel extends React.Component {
   state = {
@@ -12,10 +11,10 @@ class RegisterPanel extends React.Component {
   };
 
   //checking input data
-  onButtonSubmit = e => {};
+  onButtonSubmit = (e) => {};
 
   //handle for inputs
-  handleChange = e => {
+  handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
@@ -23,7 +22,7 @@ class RegisterPanel extends React.Component {
   render() {
     return (
       <div>
-        <div className="logo">
+        <div className="register-logo">
           <img src={logo} alt=""></img> Linguitica
         </div>
 
@@ -69,8 +68,8 @@ class RegisterPanel extends React.Component {
               <input type="submit" value="DOŁĄCZ" />
             </p>
           </form>
-          <div className="test">
-            jeśli masz już konto -<Link to="/login">zaloguj się</Link>
+          <div>
+            jeśli masz już konto -<NavLink to="/login">zaloguj się</NavLink>
           </div>
         </div>
       </div>
