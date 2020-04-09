@@ -1,5 +1,4 @@
 import React from 'react';
-import './login.css';
 import logo from '../../images/logo.png';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
@@ -15,14 +14,14 @@ class LoginPanel extends React.Component {
   };
 
   //there will be checkingch
-  onButtonSubmit = e => {
+  onButtonSubmit = (e) => {
     //if (this.state.email === 'a@pl' && this.state.password === 'haslo') {
     this.setState({ isLogged: true });
     //} else this.setState({ invalid: true });
   };
 
   //handle for inputs
-  handleChange = e => {
+  handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
@@ -40,8 +39,8 @@ class LoginPanel extends React.Component {
     if (this.state.isLogged) return <Redirect to="/home" />;
 
     return (
-      <div>
-        <div className="logo">
+      <div className="login-body">
+        <div className="login-logo">
           <img src={logo} alt=""></img> Linguitica
         </div>
 
