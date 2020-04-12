@@ -1,7 +1,6 @@
 import React from 'react';
-import { Progress, message, Descriptions, Avatar, Badge, Divider, Row, Layout, Breadcrumb, Button } from 'antd';
+import { Progress, message, Descriptions, Avatar, Badge, Button } from 'antd';
 
-import { Link } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 
 const info = () => {

@@ -1,14 +1,8 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
-
-//import check from '../../images/check.png';
-//import flower from '../../images/flower.png';
-
-//import statistics from '../../images/statistics.jpg';
-
 import { Redirect } from 'react-router-dom';
 
-const { Header, Footer, Content } = Layout;
+const { Content } = Layout;
 
 class GuestpageContent extends React.Component {
   constructor(props) {
@@ -30,7 +24,6 @@ class GuestpageContent extends React.Component {
     if (this.state.isClicked) return <Redirect to="/register" />;
     return (
       <Layout className="layout">
-        <Header></Header>
         <Content style={{ padding: '0' }}>
           <div className="site-layout-content">
             <div className="page">
@@ -78,7 +71,6 @@ class GuestpageContent extends React.Component {
             </Button>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Linguitica ©2020</Footer>
       </Layout>
     );
   }

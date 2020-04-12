@@ -4,14 +4,13 @@ import { FileDoneOutlined, LineChartOutlined, HomeOutlined, ReadOutlined, BellOu
 import { Link } from 'react-router-dom';
 import UserInformation from './UserInformation';
 
-const { Header, Footer, Content } = Layout;
+const { Content } = Layout;
 const DemoBox = (props) => <p className={`height-${props.value}`}>{props.children}</p>;
 
 class HomepageContent extends React.Component {
   render() {
     return (
       <Layout className="layout">
-        <Header></Header>
         <Content style={{ padding: '0' }}>
           <Divider orientation="left" style={{ color: '#333', fontWeight: 'normal' }}>
             <Breadcrumb>
@@ -64,7 +63,6 @@ class HomepageContent extends React.Component {
             </Col>
           </Row>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Linguitica ©2020</Footer>
       </Layout>
     );
   }
