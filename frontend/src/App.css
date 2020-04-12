@@ -162,130 +162,271 @@ body {
 
 /*-------------------------------guestpage -------------------*/
 
-.slogan-guest {
-  align-items: center;
-  display: flex;
-  height: 300px;
-  width: auto;
-  margin: 40px 10px;
-  justify-content: space-between;
-  margin-right: 20%;
-  color: #0070ad;
-}
-
-.part-guest {
-  margin-right: 15%;
-  margin-left: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5%;
-}
-
-.bodyBox-guest {
-  position: static;
-  top: 5px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.pic-guest img {
-  height: 500px;
-  width: auto;
-  margin-right: 15%;
-}
-.picRoslinka-guest img {
-  width: 400px;
-  height: 200px;
-  border: 1.5px solid #0070ad;
-  margin-right: 10%;
-}
-.pic-guest img:hover {
-  height: 520px;
-  width: auto;
-}
-
-.picRoslinka-guest img:hover {
-  width: 420px;
-  height: 210px;
-}
-.bodyBox-guest h2 {
-  text-align: center;
-}
-
-.bodyBox-guest input[name='input-guest'] {
+.ant-btn.joinButton.ant-btn-primary {
   box-sizing: border-box;
   display: flex;
-  width: auto;
-  margin-right: auto;
-  margin-left: auto;
-  border-width: 1px;
-  border-style: solid;
-  padding: 16px;
-  margin-bottom: 20px;
+  height: 50px;
+  width: 10vw;
+  margin-left: 38%;
   justify-content: center;
   outline: 0;
   font-family: inherit;
   font-size: 0.95em;
-  border-radius: 16px;
-  background: #0070ad;
-  border-color: transparent;
-  color: #fff;
+  background: white;
+  color: #0070ad;
+  border: 2px solid #0070ad;
+  transition: ease-in-out 0.4s;
   cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ant-btn.joinButton.ant-btn-primary:hover {
+  color: white;
+  background-color: #95e616;
+  border: none;
 }
 
-.bodyBox-guest input[name='input-guest']:hover {
-  background: #17c;
+.ant-layout.layout {
+  height: 97vh;
+}
+
+.ant-layout-footer {
+  height: 25px;
+  margin: 0;
+  padding: 0;
+}
+/******************nowy ****************/
+.front h1,
+.back h1 {
+  font-size: 2.4em;
+  font-weight: bold;
+  display: inline-block;
+  color: black;
+  vertical-align: center;
+}
+
+.back h1 {
+  font-size: 1.4em;
+  color: #fff;
+}
+
+h1:before {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 0.7em;
+  content: '';
+  background-size: contain;
+  background-position: center;
+}
+
+.site-layout-content {
+  width: 90vw;
+  display: flex;
+  height: 50%;
+  padding: 20px;
+  justify-content: space-between;
+  margin-left: 3%;
+}
+
+.page {
+  width: 30%;
+  margin: 0;
+  height: 40%;
+  margin-top: 40px;
+  color: white;
+  perspective: 1000px;
+  position: relative;
+  text-align: center;
+}
+.front,
+.back {
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  backface-visibility: hidden;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.front {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 50%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg);
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(204, 207, 202, 0.548);
+  background-blend-mode: overlay;
+}
+
+.front .tekst {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+.back {
+  transform: rotateY(180deg);
+  background: #0070ad;
+  position: relative;
+  z-index: 1;
+}
+
+.back .tekst {
+  padding: 0 1.7em;
+  transform: translate3d(80%, 0, 0);
+}
+
+.tekst {
+  transition: opacity 0.4s linear;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.4s linear;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.4s linear;
+  opacity: 0;
+}
+.page:hover .front {
+  transform: rotateY(-180deg);
+}
+
+.page:hover .front .tekst {
+  transform: translate3d(-200%, 0, 0);
+  opacity: 1;
+}
+
+.page:hover .back {
+  transform: rotateY(0deg);
+}
+
+.page:hover .back .tekst {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.homepageButton {
+  margin-top: 30vh;
+
+  margin-left: 10%;
+}
+
+.page:nth-child(1) .front {
+  background-image: url(https://i.etsystatic.com/18894810/r/il/1ed751/2292895799/il_fullxfull.2292895799_5phq.jpg);
+}
+.page:nth-child(1) .front h1:before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkuMDk5IDExLjEzNmMtMS40NDkgMS45Ny0zLjU5OSAzLjkxNC02LjAyMSAzLjU5Ny0uNjU1LjkxNi0xLjM4NyAyLjE5NC0yLjE5OSAzLjY3OGwtMS44NzkuNTg5YzEuNTg5LTMuMTAxIDMuNzEyLTYuNTMgNS45ODktOS4xMzYtLjk4Ni42NDItMi42MDYgMi4wMjMtNC4wMTYgMy40NzktMS4yNzEtMi42NTYuMDY5LTUuMTE1IDIuMDEyLTYuOTk0LS4wNTYuODg1LjMzNyAxLjY5Mi42MzEgMi4xMDctLjA1LS43NC4wMzYtMi4wNjIuNTc2LTMuMjA3IDEuMDgyLS45MTMgMi4wMzktMS41NyAzLjEzMi0yLjE0NS0uMTc3LjY0Ny0uMDI1IDEuNDIzLjE4MiAxLjkwNy4wOTUtLjY3LjQ5NC0xLjkzNy45NTUtMi40NjIgMS4zNjQtLjg4IDMuMzg0LTEuNTg0IDUuNTM5LTEuNTQ4LS4yMzggMS4zMjgtLjkzNiAzLjQ4NC0xLjg3NyA0LjgyMS0uNzYxLjQ4OS0xLjc2Ni43NzUtMi41NjYuOTEzLjY2My4xODYgMS40MDcuMjQgMi4wNTIuMTkyLS40NjkuOTg3LS45NDYgMS44OTEtMS42NjcgMy0uOTk1LjU1NS0yLjI2Ny44LTMuMTM1Ljg0Ni42MDcuMzE5IDEuNzE0LjUwNSAyLjI5Mi4zNjN6bS0xLjA5OSA0LjAwOXY1Ljg1NWgtMTZ2LTEyaDYuODc1Yy4yMjktLjY3My41NDctMS4zNDIuOTc5LTJoLTkuODU0djE2aDIwdi05Ljc4OGMtLjU3NC42NzktMS4yMzkgMS4zNTUtMiAxLjkzM3oiLz48L3N2Zz4=);
+}
+
+.page:nth-child(2) .front h1:before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjQgMnYyMmgtMjR2LTIyaDN2MWMwIDEuMTAzLjg5NyAyIDIgMnMyLS44OTcgMi0ydi0xaDEwdjFjMCAxLjEwMy44OTcgMiAyIDJzMi0uODk3IDItMnYtMWgzem0tMiA2aC0yMHYxNGgyMHYtMTR6bS0yLTdjMC0uNTUyLS40NDctMS0xLTFzLTEgLjQ0OC0xIDF2MmMwIC41NTIuNDQ3IDEgMSAxczEtLjQ0OCAxLTF2LTJ6bS0xNCAyYzAgLjU1Mi0uNDQ3IDEtMSAxcy0xLS40NDgtMS0xdi0yYzAtLjU1Mi40NDctMSAxLTFzMSAuNDQ4IDEgMXYyem0xIDExLjcyOWwuODU1LS43OTFjMSAuNDg0IDEuNjM1Ljg1MiAyLjc2IDEuNjU0IDIuMTEzLTIuMzk5IDMuNTExLTMuNjE2IDYuMTA2LTUuMjMxbC4yNzkuNjRjLTIuMTQxIDEuODY5LTMuNzA5IDMuOTQ5LTUuOTY3IDcuOTk5LTEuMzkzLTEuNjQtMi4zMjItMi42ODYtNC4wMzMtNC4yNzF6Ii8+PC9zdmc+);
+}
+
+.page:nth-child(2) .front {
+  background-image: url(https://cdn.business2community.com/wp-content/uploads/2018/11/calendar_1541603417.jpg);
+}
+
+.page:nth-child(3) .front h1:before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMiAwdjE0LjM4NmMwIDIuMzkxLTYuNjQ4IDkuNjE0LTkuODExIDkuNjE0aC0xMC4xODl2LTI0aDIwem0tMTAuNjM4IDIyYzQuMTU2IDAgMi42MzgtNiAyLjYzOC02czYgMS42NSA2LTIuNDU3di0xMS41NDNoLTE2djIwaDcuMzYyem0uNjM4LTR2MWgtNXYtMWg1em0tNS0yaDV2MWgtNXYtMXptMC0yaDEwdjFoLTEwdi0xem0wLTJoMTB2MWgtMTB2LTF6bTMuNjkxLTMuMTc0bC0yLjA1NS4wMDEtLjM5IDEuMTcyLTEuMjQ2LjAwMSAyLjExMy01LjY4OSAxLjA4Ni0uMDAxIDIuMTMzIDUuNjg2LTEuMjQ2LjAwMS0uMzk1LTEuMTcxem00LjM3My0yLjAxNWwxLjQxLS4wMDEuMDAxIDEuMDE5LTEuNDEuMDAxLjAwMSAxLjU5NC0xLjA3NC4wMDEtLjAwMS0xLjU5NC0xLjQxNC4wMDEtLjAwMS0xLjAxOSAxLjQxNC0uMDAxLS4wMDEtMS41MjhoMS4wNzRsLjAwMSAxLjUyN3ptLTYuMTEyIDEuMDY3bDEuNDIyLS4wMDEtLjcxNy0yLjEyOS0uNzA1IDIuMTN6Ii8+PC9zdmc+);
+}
+
+.page:nth-child(3) .front {
+  background-image: url(https://media.istockphoto.com/photos/test-sheet-with-answers-picture-id467219698);
 }
 
 /*---------------------------------- homepage ---------------------------*/
-.action-home {
-  align-items: center;
-  display: flex;
-  height: 40%;
-  width: auto;
-  margin: 25% 10px;
+
+.ant-layout-content {
+  border-bottom: 2px solid green;
+}
+
+.ant-row.ant-row-space-between.ant-row-middle {
+  height: 90%;
+  padding: 2%;
+  border-top: 1px solid black;
+}
+
+.ant-col.ant-col-7 {
+  border: 2px solid white;
+  display: inline-block;
+  height: 90%;
+}
+
+.height-200 {
+  height: 50%;
+  padding: 5%;
+  margin: auto;
+}
+
+.ant-btn.ant-btn-block {
+  block-size: 90%;
+  display: block;
+  clear: both;
+  border: 5px solid #0070ad;
+  transition: 0.5s;
+}
+
+.ant-btn.ant-btn-block:hover {
+  block-size: 90%;
+  display: block;
+  clear: both;
+  border-width: 2px;
+  color: #0070ad;
+  font-weight: bold;
+}
+
+.buttonIcon {
+  color: #95e616;
+  font-size: 5em;
+}
+
+.buttonText {
+  font-size: 1.5em;
+}
+
+.buttonIcon:hover {
+  font-style: inherit;
+}
+/************homepage-userinfomration *********/
+.avatar {
+  height: 10%;
+}
+.ant-avatar.ant-avatar-square.ant-avatar-icon {
+  height: 10vh;
+  width: 20vw;
+  background-color: #fff;
+}
+
+.anticon.anticon-user.userIcon {
+  padding: 5%;
+  font-size: 3em;
   color: #0070ad;
 }
-
-.startBody-home h2 {
-  text-align: center;
+.userInformation {
+  height: 200%;
+  display: block;
+  margin: 10%;
+  align-content: center;
 }
-.startBody-home {
-  margin-right: 15%;
-  margin-left: 10%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 5%;
-  height: 100%;
+.progressBars {
+  padding: auto;
+  margin: 5%;
 }
-
-.properties-home {
-  align-items: center;
-  display: flex;
-  height: 20%;
-  width: auto;
-  margin: 25% 10px;
-  color: black;
+.messageDiv {
+  align-content: center;
+  justify-content: center;
+  margin: 20% 20%;
+  width: 10vw;
+  white-space: nowrap;
 }
-.properties-home img,
-.action-home img {
-  height: 30px;
-}
-.picture-home {
-  margin-top: 100px;
-  width: 300px;
-}
-.picture-home img {
-  width: 85%;
-  border: 2px solid #0070ad;
-}
-.properties-home img:hover,
-.action-home h2:hover {
-  height: 35px;
-  font-size: 130%;
-  width: auto;
-  cursor: pointer;
+.ant-btn.message.ant-btn-primary.ant-btn-block {
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
 }
 
 /*---------------------------------- navbar ---------------------------*/
