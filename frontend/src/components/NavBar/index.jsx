@@ -3,27 +3,18 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import { Layout, Menu } from 'antd';
 
-const { Header } = Layout;
-const NavBar = (props) => (
-  <Layout className="layout-navbar">
-    <Header className="header">
-      <div className="logo">
-        <img src={logo} alt="logo-kwiatek"></img>
-        <a href="/">LINGUITICA</a>
-      </div>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']} className="menuBar">
-        <Menu.Item key="1" className="menuItem">
-          <Link to="/flashsets">Twoje zestawy</Link>
-        </Menu.Item>
-        <Menu.Item key="2" className="menuItem">
-          <Link to="/login">Zaloguj się</Link>
-        </Menu.Item>
-        <Menu.Item key="3" className="menuItem">
-          <Link to="/register">Zarejestruj się</Link>
-        </Menu.Item>
-      </Menu>
-    </Header>
-  </Layout>
+const NavBar = () => (
+  <Menu theme="dark" mode="horizontal" className="menuBar">
+    <Menu.Item key="1" className="menuItem">
+      <Link to="/flashsets">Twoje zestawy</Link>
+    </Menu.Item>
+    <Menu.Item key="2" className="menuItem">
+      <Link to="/login">Zaloguj się</Link>
+    </Menu.Item>
+    <Menu.Item key="3" className="menuItem">
+      <Link to="/register">Zarejestruj się</Link>
+    </Menu.Item>
+  </Menu>
 
   /*<header className="navbar">
     <nav className="navbarNavigation">
