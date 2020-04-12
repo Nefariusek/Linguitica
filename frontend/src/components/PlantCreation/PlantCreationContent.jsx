@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-class CharacterCreationContent extends Component {
+class PlantCreationContent extends Component {
   render() {
     return <div>Tworzenie postaci</div>;
   }
 }
 
-export default CharacterCreationContent;
+export default PlantCreationContent;

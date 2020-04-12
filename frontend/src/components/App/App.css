@@ -297,6 +297,13 @@ body {
   width: 100%;
 }
 
+.mainBar {
+  background-color: #0070ad;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .menuBar {
   background-color: #0070ad;
   text-align: end;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-class QuestContent extends Component {
+class QuestsContent extends Component {
   render() {
     return <div>ZADANIA</div>;
   }
 }
 
-export default QuestContent;
+export default QuestsContent;
