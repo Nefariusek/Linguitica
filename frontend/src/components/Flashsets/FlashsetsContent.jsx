@@ -3,7 +3,7 @@ import Flashcard from './Flashcard';
 import { Layout, Menu, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 class FlashsetsContent extends Component {
   render() {
     return (
@@ -81,7 +81,6 @@ class FlashsetsContent extends Component {
               <Flashcard />
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Linguitica ©2020</Footer>
         </Layout>
       </Layout>
     );
