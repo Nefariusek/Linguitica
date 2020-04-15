@@ -3,7 +3,9 @@ const db = require('./db');
 const helmet = require('helmet');
 const users = require('./routes/users');
 const plants = require('./routes/plants');
+const flashsets = require('./routes/flashsets');
 const flashcards = require('./routes/flashcards');
+
 
 const main = async () => {
   const app = express();
@@ -27,7 +29,9 @@ const main = async () => {
   //Routes
   app.use('/api/users', users);
   app.use('/api/plants', plants);
+  app.use('/api/flashsets', flashsets);
   app.use('/api/flashcards', flashcards);
+
 
   const host = process.env.HOST || '127.0.0.1';
   const port = process.env.PORT || 8080;
