@@ -340,7 +340,7 @@ h1:before {
 /*---------------------------------- homepage ---------------------------*/
 
 .ant-layout-content {
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid white;
 }
 
 .ant-row.ant-row-space-between.ant-row-middle {
@@ -482,22 +482,26 @@ h1:before {
   background-color: #014a72;
   color: black;
 }
-
+.ant-layout-header {
+  background-color: #0070ad;
+}
 /* --------------------------------flashsets ------------------------------*/
 
 .site-layout-sub-header-background {
   background: #fff;
+  padding: 0;
+  font-size: 28px;
+  text-align: left;
+  padding-left: 20px;
 }
 
 .site-layout-background {
-  background: #fff;
-  min-height: 786px;
-
+  min-height: 81vh;
   position: inherit;
 }
 
 .flashsets-layout {
-  margin-top: 64px;
+  margin-top: 0px;
   position: inherit;
 }
 
@@ -505,7 +509,8 @@ h1:before {
   color: white;
   text-align: center;
   font-size: 18px;
-  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #fff;
 }
 
 .sider-flashsets {
@@ -533,7 +538,7 @@ h1:before {
   width: 30px;
   padding-top: 10px;
   background: #0070ad;
-  position: fixed;
+  position: absolute;
 }
 
 .ant-menu-vertical .ant-menu-item,
@@ -557,8 +562,18 @@ h1:before {
 
 /* ----------------------flashcards------------------------------ */
 .ant-card {
-  position: inherit;
+  position: relative;
   float: left;
-  margin: 6px;
+  margin: 1px;
   font-size: 20px;
 }
+
+.pagination {
+  top: 86vh;
+  left: 50%;
+
+  padding-top: 10px;
+  position: fixed;
+}
+
+/* ----------------------flashset create------------------------------ */

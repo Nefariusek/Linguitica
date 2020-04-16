@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import Flashcard from './Flashcard';
-import { Layout, Menu, Button } from 'antd';
+import FlashcardsContent from '../Flashcards/FlashcardsContent';
+import { Layout, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
+import FlashsetCreate from './FlashsetCreate';
+import FlashsetDelete from './FlashsetDelete';
+import FlashcardsCreate from '../Flashcards/FlashcardsCreate';
 const { Header, Content, Sider } = Layout;
 class FlashsetsContent extends Component {
   render() {
@@ -41,31 +43,28 @@ class FlashsetsContent extends Component {
               <span className="nav-text">zestaw 3</span>
             </Menu.Item>
           </Menu>
-          <Button
-            onClick={() => {
-              console.log('utworz nowy');
-            }}
-            className="button-flashsets"
-          >
-            Utwórz nowy
-          </Button>
-          <Button
-            onClick={() => {
-              console.log('usun zestaw');
-            }}
-            className="button-flashsets"
-          >
-            Usuń zestaw
-          </Button>
+          <FlashsetCreate />
+          <FlashsetDelete />
         </Sider>
         <Layout>
-          <Header
-            className="site-layout-sub-header-background"
-            style={{ padding: 0, fontSize: 22, textAlign: 'center' }}
-          >
+          <Header className="site-layout-sub-header-background">
             Zestaw /1/:
+            <FlashcardsCreate />
           </Header>
+
           <Content style={{ margin: '24px 16px 0' }} className="content-flashcards">
+            <div className="site-layout-background" style={{ padding: 24 }}>
+              <FlashcardsContent />
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
+    );
+  }
+}
+export default FlashsetsContent;
+
+/*<Content style={{ margin: '24px 16px 0' }} className="content-flashcards">
             <div className="site-layout-background" style={{ padding: 24 }}>
               <Flashcard />
               <Flashcard />
@@ -79,11 +78,6 @@ class FlashsetsContent extends Component {
               <Flashcard />
               <Flashcard />
               <Flashcard />
+              <Pagination defaultCurrent={1} pageSize={5} total={20} />
             </div>
-          </Content>
-        </Layout>
-      </Layout>
-    );
-  }
-}
-export default FlashsetsContent;
+          </Content>*/

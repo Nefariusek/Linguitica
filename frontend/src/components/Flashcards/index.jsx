@@ -2,11 +2,7 @@ import React from 'react';
 import FlashcardsContent from './FlashcardsContent';
 
 const Flashcards = () => {
-  return (
-    <div>
-      <FlashcardsContent />;
-    </div>
-  );
+  return <div>fisszki</div>;
 };
 
 export default Flashcards;
