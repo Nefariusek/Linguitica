@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Cards from './Cards';
+import Flashcards from './Flashcards';
 import { Layout, Drawer, Input, Select, Button } from 'antd';
 
 const { Search } = Input;
 const { Header, Content } = Layout;
 
-class CardsContent extends Component {
+class FlashcardsContent extends Component {
   state = {
     visible: false,
   };
@@ -72,11 +72,11 @@ class CardsContent extends Component {
           </Drawer>
         </Header>{' '}
         <Content style={{ marginLeft: 20, marginRight: 20 }}>
-          <Cards />
+          <Flashcards />
         </Content>
       </>
     );
   }
 }
 
-export default CardsContent;
+export default FlashcardsContent;

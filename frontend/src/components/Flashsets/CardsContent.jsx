@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button, Pagination, Row, Modal, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-class FlashcardContent extends Component {
+class CardsContent extends Component {
   state = {
     minValue: 0,
     maxValue: 10,
@@ -122,4 +122,4 @@ class FlashcardContent extends Component {
   }
 }
 
-export default FlashcardContent;
+export default CardsContent;

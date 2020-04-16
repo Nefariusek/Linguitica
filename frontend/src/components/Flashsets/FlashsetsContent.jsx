@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import FlashcardsContent from './FlashcardsContent';
+import CardsContent from './CardsContent';
 import { Layout, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import FlashsetCreate from './FlashsetCreate';
 import FlashsetDelete from './FlashsetDelete';
-import FlashcardsCreate from './FlashcardsCreate';
+import CardsCreate from './CardsCreate';
 const { Header, Content, Sider } = Layout;
 class FlashsetsContent extends Component {
   render() {
@@ -49,12 +49,12 @@ class FlashsetsContent extends Component {
         <Layout>
           <Header className="site-layout-sub-header-background">
             Zestaw /1/:
-            <FlashcardsCreate />
+            <CardsCreate />
           </Header>
 
           <Content style={{ margin: '24px 16px 0' }} className="content-flashcards">
             <div className="site-layout-background" style={{ padding: 24 }}>
-              <FlashcardsContent />
+              <CardsContent />
             </div>
           </Content>
         </Layout>
