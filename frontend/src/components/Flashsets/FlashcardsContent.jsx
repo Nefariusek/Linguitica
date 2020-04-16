@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button, Pagination, Row, Modal, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-const axios = require('axios');
 class FlashcardContent extends Component {
   state = {
     minValue: 0,

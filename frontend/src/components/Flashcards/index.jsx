@@ -1,8 +1,8 @@
 import React from 'react';
-import FlashcardsContent from './FlashcardsContent';
+import CardsContent from './CardsContent';
 
 const Flashcards = () => {
-  return <div>fisszki</div>;
+  return <CardsContent />;
 };
 
 export default Flashcards;

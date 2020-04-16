@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import FlashcardsContent from '../Flashcards/FlashcardsContent';
+import FlashcardsContent from './FlashcardsContent';
 import { Layout, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import FlashsetCreate from './FlashsetCreate';
 import FlashsetDelete from './FlashsetDelete';
-import FlashcardsCreate from '../Flashcards/FlashcardsCreate';
+import FlashcardsCreate from './FlashcardsCreate';
 const { Header, Content, Sider } = Layout;
 class FlashsetsContent extends Component {
   render() {

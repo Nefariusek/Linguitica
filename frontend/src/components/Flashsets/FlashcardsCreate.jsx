@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input, Select, Form } from 'antd';
-const { Option } = Select;
+import { Button, Modal, Input, Form } from 'antd';
+
 export default class FlashsetCreate extends Component {
   state = {
     open: false,
