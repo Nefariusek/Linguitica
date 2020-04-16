@@ -6,7 +6,6 @@ const plants = require('./routes/plants');
 const flashsets = require('./routes/flashsets');
 const flashcards = require('./routes/flashcards');
 
-
 const main = async () => {
   const app = express();
 
@@ -14,10 +13,10 @@ const main = async () => {
   const models = db.load(connection);
 
   //[WARNING] Uncommenting lines below will drop your current database and initialize default one.
-  // if (process.env.NODE_ENV === 'dev') {
-  //   await connection.dropDatabase();
-  //   await db.initialize(models);
-  // }
+  if (process.env.NODE_ENV === 'dev') {
+    await connection.dropDatabase();
+    await db.initialize(models);
+  }
 
   db.register(app, connection, models);
 
@@ -31,7 +30,6 @@ const main = async () => {
   app.use('/api/plants', plants);
   app.use('/api/flashsets', flashsets);
   app.use('/api/flashcards', flashcards);
-
 
   const host = process.env.HOST || '127.0.0.1';
   const port = process.env.PORT || 8080;
