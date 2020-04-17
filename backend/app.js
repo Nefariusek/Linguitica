@@ -36,7 +36,7 @@ const main = async () => {
   app.use('/api/auth', auth);
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
   });
 
   //const host = process.env.HOST || '127.0.0.1';
