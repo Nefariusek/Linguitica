@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "mon": "nodemon -r dotenv/config ./backend/app.js",
-    "start-old": "node -r dotenv/config ./backend/app.js",
-    "start": "concurrently -n react,express -k \"cd frontend && npm run start-web\"  \"npm run mon\"",
+    "start": "node -r dotenv/config ./backend/app.js",
+    "dev-web": "concurrently -n react,express -k \"cd frontend && npm run start-web\"  \"npm run mon\"",
     "heroku-postbuild": "cd frontend && npm install && npm run build-web"
   },
   "author": "",
