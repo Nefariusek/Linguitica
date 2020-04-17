@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { message } from 'antd';
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeaders';
 import logo from '../../images/logo.png';
@@ -11,6 +12,7 @@ class RegisterPanel extends React.Component {
     password: '',
     email: '',
     repPassword: '',
+    emailExists: false,
   };
 
   static contextType = Store;
@@ -18,7 +20,8 @@ class RegisterPanel extends React.Component {
   postUser = async () => {
     try {
       if (this.state.repPassword !== this.state.password) {
-        throw new Error('Both passwords must be the same');
+        message.error('Both passwords must be the same.');
+        throw new Error('Both passwords must be the same.');
       }
       const res = await axios({
         method: 'post',
@@ -31,7 +34,11 @@ class RegisterPanel extends React.Component {
         },
       });
       if (res.status === 200) {
+        message.success('Account has been created.');
         document.location.href = '/login';
+      } else if (res.status === 409) {
+        message.error('This email is already taken.');
+        this.setState({ emailExists: true });
       } else {
         this.setState({ invalidData: true });
       }
@@ -41,13 +48,11 @@ class RegisterPanel extends React.Component {
     }
   };
 
-  //checking input data
   onButtonSubmit = async (e) => {
     e.preventDefault();
     this.postUser();
   };
 
-  //handle for inputs
   handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });

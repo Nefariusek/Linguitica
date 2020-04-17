@@ -10,7 +10,9 @@ const NavBar = () => {
 
   const handleLogout = () => {
     changeStore('isLogged', false);
-    //window.location.reload();
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    window.location.reload();
   };
 
   return (

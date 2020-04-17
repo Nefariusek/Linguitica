@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ email: req.body.email });
-  if (user) return res.status(400).send('This email is already in use.');
+  if (user) return res.status(409).send('This email is already in use.');
 
   user = new User(_.pick(req.body, ['username', 'email', 'password']));
   const salt = await bcrypt.genSalt();

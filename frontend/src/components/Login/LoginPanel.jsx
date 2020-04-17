@@ -33,6 +33,7 @@ class LoginPanel extends React.Component {
         localStorage.setItem('token', token);
         localStorage.setItem('id', jwt(token)._id);
         this.context.changeStore('isLogged', true);
+        document.location.href = '/home';
       }
     } catch (err) {
       console.error('Error Login:', err);
