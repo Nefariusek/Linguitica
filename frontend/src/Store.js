@@ -4,7 +4,7 @@ const Context = React.createContext();
 
 export class StoreProvider extends React.Component {
   state = {
-    isLogged: false,
+    isLogged: localStorage.getItem('token') ? true : false,
   };
 
   changeStore = (name, value) => {
