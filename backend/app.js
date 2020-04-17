@@ -25,6 +25,7 @@ const main = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(helmet());
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
 
   //Routes
   app.use('/api/users', users);
@@ -33,9 +34,13 @@ const main = async () => {
   app.use('/api/flashcards', flashcards);
   app.use('/api/auth', auth);
 
-  const host = process.env.HOST || '127.0.0.1';
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
+  });
+
+  //const host = process.env.HOST || '127.0.0.1';
   const port = process.env.PORT || 8080;
-  app.listen(port, host, () => console.log(`Listening on http://${host}:${port}`));
+  app.listen(port, () => console.log(`Listening on port ${port}`));
 };
 
 main();
