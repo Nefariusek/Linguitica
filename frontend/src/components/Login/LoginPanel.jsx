@@ -1,28 +1,53 @@
 import React from 'react';
-import './login.css';
-import logo from '../../images/logo.png';
+import axios from 'axios';
+import jwt from 'jwt-decode';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-// import Start from '../../views/Guestpage';
-// import startpage from '../Guestpage';
+import setHeaders from '../../utils/setHeaders';
+import Store from '../../Store';
+import logo from '../../images/logo.png';
 
 class LoginPanel extends React.Component {
   state = {
     email: '',
     password: '',
-    isLogged: false,
     invalid: false,
   };
 
-  //there will be checkingch
-  onButtonSubmit = e => {
-    //if (this.state.email === 'a@pl' && this.state.password === 'haslo') {
-    this.setState({ isLogged: true });
-    //} else this.setState({ invalid: true });
+  static contextType = Store;
+
+  authUser = async () => {
+    try {
+      const res = await axios({
+        method: 'post',
+        url: '/api/auth',
+        headers: setHeaders(),
+        data: {
+          email: this.state.email,
+          password: this.state.password,
+        },
+      });
+      console.log(res);
+      if (res.status === 200) {
+        const token = res.headers['x-auth-token'];
+        localStorage.setItem('token', token);
+        localStorage.setItem('id', jwt(token)._id);
+        this.context.changeStore('isLogged', true);
+        document.location.href = '/home';
+      }
+    } catch (err) {
+      console.error('Error Login:', err);
+      this.setState({ invalidData: true });
+    }
+  };
+
+  onButtonSubmit = async (e) => {
+    e.preventDefault();
+    this.authUser();
   };
 
   //handle for inputs
-  handleChange = e => {
+  handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
@@ -37,11 +62,11 @@ class LoginPanel extends React.Component {
 
   //return if logging was succesful
   render() {
-    if (this.state.isLogged) return <Redirect to="/home" />;
+    if (this.context.isLogged) return <Redirect to="/home" />;
 
     return (
-      <div>
-        <div className="logo">
+      <div className="login-body">
+        <div className="login-logo">
           <img src={logo} alt=""></img> Linguitica
         </div>
 

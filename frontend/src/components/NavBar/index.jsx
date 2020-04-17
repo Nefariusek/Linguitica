@@ -1,30 +1,70 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import logo from '../../images/logo.png';
-import './navBar.css';
+import { Menu } from 'antd';
+import { useContext } from 'react';
+import Store from '../../Store';
 
-const NavBar = props => (
-  <header className="navbar">
-    <nav className="navbarNavigation">
-      <div></div>
-      <div className="navbarLogo">
-        <img src={logo} alt="logo-kwiatek"></img>
-        <a href="/">LINGUITICA</a>
-      </div>
-      <div className="spacer"></div>
-      <div className="navbarItems">
-        <ul>
-          <li>
-            <Link to="/login">Zaloguj się</Link>
-          </li>
-          <li>
-            <Link to="/register">Zarejestruj się</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-);
+const NavBar = () => {
+  const { isLogged, changeStore } = useContext(Store);
+
+  const handleLogout = () => {
+    changeStore('isLogged', false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    window.location.reload();
+  };
+
+  return (
+    <>
+      {!isLogged && (
+        <>
+          <div className="logo">
+            <img src={logo} alt="logo-kwiatek"></img>
+            <a href="/">LINGUITICA</a>
+          </div>
+          <Menu theme="dark" mode="horizontal" className="menuBar">
+            <Menu.Item key="2" className="menuItem">
+              <Link to="/login">Zaloguj się</Link>
+            </Menu.Item>
+            <Menu.Item key="3" className="menuItem">
+              <Link to="/register">Zarejestruj się</Link>
+            </Menu.Item>
+          </Menu>
+        </>
+      )}
+      {isLogged && (
+        <div className="mainBar">
+          <div className="leftBar">
+            <Menu theme="dark" mode="horizontal" className="menuBar">
+              <Menu.Item className="menuItem">
+                <Link to="/home">Home</Link>
+              </Menu.Item>
+              <Menu.Item className="menuItem">
+                <Link to="/flashsets">Zestawy</Link>
+              </Menu.Item>
+              <Menu.Item className="menuItem">
+                <Link to="/quests">Zadania</Link>
+              </Menu.Item>
+              <Menu.Item className="menuItem">
+                <Link to="/flashcards">Fiszki</Link>
+              </Menu.Item>
+            </Menu>
+          </div>
+          <div className="rightBar">
+            <Menu theme="dark" mode="horizontal" className="menuBar">
+              <Menu.Item className="menuItem">
+                <Link to="/profile">Profil</Link>
+              </Menu.Item>
+              <Menu.Item className="menuItem" onClick={handleLogout}>
+                Wyloguj się
+              </Menu.Item>
+            </Menu>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default NavBar;
