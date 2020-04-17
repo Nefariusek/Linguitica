@@ -6,6 +6,7 @@ const plants = require('./routes/plants');
 const flashsets = require('./routes/flashsets');
 const flashcards = require('./routes/flashcards');
 const auth = require('./routes/auth');
+const path = require('path');
 
 const main = async () => {
   const app = express();
