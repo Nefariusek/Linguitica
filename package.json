@@ -1,19 +1,41 @@
 {
-  "name": "linguitica",
+  "name": "linguitica-backend",
   "version": "1.0.0",
-  "description": "Information for team",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "cd frontend && npm run start-web",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mon": "nodemon -r dotenv/config ./backend/app.js",
+    "start-old": "node -r dotenv/config ./backend/app.js",
+    "start": "concurrently -n react,express -k \"cd frontend && npm run start-web\"  \"npm run mon\"",
     "heroku-postbuild": "cd frontend && npm install && npm run build-web"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Nefariusek/Linguitica.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Nefariusek/Linguitica/issues"
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
   },
-  "homepage": "https://github.com/Nefariusek/Linguitica#readme"
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "config": "^3.3.1",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fawn": "^2.1.5",
+    "helmet": "^3.22.0",
+    "joi": "^14.3.1",
+    "joi-objectid": "^3.0.1",
+    "joi-password-complexity": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.7",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.2",
+    "path": "^0.12.7",
+    "pug": "^2.0.4"
+  }
 }
