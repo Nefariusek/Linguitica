@@ -1,52 +1,66 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { List, Button } from 'antd';
 
+import { StarOutlined, StarFilled } from '@ant-design/icons';
+import setHeaders from '../../utils/setHeaders';
 class Cards extends Component {
+  state = {
+    flashcards: [],
+    temp: false,
+    category: this.props.category,
+    level: this.props.level,
+  };
+  getFlashsets = async () => {
+    const response = await fetch('/api/flashcards', setHeaders());
+    const body = await response.json();
+    this.setState({ flashcards: body });
+    console.log(this.state.flashcards);
+  };
+  handleStar = () => {
+    this.setState({ temp: !this.state.temp });
+  };
+  componentDidMount = async () => {
+    await this.getFlashsets();
+    console.log('kategoria:', this.state.category);
+    console.log('poziom:', this.state.level);
+  };
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps.category !== this.props.category || prevProps.level !== this.props.level) {
+      await this.setState({ category: this.props.category });
+      console.log('szukana kategoria:', this.state.category);
+      await this.setState({ level: this.props.level });
+      console.log('szukany poziom:', this.state.level);
+    }
+  };
+
   render() {
-    let data = [
-      { title: 'Card title1', value: 'Card content1' },
-      { title: 'Card title2', value: 'Card content2' },
-      { title: 'Card title3', value: 'Card content3' },
-      { title: 'Card title4', value: 'Card content4' },
-      { title: 'Card title5', value: 'Card content5' },
-      { title: 'Card title6', value: 'Card content6' },
-      { title: 'Card title7', value: 'Card content7' },
-      { title: 'Card title8', value: 'Card content8' },
-      { title: 'Card title9', value: 'Card content9' },
-      { title: 'Card title10', value: 'Card content10' },
-      { title: 'Card title11', value: 'Card content11' },
-      { title: 'Card title12', value: 'Card content12' },
-      { title: 'Card title13', value: 'Card content13' },
-      { title: 'Card title14', value: 'Card content14' },
-      { title: 'Card title15', value: 'Card content15' },
-      { title: 'Card title1', value: 'Card content1' },
-      { title: 'Card title2', value: 'Card content2' },
-      { title: 'Card title3', value: 'Card content3' },
-      { title: 'Card title4', value: 'Card content4' },
-      { title: 'Card title5', value: 'Card content5' },
-      { title: 'Card title6', value: 'Card content6' },
-      { title: 'Card title7', value: 'Card content7' },
-      { title: 'Card title7', value: 'Card content7' },
-      { title: 'Card title8', value: 'Card content8' },
-      { title: 'Card title9', value: 'Card content9' },
-      { title: 'Card title10', value: 'Card content10' },
-      { title: 'Card title11', value: 'Card content11' },
-      { title: 'Card title12', value: 'Card content12' },
-      { title: 'Card title13', value: 'Card content13' },
-      { title: 'Card title999', value: 'Card content9' },
-    ];
     return (
       <div>
-        {data.map((val) => (
-          <Card title={val.title} style={{ width: 290, padding: 6 }}>
-            <p>{val.value}</p>
-            <Button onClick={this.handleOpen} id={val.id}>
-              Wybierz
-              <PlusOutlined />
-            </Button>
-          </Card>
-        ))}
+        <List
+          itemLayout="horizontal"
+          dataSource={this.state.flashcards}
+          renderItem={(item) => (
+            <List.Item key={item.id}>
+              <div className="flashcard">
+                <div className="flashcard-polish">{item.polish}</div>
+                <div className="flashcard-german">{item.german}</div>
+
+                <div className="flashcard-category">
+                  KATEGORIA: <br />
+                  {item.category}
+                </div>
+                <div className="flashcard-level">
+                  {' '}
+                  POZIOM: <br />
+                  {item.level}
+                </div>
+                <Button className="card-icon" onClick={this.handleStar} id={item.id}>
+                  {this.state.temp ? <StarOutlined key="add" /> : <StarFilled key="add" />}
+                </Button>
+              </div>
+            </List.Item>
+          )}
+        />
       </div>
     );
   }
