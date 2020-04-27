@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Modal, Input } from 'antd';
+import axios from 'axios';
+import setHeaders from '../../utils/setHeaders';
 export default class FlashsetCreate extends Component {
   state = {
     open: false,
-    body: '',
-
     title: '',
+    questID: '5e85bd0c0fc921686c98dd13',
+    flashset_id: '5ea46aeb5e9d6d0c4cf5bed0',
   };
   handleOpen = () => {
     this.setState({ open: true });
@@ -21,6 +23,39 @@ export default class FlashsetCreate extends Component {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
+  handleOK = () => {
+    // this.addFlashset();
+    this.addFlashsetID();
+    this.handleClose();
+  };
+
+  //dodanie nowego zestawu
+  addFlashset = async () => {
+    await axios({
+      url: '/api/flashsets',
+      method: 'post',
+      data: {
+        flashcards: [
+          {
+            title: this.state.title,
+          },
+        ],
+      },
+      headers: setHeaders(),
+    }).catch((error) => console.error(error));
+  };
+
+  addFlashsetID = async () => {
+    await axios({
+      url: `/api/quests/${this.state.questID}`,
+      method: 'put',
+      data: {
+        flashset_id: [this.state.flashset_id],
+      },
+      headers: setHeaders(),
+    }).catch((error) => console.error(error));
+  };
+
   render() {
     return (
       <>
@@ -30,7 +65,7 @@ export default class FlashsetCreate extends Component {
         <Modal
           title="Stwórz nowy zestaw fiszek!"
           visible={this.state.open}
-          onOk={this.handleOk}
+          onOk={this.handleOK}
           //confirmLoading={confirmLoading}
           onCancel={this.handleClose}
         >
