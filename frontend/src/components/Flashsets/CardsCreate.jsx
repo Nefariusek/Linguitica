@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input, Form } from 'antd';
+import { Button, Modal, Input } from 'antd';
 
 export default class CardsCreate extends Component {
   state = {
     open: false,
-
+    temp: false,
     polish: '',
     german: '',
-    polish_tips: '',
-    german_tips: '',
     category: '',
-    tags: '',
   };
   handleOpen = () => {
     this.setState({ open: true });
@@ -19,18 +16,22 @@ export default class CardsCreate extends Component {
     this.setState({ open: false });
     this.setState({ polish: '' });
     this.setState({ german: '' });
-    this.setState({ polish_tips: '' });
-    this.setState({ german_tips: '' });
     this.setState({ category: '' });
-    this.setState({ tags: '' });
   };
+
   handleSubmit = () => {
-    alert('123');
+    console.log('submit');
   };
   handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
+  handleOk = () => {};
+
+  componentDidMount = () => {
+    this.setState({ temp: !this.props.temp });
+  };
+
   render() {
     return (
       <>
@@ -47,14 +48,17 @@ export default class CardsCreate extends Component {
         >
           DODAJ NOWĄ FISZKĘ
         </Button>
+
         <Modal
           title="Dodaj nową fiszkę"
           visible={this.state.open}
           onOk={this.handleOk}
-          //confirmLoading={confirmLoading}
+          okText="DODAJ"
+          cancelText="ANULUJ"
+          //confirmLoading={this.confirmLoading}
           onCancel={this.handleClose}
         >
-          <Form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <Input
               style={{ marginTop: 10, marginBottom: 10 }}
               name="polish"
@@ -69,20 +73,7 @@ export default class CardsCreate extends Component {
               onChange={this.handleChange}
               placeholder="Wpisz niemieckie tłumaczenie"
             />
-            <Input
-              style={{ marginTop: 10, marginBottom: 10 }}
-              name="polish_tips"
-              value={this.state.polish_tips}
-              onChange={this.handleChange}
-              placeholder="Wpisz polską podpowiedź [opcjonalne]"
-            />
-            <Input
-              style={{ marginTop: 10, marginBottom: 10 }}
-              name="german_tips"
-              value={this.state.german_tips}
-              onChange={this.handleChange}
-              placeholder="Wpisz niemiecką podpowiedź [opcjonalne]"
-            />
+
             <select
               defaultValue="pojazdy"
               style={{ width: '100%', marginTop: 10, marginBottom: 10 }}
@@ -99,14 +90,7 @@ export default class CardsCreate extends Component {
               <option value="emocje">Emocje</option>
               <option value="inne">Inne</option>
             </select>
-            <Input
-              style={{ marginTop: 10, marginBottom: 10 }}
-              name="tags"
-              value={this.state.tags}
-              onChange={this.handleChange}
-              placeholder="Wpisz tagi"
-            />
-          </Form>
+          </form>
         </Modal>
       </>
     );
