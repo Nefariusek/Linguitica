@@ -39,4 +39,26 @@ router.delete('/:id', async (req, res) => {
   });
   res.send(`Flashset with id ${req.params.id} deleted`);
 });
+
+//Update flashset
+router.put('/:id', async (req, res) => {
+  const Flashset = res.locals.models.flashset;
+
+  let flashset;
+
+  flashset = await Flashset.findByIdAndUpdate(
+    req.params.id,
+    {
+      flashcards: req.body.flashcards,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!flashset) return res.status(404).send('Flashset with the given ID was not found.');
+
+  res.send('Flashset changed');
+});
+
 module.exports = router;
