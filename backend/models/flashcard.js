@@ -19,13 +19,13 @@ const flashcardSchema = new mongoose.Schema({
   polish_tips: {
     type: [String],
     maxlength: 255,
-    required: true,
+    required: false,
     trim: true,
   },
   german_tips: {
     type: String,
     maxlength: 255,
-    required: true,
+    required: false,
     trim: true,
   },
   category: {
@@ -39,29 +39,17 @@ const flashcardSchema = new mongoose.Schema({
   },
   level: {
     type: String,
-    enum: ['', 'elementary', 'intermediate', 'advanced'],
+    enum: ['', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
     default: '',
   },
 });
 
-const validateFlashcard = flashcard => {
+const validateFlashcard = (flashcard) => {
   const schema = Joi.object({
-    polish: Joi.string()
-      .max(255)
-      .required()
-      .trim(),
-    german: Joi.string()
-      .max(255)
-      .required()
-      .trim(),
-    polish_tips: Joi.string()
-      .max(255)
-      .required()
-      .trim(),
-    german_tips: Joi.string()
-      .max(255)
-      .required()
-      .trim(),
+    polish: Joi.string().max(255).required().trim(),
+    german: Joi.string().max(255).required().trim(),
+    polish_tips: Joi.string().max(255).trim(),
+    german_tips: Joi.string().max(255).trim(),
     category: Joi.string(), //valid()
     tags: Joi.array().items(Joi.string()),
     level: Joi.string().valid('elementary', 'intermediate', 'advanced'),
