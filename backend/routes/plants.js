@@ -24,4 +24,109 @@ router.get('/:id', async (req, res) => {
   res.send(plant);
 });
 
+//Update name
+router.put('/:id/name', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  let plant;
+
+  plant = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plant) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send('Plant name changed');
+});
+
+//Update level
+router.put('/:id/level', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  let plant;
+
+  plant = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      level: req.body.level,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plant) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send('Plant level changed');
+});
+
+//Update irrigation points
+router.put('/:id/irrigationPoints', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  let plant;
+
+  plant = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      irrigation_points: req.body.irrigation_points,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plant) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send('Plant irrigation points changed');
+});
+
+//update health
+router.put('/:id/health', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  let plant;
+
+  plant = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      health: req.body.health,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plant) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send('Plant health changed');
+});
+
+//update flashsets
+router.put('/:id/flashsets', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  let plant;
+
+  plant = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      flashsets: req.body.flashsets,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plant) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send('Plant flashsets changed');
+});
+
 module.exports = router;
