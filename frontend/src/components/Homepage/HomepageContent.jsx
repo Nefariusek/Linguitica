@@ -35,7 +35,7 @@ class HomepageContent extends React.Component {
                 </Link>
               </DemoBox>
               <DemoBox value={200}>
-                <Link to="/flashsets">
+                <Link to="/statistics">
                   <Button block>
                     <LineChartOutlined className="buttonIcon" />
                     <div className="buttonText">STATYSTYKI</div>

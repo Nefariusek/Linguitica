@@ -11,6 +11,7 @@ import Profile from '../Profile';
 import Quests from '../Quests';
 import Flashcards from '../Flashcards';
 import PlantCreation from '../PlantCreation';
+import Statistics from '../Statistics';
 
 import PrivateRoute from '../PrivateRoute';
 import PublicRoute from '../PublicRoute';
@@ -35,6 +36,7 @@ const App = () => {
             <PrivateRoute exact path="/quests" component={Quests} />
             <PrivateRoute exact path="/flashcards" component={Flashcards} />
             <PrivateRoute exact path="/plantCreation" component={PlantCreation} />
+            <PrivateRoute exact path="/statistics" component={Statistics} />
           </Switch>
         </Layout.Content>
         <Layout.Footer style={{ textAlign: 'center' }}>Linguitica ©2020</Layout.Footer>
