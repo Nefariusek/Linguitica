@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Input } from 'antd';
+import axios from 'axios';
+import setHeaders from '../../utils/setHeaders';
 
 export default class CardsCreate extends Component {
   state = {
@@ -8,6 +10,8 @@ export default class CardsCreate extends Component {
     polish: '',
     german: '',
     category: '',
+    flashsetID: this.props.flashsetID,
+    body: '',
   };
   handleOpen = () => {
     this.setState({ open: true });
@@ -19,17 +23,33 @@ export default class CardsCreate extends Component {
     this.setState({ category: '' });
   };
 
-  handleSubmit = () => {
-    console.log('submit');
-  };
-  handleChange = (e) => {
+  handleSubmit = () => {};
+  handleChange = async (e) => {
     const { value, name } = e.target;
-    this.setState({ [name]: value });
+    await this.setState({ [name]: value });
   };
-  handleOk = () => {};
+  handleOk = async () => {
+    await this.addFlashcard();
+    console.log(this.state.body);
+    this.handleClose();
+  };
 
   componentDidMount = () => {
     this.setState({ temp: !this.props.temp });
+  };
+  addFlashcard = async () => {
+    await axios({
+      url: `/api/flashsets/${this.state.flashsetID}/flashcards`,
+      method: 'put',
+      data: {
+        flashcards: {
+          polish: this.state.polish,
+          german: this.state.german,
+          category: this.state.category,
+        },
+      },
+      headers: setHeaders(),
+    }).then((res) => this.setState({ body: res.data }));
   };
 
   render() {
