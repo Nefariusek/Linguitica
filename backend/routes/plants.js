@@ -107,7 +107,7 @@ router.put('/:id/health', async (req, res) => {
 
   res.send('Plant health changed');
 });
-
+/*
 //update flashsets
 router.put('/:id/flashsets', async (req, res) => {
   const Plant = res.locals.models.plant;
@@ -117,7 +117,7 @@ router.put('/:id/flashsets', async (req, res) => {
   plant = await Plant.findByIdAndUpdate(
     req.params.id,
     {
-      flashsets: req.body.flashsets,
+      $push: { flashsets: req.body.flashsets },
     },
     {
       new: true,
@@ -127,6 +127,33 @@ router.put('/:id/flashsets', async (req, res) => {
   if (!plant) return res.status(404).send('Plant with the given ID was not found.');
 
   res.send('Plant flashsets changed');
+});
+*/
+
+router.put('/:id/flashsets', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  const plant = await Plant.findById(req.params.id);
+  if (!plant) res.status(404).send(`Plant with id ${req.params.id} not found!`);
+  res.send(plant);
+
+  plant.flashsets.push(req.body.flashsets);
+
+  let plantt;
+
+  plantt = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      flashsets: plant.flashsets,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plantt) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send(plantt);
 });
 
 module.exports = router;
