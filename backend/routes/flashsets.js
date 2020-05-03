@@ -61,4 +61,30 @@ router.put('/:id', async (req, res) => {
   res.send('Flashset changed');
 });
 
+//creating flashcard in flashset
+router.put('/:id/flashcards', async (req, res) => {
+  const Flashset = res.locals.models.flashset;
+
+  const flashset = await Flashset.findById(req.params.id);
+  if (!flashset) res.status(404).send(`Flashset with id ${req.params.id} not found!`);
+  res.send(flashset);
+
+  flashset.flashcards.push(req.body.flashcards);
+
+  let flashsett;
+
+  flashsett = await Flashset.findByIdAndUpdate(
+    req.params.id,
+    {
+      flashcards: flashset.flashcards,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!flashsett) return res.status(404).send('Flashset with the given ID was not found.');
+
+  res.send(flashset);
+});
 module.exports = router;
