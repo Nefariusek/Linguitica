@@ -71,7 +71,7 @@ class Cards extends Component {
                   POZIOM: <br />
                   {item.level}
                 </div>
-                <Button className="card-icon" value={item._id} onClick={this.handleSelect} name={index}>
+                <Button className="flashcard-icon" value={item._id} onClick={this.handleSelect} name={index}>
                   {this.state.temp[index] ? <StarFilled key="add" /> : <StarOutlined key="add" />}
                 </Button>
               </div>

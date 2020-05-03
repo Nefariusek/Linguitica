@@ -48,8 +48,8 @@ class CardsContent extends Component {
       curCategory: this.state.flashsets.flashcards[e.target.value].category,
     });
   };
-  handleClose = async () => {
-    await this.setState({ open: false, curPolish: '', niem: '', kat: '' });
+  handleClose = () => {
+    this.setState({ open: false, curPolish: '', niem: '', kat: '' });
   };
 
   handleDelete = async (e) => {
@@ -121,7 +121,6 @@ class CardsContent extends Component {
           //confirmLoading={confirmLoading}
           onCancel={this.handleClose}
         >
-          <h2>Edycja fiszki ID: {this.state.curID}</h2>
           <h4>Polskie tłumaczenie:</h4>
           <Input
             name="pol"
@@ -150,3 +149,4 @@ class CardsContent extends Component {
 }
 
 export default CardsContent;
+//<h2>Edycja fiszki ID: {this.state.curID}</h2>
