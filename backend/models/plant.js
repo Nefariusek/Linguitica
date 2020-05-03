@@ -73,6 +73,7 @@ const validatePlant = (plant) => {
     health: Joi.number().min(0),
     max_health: Joi.number().min(0),
     quests: Joi.array().items(Joi.objectId()),
+    flashsets: Joi.array().items(Joi.objectId()),
     statistics_id: Joi.objectId().required(),
   });
 
