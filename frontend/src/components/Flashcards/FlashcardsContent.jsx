@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Flashcards from './Flashcards';
-import { Layout, Drawer, Input, Button } from 'antd';
-
-const { Search } = Input;
+import { Layout, Drawer, Button } from 'antd';
 const { Header, Content } = Layout;
 
 class FlashcardsContent extends Component {
@@ -11,8 +9,14 @@ class FlashcardsContent extends Component {
     level: 'wszystkie',
     polish: '',
     category: 'wszystkie',
+    listDataFromChild: [],
+    formatList: [],
+  };
 
-    switcher: false,
+  //callback zeby pobrac liste wybranych fiszek od komponentu dziecka
+  myCallback = async (dataFromChild) => {
+    await this.setState({ listDataFromChild: dataFromChild });
+    console.log('od dziecka', this.state.listDataFromChild);
   };
 
   componentDidMount() {}
@@ -21,14 +25,12 @@ class FlashcardsContent extends Component {
     this.setState({
       visible: true,
     });
+    console.log('sformatowana lista', this.state.formatList);
   };
 
   handleChange = async (e) => {
-    // console.log(`Kategoria ${e.target.value}`);
     const { value, name } = e.target;
-    await this.setState({ [name]: value, switcher: !this.state.switcher });
-    //console.log('Kategoria', this.state.category);
-    //console.log('Poziom', this.state.level);
+    await this.setState({ [name]: value });
   };
 
   onClose = () => {
@@ -75,8 +77,6 @@ class FlashcardsContent extends Component {
             <option value="C1">C1</option>
             <option value="C2">C2</option>
           </select>
-          Tagi:{' '}
-          <Search placeholder="" onSearch={(value) => console.log(value)} style={{ width: 200, marginRight: 20 }} />
           <Button type="primary" onClick={this.showDrawer}>
             Nauka
           </Button>
@@ -87,21 +87,16 @@ class FlashcardsContent extends Component {
             onClose={this.onClose}
             visible={this.state.visible}
           >
-            <p>Fiszka1...</p>
-            <p>Fiszka2...</p>
-            <p>Fiszka3...</p>
-            <p>Fiszka4...</p>
-            <p>Fiszka5...</p>
-            <p>Fiszka6...</p>
-            <p>Fiszka7...</p>
-            <p>Fiszka8...</p>
-            <p>Fiszka9...</p>
-            <p>Fiszka10...</p>
-            <Button>ROZPOCZNIJ NAUKE!</Button>
+            {this.state.listDataFromChild.map((value, key) => (
+              <Button className="button-flashcards" key={key}>
+                {value}
+              </Button>
+            ))}
+            <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
           </Drawer>
         </Header>{' '}
         <Content style={{ marginLeft: 20, marginRight: 20 }}>
-          <Flashcards category={this.state.category} level={this.state.level} />
+          <Flashcards callbackFromParent={this.myCallback} category={this.state.category} level={this.state.level} />
         </Content>
       </>
     );

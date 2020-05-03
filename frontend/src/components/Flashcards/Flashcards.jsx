@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd';
-
 import { StarOutlined, StarFilled } from '@ant-design/icons';
 import setHeaders from '../../utils/setHeaders';
 class Cards extends Component {
   state = {
     flashcards: [],
-    temp: false,
+    temp: [],
     category: this.props.category,
     level: this.props.level,
+    selected: [],
   };
-  getFlashsets = async () => {
+  getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
     const body = await response.json();
     this.setState({ flashcards: body });
     console.log(this.state.flashcards);
   };
-  handleStar = () => {
-    this.setState({ temp: !this.state.temp });
+  handleSelect = (e) => {
+    //ustawienie gwiazdki (pusta lub wypelniona)
+    const { temp } = this.state;
+    temp[e.target.name] = !temp[e.target.name];
+    this.setState({ temp });
+
+    //dodanie wybranych fiszek do listy
+    this.state.temp[e.target.name] === true
+      ? this.state.selected.push(e.target.value)
+      : this.state.selected.splice(e.target.value, 1);
+
+    console.log('wybrane: ', this.state.selected);
+
+    //wyslanie listy indexow wybranych fiszek
+    this.props.callbackFromParent(this.state.selected);
   };
   componentDidMount = async () => {
-    await this.getFlashsets();
+    await this.getFlashcards();
+    for (let i = 0; i < this.state.flashcards.length; i++) {
+      const { temp } = this.state;
+      temp[i] = false;
+    }
     console.log('kategoria:', this.state.category);
     console.log('poziom:', this.state.level);
   };
@@ -39,7 +56,7 @@ class Cards extends Component {
         <List
           itemLayout="horizontal"
           dataSource={this.state.flashcards}
-          renderItem={(item) => (
+          renderItem={(item, index) => (
             <List.Item key={item.id}>
               <div className="flashcard">
                 <div className="flashcard-polish">{item.polish}</div>
@@ -54,8 +71,8 @@ class Cards extends Component {
                   POZIOM: <br />
                   {item.level}
                 </div>
-                <Button className="card-icon" onClick={this.handleStar} id={item.id}>
-                  {this.state.temp ? <StarOutlined key="add" /> : <StarFilled key="add" />}
+                <Button className="card-icon" value={item._id} onClick={this.handleSelect} name={index}>
+                  {this.state.temp[index] ? <StarFilled key="add" /> : <StarOutlined key="add" />}
                 </Button>
               </div>
             </List.Item>
