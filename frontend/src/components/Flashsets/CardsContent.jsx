@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { List, Modal, Input, Button } from 'antd';
-import { EditOutlined, StarOutlined, StarFilled } from '@ant-design/icons';
+import { EditOutlined, StarOutlined, StarFilled, DeleteOutlined } from '@ant-design/icons';
 import setHeaders from '../../utils/setHeaders';
 class CardsContent extends Component {
   state = {
@@ -8,14 +8,17 @@ class CardsContent extends Component {
     maxValue: 10,
     open: false,
     curID: 0,
-    temp: false,
+    temp: [],
     curPolish: '',
     curGerman: '',
-
+    curCategory: '',
     results: [],
     flashsetID: this.props.id,
     flashcards: [],
     flashsets: {},
+    pol: '',
+    niem: '',
+    kat: '',
   };
 
   getFlashcards = async () => {
@@ -27,36 +30,60 @@ class CardsContent extends Component {
 
   componentDidMount() {
     //this.setState({ flashsetID: this.props.id });
+    for (let i = 0; i < 100; i++) {
+      const { temp } = this.state;
+      temp[i] = false;
+    }
     console.log(this.state.flashsetID);
     this.getFlashcards();
   }
 
-  componentDidUpdate = async () => {
-    //this.setState({ flashsetID: this.props.id });
-    //console.log(this.state.flashsetID);
-    // this.setState({ flashsetID: this.props.id });
-    //await this.getFlashcards();
-  };
+  componentDidUpdate = async () => {};
   handleOpen = (e) => {
     this.setState({ open: true });
     this.setState({
-      curID: e.target.id,
-      curPolish: e.target.value,
-      curGerman: e.target.name,
+      curID: e.target.value,
+      curPolish: this.state.flashsets.flashcards[e.target.value].polish,
+      curGerman: this.state.flashsets.flashcards[e.target.value].german,
+      curCategory: this.state.flashsets.flashcards[e.target.value].category,
     });
-    console.log(e.target);
-
-    //console.log(this.state.flashsetID);
-    //console.log(e.target.value);
   };
-  handleClose = () => {
-    this.setState({ open: false });
+  handleClose = async () => {
+    await this.setState({ open: false, curPolish: '', niem: '', kat: '' });
   };
 
-  handleOK = () => {};
+  handleDelete = async (e) => {
+    const { flashcards } = this.state.flashsets;
+    flashcards.splice([e.target.value], 1);
+    console.log(flashcards);
+    await this.setState({ flashcards });
+  };
 
-  handleStar = () => {
-    this.setState({ temp: !this.state.temp });
+  handleOk = async () => {
+    //console.log(this.state.curID);
+
+    const { flashcards } = this.state.flashsets;
+
+    flashcards[this.state.curID].polish = this.state.pol;
+    flashcards[this.state.curID].german = this.state.niem;
+    flashcards[this.state.curID].category = this.state.kat;
+    console.log(flashcards);
+
+    await this.setState({ flashcards });
+    this.handleClose();
+  };
+
+  handleChange = (e) => {
+    const { value, name } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  handleStar = async (e) => {
+    console.log(e.target.value);
+
+    const { temp } = this.state;
+    temp[e.target.value] = !temp[e.target.value];
+    await this.setState({ temp });
   };
   render() {
     return (
@@ -64,8 +91,8 @@ class CardsContent extends Component {
         <List
           itemLayout="horizontal"
           dataSource={this.state.flashsets.flashcards}
-          renderItem={(item) => (
-            <List.Item key={item._id}>
+          renderItem={(item, index) => (
+            <List.Item key={item.id}>
               <div className="card">
                 <div className="card-polish">{item.polish}</div>
                 <div className="card-german">{item.german}</div>
@@ -73,18 +100,15 @@ class CardsContent extends Component {
                   KATEGORIA: <br />
                   {item.category}
                 </div>
-                <Button
-                  className="card-icon"
-                  id={item._id}
-                  onClick={this.handleOpen}
-                  value={item.polish}
-                  name={item.german}
-                >
+                <Button className="card-icon" id={item._id} onClick={this.handleOpen} value={index}>
                   <EditOutlined key="edit" />
                 </Button>
 
-                <Button className="card-icon" onClick={this.handleStar} id={item.id}>
-                  {this.state.temp ? <StarOutlined key="add" /> : <StarFilled key="add" />}
+                <Button className="card-icon" onClick={this.handleStar} value={index} id={item._id}>
+                  {this.state.temp[index] ? <StarFilled key="add" /> : <StarOutlined key="add" />}
+                </Button>
+                <Button className="card-icon" onClick={this.handleDelete} value={index}>
+                  <DeleteOutlined key="delete" />
                 </Button>
               </div>
             </List.Item>
@@ -97,11 +121,28 @@ class CardsContent extends Component {
           //confirmLoading={confirmLoading}
           onCancel={this.handleClose}
         >
-          <h2>Edycja fiszki /zmienic czcionke/ ID: {this.state.curID}</h2>
+          <h2>Edycja fiszki ID: {this.state.curID}</h2>
           <h4>Polskie tłumaczenie:</h4>
-          <Input style={{ marginTop: 10, marginBottom: 20 }} placeholder={this.state.curPolish}></Input>
+          <Input
+            name="pol"
+            onChange={this.handleChange}
+            style={{ marginTop: 10, marginBottom: 20 }}
+            placeholder={this.state.curPolish}
+          ></Input>
           <h4>Niemieckie tłumaczenie:</h4>
-          <Input style={{ marginBottom: 20 }} placeholder={this.state.curGerman}></Input>
+          <Input
+            name="niem"
+            onChange={this.handleChange}
+            style={{ marginBottom: 20 }}
+            placeholder={this.state.curGerman}
+          ></Input>
+          <h4>Kategoria:</h4>
+          <Input
+            name="kat"
+            onChange={this.handleChange}
+            style={{ marginBottom: 20 }}
+            placeholder={this.state.curCategory}
+          ></Input>
         </Modal>
       </>
     );

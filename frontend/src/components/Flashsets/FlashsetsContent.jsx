@@ -16,7 +16,6 @@ const { Header, Content, Sider } = Layout;
 class FlashsetsContent extends Component {
   state = {
     flashsets: [],
-    nazwa: 'tescik',
     currentTitle: '',
     userID: '',
     plantID: '',
@@ -25,7 +24,7 @@ class FlashsetsContent extends Component {
     currentFlashsetID: '',
     temp: false,
     temp2: false,
-    infoText: 'Ładowanie...',
+    temp3: true,
   };
   static contextType = Store;
 
@@ -33,11 +32,11 @@ class FlashsetsContent extends Component {
     //getting user ID from localstorage
     let ID = localStorage.getItem('id');
     await this.setState({ userID: ID });
-    console.log('ID uzytkownika: ', this.state.userID);
+    // console.log('ID uzytkownika: ', this.state.userID);
 
     //getting plantID
     await this.getPlantID();
-    console.log('ID plantsa: ', this.state.plantID);
+    //console.log('ID plantsa: ', this.state.plantID);
 
     //getting questID
     //await this.getQuestID();
@@ -45,7 +44,7 @@ class FlashsetsContent extends Component {
 
     //getting flashsetsID
     await this.getFlashsetsID();
-    console.log('ID flashsetow: ', this.state.flashsetsID);
+    //console.log('ID flashsetow: ', this.state.flashsetsID);
 
     this.setState({
       currentFlashsetID: this.state.flashsetsID[0],
@@ -53,16 +52,32 @@ class FlashsetsContent extends Component {
 
     let count = this.state.flashsetsID.length;
 
-    console.log(count);
-
-    await this.getFlashsets(count);
-    console.log(this.state.flashsets);
-    // this.setState({ temp: true });
-
-    // setTimeout(this.changeTemp, 200);
-    await this.changeTemp();
+    //console.log(count);
+    if (count > 0) {
+      await this.setState({ temp3: false });
+      await this.getFlashsets(count);
+      // console.log(this.state.flashsets);
+      await this.changeTemp(count);
+    }
   };
+  refresh = async () => {
+    await this.getFlashsetsID();
+    // console.log('ID flashsetow: ', this.state.flashsetsID);
 
+    this.setState({
+      currentFlashsetID: this.state.flashsetsID[0],
+    });
+
+    let count = this.state.flashsetsID.length;
+
+    // console.log(count);
+    if (count > 0) {
+      await this.setState({ temp3: false });
+      await this.getFlashsets(count);
+      //console.log(this.state.flashsets);
+      await this.changeTemp(count);
+    }
+  };
   getPlantID = async () => {
     await axios({
       url: `/api/users/${this.state.userID}`,
@@ -113,9 +128,6 @@ class FlashsetsContent extends Component {
   getFlashsets = async (count) => {
     let index;
     for (index = 0; index < count; index++) {
-      // const response = await fetch(`/api/flashsets/${this.state.flashsetsID[index]}`, setHeaders());
-      //const body = await response.json();
-      //this.setState({ flashsets: body });
       await axios({
         url: `/api/flashsets/${this.state.flashsetsID[index]}`,
         method: 'get',
@@ -128,7 +140,6 @@ class FlashsetsContent extends Component {
           console.log(error);
         },
       );
-      //  this.state.flashsets.push(response.data);
     }
   };
 
@@ -136,9 +147,11 @@ class FlashsetsContent extends Component {
     await this.setState({ temp: true });
   };
 
-  componentDidUpdate = () => {
-    //let count = this.state.flashsetsID.length;
-    //this.getFlashsets(count);
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevState.flashsets !== this.state.flashsets) {
+      await this.refresh();
+      console.log('po aktualizacji:', this.state.flashsets);
+    }
   };
 
   handleChange = (e) => {
@@ -189,11 +202,13 @@ class FlashsetsContent extends Component {
                   <span className="nav-text">{val.title}</span>
                 </Menu.Item>
               ))
+            ) : this.state.temp3 ? (
+              <h2 style={{ textAlign: 'center', color: 'white', marginTop: 10 }}>Brak zestawow</h2>
             ) : (
-              <h2 style={{ textAlign: 'center', color: 'white', marginTop: 10 }}>{this.state.infoText}</h2>
+              <h2 style={{ textAlign: 'center', color: 'white', marginTop: 10 }}>Ładowanie...</h2>
             )}
           </Menu>
-          <FlashsetCreate />
+          <FlashsetCreate plantID={this.state.plantID} />
           <FlashsetDelete id={this.state.flashsets} />
         </Sider>
         <Layout>
@@ -201,7 +216,7 @@ class FlashsetsContent extends Component {
             {this.state.currentTitle}
 
             {this.state.temp2 ? (
-              <CardsCreate temp={this.state.temp2} />
+              <CardsCreate temp={this.state.temp2} flashsetID={this.state.currentFlashsetID} />
             ) : (
               <Button
                 onClick={this.handleOpen}
