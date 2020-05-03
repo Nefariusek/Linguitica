@@ -6,54 +6,67 @@ export default class FlashsetCreate extends Component {
   state = {
     open: false,
     title: '',
-    questID: '5e85bd0c0fc921686c98dd13',
-    flashset_id: '5ea46aeb5e9d6d0c4cf5bed0',
+    plantID: this.props.plantID,
+
+    body: '',
   };
   handleOpen = () => {
     this.setState({ open: true });
+    console.log(this.state.body);
   };
   handleClose = () => {
     this.setState({ open: false });
     this.setState({ title: '' });
   };
   handleSubmit = () => {
-    alert('123');
+    // this.addFlashset();
   };
   handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
-  handleOK = () => {
-    // this.addFlashset();
-    this.addFlashsetID();
+  handleOK = async () => {
+    await this.addFlashset();
+    await this.addFlashsetID();
+    //this.addFlashsetID();
     this.handleClose();
+    window.location.reload(false);
+  };
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps.plantID !== this.props.plantID) {
+      await this.setState({ plantID: this.props.plantID });
+      console.log('otrzymane id:', this.state.plantID);
+    }
   };
 
   //dodanie nowego zestawu
   addFlashset = async () => {
     await axios({
-      url: '/api/flashsets',
+      url: '/api/flashsets/',
       method: 'post',
       data: {
+        title: this.state.title,
         flashcards: [
           {
-            title: this.state.title,
+            flashcards: [],
           },
         ],
       },
       headers: setHeaders(),
-    }).catch((error) => console.error(error));
+    }).then((res) => this.setState({ body: res.data._id }));
   };
 
   addFlashsetID = async () => {
     await axios({
-      url: `/api/quests/${this.state.questID}`,
+      url: `/api/plants/${this.state.plantID}/flashsets`,
       method: 'put',
       data: {
-        flashset_id: [this.state.flashset_id],
+        flashsets: {
+          _id: this.state.body,
+        },
       },
       headers: setHeaders(),
-    }).catch((error) => console.error(error));
+    }).catch((error) => console.log(error));
   };
 
   render() {
