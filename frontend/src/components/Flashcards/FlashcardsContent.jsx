@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Flashcards from './Flashcards';
 import { Layout, Drawer, Button } from 'antd';
+import { Link } from 'react-router-dom';
 const { Header, Content } = Layout;
 
 class FlashcardsContent extends Component {
@@ -92,7 +93,9 @@ class FlashcardsContent extends Component {
                 {value}
               </Button>
             ))}
-            <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
+            <Link to="/learning">
+              <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
+            </Link>
           </Drawer>
         </Header>{' '}
         <Content style={{ marginLeft: 20, marginRight: 20 }}>
