@@ -6,12 +6,13 @@ import { Redirect } from 'react-router-dom';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
 import logo from '../../images/logo.png';
+import { message } from 'antd';
 
 class LoginPanel extends React.Component {
   state = {
     email: '',
     password: '',
-    invalid: false,
+    invalidData: false,
   };
 
   static contextType = Store;
@@ -27,7 +28,6 @@ class LoginPanel extends React.Component {
           password: this.state.password,
         },
       });
-      console.log(res);
       if (res.status === 200) {
         const token = res.headers['x-auth-token'];
         localStorage.setItem('token', token);
@@ -36,31 +36,29 @@ class LoginPanel extends React.Component {
         document.location.href = '/home';
       }
     } catch (err) {
-      console.error('Error Login:', err);
       this.setState({ invalidData: true });
     }
   };
 
   onButtonSubmit = async (e) => {
     e.preventDefault();
-    this.authUser();
+    await this.authUser();
+    this.loginValidate();
   };
 
-  //handle for inputs
   handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
 
   loginValidate = () => {
-    if (this.state.invalid) {
-      return alert('Invalid email or password');
+    if (this.state.invalidData) {
+      return message.error('Nieprawidłowy e-mail lub hasło', 3);
     } else {
       return null;
     }
   };
 
-  //return if logging was succesful
   render() {
     if (this.context.isLogged) return <Redirect to="/home" />;
 
@@ -88,7 +86,6 @@ class LoginPanel extends React.Component {
                 placeholder="HASŁO"
                 onChange={this.handleChange}
                 value={this.state.password}
-                error={this.loginValidate()}
               />
             </p>
             <p>
