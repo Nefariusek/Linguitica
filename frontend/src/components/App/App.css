@@ -569,6 +569,28 @@ h1:before {
   margin-left: auto;
 }
 
+.learn-flashsets {
+  width: 84px;
+  height: 75%;
+  text-decoration: none;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+}
+.learn-flashsets-none {
+  width: 84px;
+  height: 75%;
+  text-decoration: none;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  display: none;
+}
+
+.learn-button-flashsets {
+  height: 70px;
+  width: 100px;
+}
 /* ----------------------flashcards------------------------------ */
 .ant-card {
   position: relative;
@@ -733,13 +755,13 @@ h1:before {
 .button-flashcards {
   width: 100%;
   margin-bottom: 10px;
-
+  cursor: default;
   position: inherit;
   transition: all 0.5s ease-in-out;
 }
 
 .button-flashcards:hover {
-  transform: scale(1.02);
+  transform: scale(1);
 }
 
 .button-flashcards-learn {

@@ -17,6 +17,7 @@ export default class FlashsetCreate extends Component {
   handleClose = () => {
     this.setState({ open: false });
     this.setState({ title: '' });
+    //this.props.callbackFromParent(false);
   };
   handleSubmit = () => {
     // this.addFlashset();
@@ -29,8 +30,11 @@ export default class FlashsetCreate extends Component {
     await this.addFlashset();
     await this.addFlashsetID();
     //this.addFlashsetID();
-    this.handleClose();
+
     window.location.reload(false);
+    //this.props.callbackFromParent(true);
+
+    this.handleClose();
   };
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.plantID !== this.props.plantID) {
