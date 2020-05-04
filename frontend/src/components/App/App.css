@@ -1,9 +1,9 @@
 @import '~antd/dist/antd.css';
-@import url('https://fonts.googleapis.com/css2?family=Spectral+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 
 body {
   background: rgb(219, 238, 232);
-  font-family: 'Spectral SC', serif;
+  font-family: 'Prompt', sans-serif;
 }
 
 /*-------------------------------login -------------------*/
@@ -218,6 +218,10 @@ body {
   height: 35px;
   margin: 0;
   padding: 0;
+  font-size: 18px;
+  letter-spacing: 3px;
+  background: #014a72;
+  color: white;
 }
 /******************nowy ****************/
 .front h1 {
@@ -617,21 +621,21 @@ body {
 /*---------------------------------- navbar ---------------------------*/
 
 .header {
-  background-color: #0070ad;
-  color: #0070ad;
+  background-color: #1890ff;
+  color: #1890ff;
   position: fixed;
   width: 100%;
 }
 
 .mainBar {
-  background-color: #0070ad;
+  background-color: #1890ff;
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
 .menuBar {
-  background-color: #0070ad;
+  background-color: #1890ff;
   text-align: end;
 }
 
@@ -643,7 +647,7 @@ body {
   float: left;
   align-items: center;
   display: flex;
-  background-color: #0070ad;
+  background-color: #1890ff;
 }
 .logo img {
   height: 40px;
@@ -668,7 +672,7 @@ body {
   color: black;
 }
 .ant-layout-header {
-  background-color: #0070ad;
+  background-color: #1890ff;
 }
 /* --------------------------------flashsets ------------------------------*/
 
@@ -700,10 +704,10 @@ body {
 
 .sider-flashsets {
   position: inherit;
-  background-color: #0070ad;
+  background-color: #1890ff;
 }
 .menu-flashsets {
-  background-color: #0070ad;
+  background-color: #1890ff;
   margin-top: 10px;
   position: inherit;
 }
@@ -750,6 +754,28 @@ body {
   margin-left: auto;
 }
 
+.learn-flashsets {
+  width: 84px;
+  height: 75%;
+  text-decoration: none;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+}
+.learn-flashsets-none {
+  width: 84px;
+  height: 75%;
+  text-decoration: none;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  display: none;
+}
+
+.learn-button-flashsets {
+  height: 70px;
+  width: 100px;
+}
 /* ----------------------flashcards------------------------------ */
 .ant-card {
   position: relative;
@@ -788,7 +814,7 @@ body {
 }
 .card:hover {
   transform: scale(1.02);
-  opacity: 1;
+  opacity: 1.2;
 }
 .card-polish {
   float: left;
@@ -850,7 +876,7 @@ body {
 .flashcard:hover {
   transform: scale(1.02);
   background-color: #ebff6a;
-  opacity: 1;
+  opacity: 1.2;
 }
 .flashcard-polish {
   float: left;
@@ -914,11 +940,22 @@ body {
 .button-flashcards {
   width: 100%;
   margin-bottom: 10px;
-
+  cursor: default;
   position: inherit;
   transition: all 0.5s ease-in-out;
 }
 
 .button-flashcards:hover {
-  transform: scale(1.02);
+  transform: scale(1);
+}
+
+.button-flashcards-learn {
+  background-color: #0070ad;
+  width: 10%;
+  transition: all 0.5s ease-in-out;
+}
+
+.button-flashcards-learn:hover {
+  background-color: white;
+  color: #0070ad;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { List, Modal, Input, Button } from 'antd';
-import { EditOutlined, StarOutlined, StarFilled, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, PlusCircleOutlined, PlusCircleFilled, DeleteOutlined } from '@ant-design/icons';
 import setHeaders from '../../utils/setHeaders';
 class CardsContent extends Component {
   state = {
@@ -39,6 +39,7 @@ class CardsContent extends Component {
   }
 
   componentDidUpdate = async () => {};
+
   handleOpen = (e) => {
     this.setState({ open: true });
     this.setState({
@@ -49,7 +50,7 @@ class CardsContent extends Component {
     });
   };
   handleClose = () => {
-    this.setState({ open: false, curPolish: '', niem: '', kat: '' });
+    this.setState({ open: false, pol: '', niem: '', kat: '' });
   };
 
   handleDelete = async (e) => {
@@ -64,13 +65,16 @@ class CardsContent extends Component {
 
     const { flashcards } = this.state.flashsets;
 
-    flashcards[this.state.curID].polish = this.state.pol;
-    flashcards[this.state.curID].german = this.state.niem;
-    flashcards[this.state.curID].category = this.state.kat;
+    if (this.state.pol !== '') flashcards[this.state.curID].polish = this.state.pol;
+    if (this.state.niem !== '') flashcards[this.state.curID].german = this.state.niem;
+    if (this.state.kat !== '') flashcards[this.state.curID].category = this.state.kat;
     console.log(flashcards);
 
     await this.setState({ flashcards });
-    this.handleClose();
+
+    await this.handleClose();
+
+    this.setState({ pol: '', niem: '', kat: '' });
   };
 
   handleChange = (e) => {
@@ -78,12 +82,19 @@ class CardsContent extends Component {
     this.setState({ [name]: value });
   };
 
-  handleStar = async (e) => {
+  handlePlus = async (e) => {
     console.log(e.target.value);
 
     const { temp } = this.state;
     temp[e.target.value] = !temp[e.target.value];
     await this.setState({ temp });
+
+    let count = 0;
+    for (let i = 0; i < this.state.temp.length; i++) {
+      if (this.state.temp[i] === true) count++;
+    }
+
+    this.props.callbackFromParent(count);
   };
   render() {
     return (
@@ -104,8 +115,12 @@ class CardsContent extends Component {
                   <EditOutlined key="edit" />
                 </Button>
 
-                <Button className="card-icon" onClick={this.handleStar} value={index} id={item._id}>
-                  {this.state.temp[index] ? <StarFilled key="add" /> : <StarOutlined key="add" />}
+                <Button className="card-icon" onClick={this.handlePlus} value={index} id={item._id}>
+                  {this.state.temp[index] ? (
+                    <PlusCircleFilled key="add" style={{ color: 'red' }} />
+                  ) : (
+                    <PlusCircleOutlined key="add" />
+                  )}
                 </Button>
                 <Button className="card-icon" onClick={this.handleDelete} value={index}>
                   <DeleteOutlined key="delete" />
@@ -127,6 +142,7 @@ class CardsContent extends Component {
             onChange={this.handleChange}
             style={{ marginTop: 10, marginBottom: 20 }}
             placeholder={this.state.curPolish}
+            value={this.state.pol}
           ></Input>
           <h4>Niemieckie tłumaczenie:</h4>
           <Input
@@ -134,6 +150,7 @@ class CardsContent extends Component {
             onChange={this.handleChange}
             style={{ marginBottom: 20 }}
             placeholder={this.state.curGerman}
+            value={this.state.niem}
           ></Input>
           <h4>Kategoria:</h4>
           <Input
@@ -141,6 +158,7 @@ class CardsContent extends Component {
             onChange={this.handleChange}
             style={{ marginBottom: 20 }}
             placeholder={this.state.curCategory}
+            value={this.state.kat}
           ></Input>
         </Modal>
       </>
