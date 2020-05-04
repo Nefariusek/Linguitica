@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CardsContent from './CardsContent';
-import { Layout, Menu, Empty, Button } from 'antd';
+import { Layout, Menu, Empty, Button, Badge } from 'antd';
 import { FileOutlined } from '@ant-design/icons';
 import FlashsetCreate from './FlashsetCreate';
 import FlashsetDelete from './FlashsetDelete';
@@ -25,6 +25,8 @@ class FlashsetsContent extends Component {
     temp: false,
     temp2: false,
     temp3: true,
+    created: false,
+    counter: 0,
   };
   static contextType = Store;
 
@@ -36,11 +38,6 @@ class FlashsetsContent extends Component {
 
     //getting plantID
     await this.getPlantID();
-    //console.log('ID plantsa: ', this.state.plantID);
-
-    //getting questID
-    //await this.getQuestID();
-    //console.log('ID questa: ', this.state.questID);
 
     //getting flashsetsID
     await this.getFlashsetsID();
@@ -60,24 +57,7 @@ class FlashsetsContent extends Component {
       await this.changeTemp(count);
     }
   };
-  refresh = async () => {
-    await this.getFlashsetsID();
-    // console.log('ID flashsetow: ', this.state.flashsetsID);
 
-    this.setState({
-      currentFlashsetID: this.state.flashsetsID[0],
-    });
-
-    let count = this.state.flashsetsID.length;
-
-    // console.log(count);
-    if (count > 0) {
-      await this.setState({ temp3: false });
-      await this.getFlashsets(count);
-      //console.log(this.state.flashsets);
-      await this.changeTemp(count);
-    }
-  };
   getPlantID = async () => {
     await axios({
       url: `/api/users/${this.state.userID}`,
@@ -93,22 +73,6 @@ class FlashsetsContent extends Component {
     );
   };
 
-  /*
-  getQuestID = async () => {
-    await axios({
-      url: `/api/plants/${this.state.plantID}`,
-      method: 'get',
-      headers: setHeaders(),
-    }).then(
-      (response) => {
-        this.setState({ questID: response.data.quests[0] });
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
-  };
-*/
   getFlashsetsID = async () => {
     await axios({
       url: `/api/plants/${this.state.plantID}`,
@@ -142,16 +106,21 @@ class FlashsetsContent extends Component {
       );
     }
   };
+  myCallback = async (dataFromChild) => {
+    await this.setState({ created: dataFromChild });
+
+    if (this.state.created === true) {
+      this.setState({ temp2: false });
+      setTimeout(this.setState({ temp2: true }), 100);
+    }
+  };
+
+  myCallbackCounter = async (dataFromChild) => {
+    await this.setState({ counter: dataFromChild });
+  };
 
   changeTemp = async () => {
     await this.setState({ temp: true });
-  };
-
-  componentDidUpdate = async (prevProps, prevState) => {
-    if (prevState.flashsets !== this.state.flashsets) {
-      await this.refresh();
-      console.log('po aktualizacji:', this.state.flashsets);
-    }
   };
 
   handleChange = (e) => {
@@ -160,17 +129,13 @@ class FlashsetsContent extends Component {
   };
 
   handleClick = async (e) => {
-    //console.log('click ', e);
-    //console.log(e.item.props.title);
-
-    //console.log(e.item.props.id);
     await this.setState({
       temp2: false,
       currentTitle: e.item.props.title,
       currentFlashsetID: e.item.props.id,
     });
 
-    this.setState({ temp2: true });
+    this.setState({ temp2: true, counter: 0 });
   };
   render() {
     return (
@@ -216,7 +181,11 @@ class FlashsetsContent extends Component {
             {this.state.currentTitle}
 
             {this.state.temp2 ? (
-              <CardsCreate temp={this.state.temp2} flashsetID={this.state.currentFlashsetID} />
+              <CardsCreate
+                callbackFromParent={this.myCallback}
+                temp={this.state.temp2}
+                flashsetID={this.state.currentFlashsetID}
+              />
             ) : (
               <Button
                 onClick={this.handleOpen}
@@ -238,7 +207,7 @@ class FlashsetsContent extends Component {
           <Content style={{ margin: '24px 16px 0' }} className="content-flashcards">
             <div className="site-layout-background" style={{ padding: 24 }}>
               {this.state.temp2 ? (
-                <CardsContent id={this.state.currentFlashsetID} />
+                <CardsContent id={this.state.currentFlashsetID} callbackFromParent={this.myCallbackCounter} />
               ) : (
                 <Empty description={false} image={false}>
                   <div style={{ fontSize: 30 }}>
@@ -247,6 +216,25 @@ class FlashsetsContent extends Component {
                 </Empty>
               )}
             </div>
+            {this.state.counter > 0 ? (
+              <div className="learn-flashsets">
+                <Badge count={this.state.counter} overflowCount={99}>
+                  <a href="#" className="head-example" />
+                  <Button className="learn-button-flashsets" shape="round" size="large">
+                    NAUKA
+                  </Button>
+                </Badge>
+              </div>
+            ) : (
+              <div className="learn-flashsets-none">
+                <Badge count={this.state.counter} overflowCount={99}>
+                  <a href="#" className="head-example" />
+                  <Button className="learn-button-flashsets" shape="round" size="large">
+                    NAUKA
+                  </Button>
+                </Badge>
+              </div>
+            )}
           </Content>
         </Layout>
       </Layout>

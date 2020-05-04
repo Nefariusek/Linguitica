@@ -21,6 +21,7 @@ export default class CardsCreate extends Component {
     this.setState({ polish: '' });
     this.setState({ german: '' });
     this.setState({ category: '' });
+    this.props.callbackFromParent(false);
   };
 
   handleSubmit = () => {};
@@ -32,6 +33,7 @@ export default class CardsCreate extends Component {
     await this.addFlashcard();
     console.log(this.state.body);
     this.handleClose();
+    this.props.callbackFromParent(true);
   };
 
   componentDidMount = () => {
@@ -108,6 +110,7 @@ export default class CardsCreate extends Component {
               <option value="internet">Internet</option>
               <option value="ogolne">Ogólne</option>
               <option value="emocje">Emocje</option>
+              <option value="zwierzeta">Zwierzęta</option>
               <option value="inne">Inne</option>
             </select>
           </form>
