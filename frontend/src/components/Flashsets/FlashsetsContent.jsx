@@ -219,7 +219,6 @@ class FlashsetsContent extends Component {
             {this.state.counter > 0 ? (
               <div className="learn-flashsets">
                 <Badge count={this.state.counter} overflowCount={99}>
-                  <a href="#" className="head-example" />
                   <Button className="learn-button-flashsets" shape="round" size="large">
                     NAUKA
                   </Button>
@@ -228,7 +227,6 @@ class FlashsetsContent extends Component {
             ) : (
               <div className="learn-flashsets-none">
                 <Badge count={this.state.counter} overflowCount={99}>
-                  <a href="#" className="head-example" />
                   <Button className="learn-button-flashsets" shape="round" size="large">
                     NAUKA
                   </Button>

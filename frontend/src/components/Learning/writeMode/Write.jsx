@@ -1,8 +1,6 @@
 import { Input, Button } from 'antd';
 import React, { Component } from 'react';
 
-const { Search } = Input;
-
 class Write extends Component {
   constructor(props) {
     super(props);

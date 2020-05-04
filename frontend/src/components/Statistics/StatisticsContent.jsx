@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Row, Col, Card, Avatar } from 'antd';
+import { Layout, Row, Col, Card } from 'antd';
 import rose6 from '../../images/rose6.PNG';
 
 class StatisticsContent extends Component {
@@ -10,7 +10,7 @@ class StatisticsContent extends Component {
           <Col span={3}>
             <Card title="twoja roślinka" style={{ width: 400, padding: 6 }}>
               <Row justify="space-around" gutter={16}>
-                <img src={rose6} style={{ width: 200 }}></img>
+                <img src={rose6} style={{ width: 200 }} alt=""></img>
               </Row>
               <p>Czas życia: 16 dni</p>
               <p></p>

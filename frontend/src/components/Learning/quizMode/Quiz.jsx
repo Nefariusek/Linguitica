@@ -1,7 +1,5 @@
-import { Input, Button } from 'antd';
+import { Button } from 'antd';
 import React, { Component } from 'react';
-
-const { Search } = Input;
 
 class Quiz extends Component {
   constructor(props) {
