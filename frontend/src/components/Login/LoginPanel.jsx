@@ -76,7 +76,7 @@ class LoginPanel extends React.Component {
               <input
                 type="email"
                 name="email"
-                placeholder="LOGIN LUB EMAIL"
+                placeholder="EMAIL"
                 onChange={this.handleChange}
                 value={this.state.email}
               />

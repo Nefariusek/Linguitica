@@ -1,18 +1,36 @@
 import React, { Component } from 'react';
 import Flashcards from './Flashcards';
-import { Layout, Drawer, Input, Select, Button } from 'antd';
-
-const { Search } = Input;
+import { Layout, Drawer, Button } from 'antd';
 const { Header, Content } = Layout;
 
 class FlashcardsContent extends Component {
   state = {
     visible: false,
+    level: 'wszystkie',
+    polish: '',
+    category: 'wszystkie',
+    listDataFromChild: [],
+    formatList: [],
   };
+
+  //callback zeby pobrac liste wybranych fiszek od komponentu dziecka
+  myCallback = async (dataFromChild) => {
+    await this.setState({ listDataFromChild: dataFromChild });
+    console.log('od dziecka', this.state.listDataFromChild);
+  };
+
+  componentDidMount() {}
+
   showDrawer = () => {
     this.setState({
       visible: true,
     });
+    console.log('sformatowana lista', this.state.formatList);
+  };
+
+  handleChange = async (e) => {
+    const { value, name } = e.target;
+    await this.setState({ [name]: value });
   };
 
   onClose = () => {
@@ -27,7 +45,14 @@ class FlashcardsContent extends Component {
           style={{ textAlign: 'center', color: 'white', fontSize: 18, paddingLeft: 10, borderTop: 'solid 1px white' }}
         >
           Kategorie:{' '}
-          <Select defaultValue="dom" style={{ width: 200, marginRight: 20 }}>
+          <select
+            //defaultValue="wszystkie"
+            name="category"
+            value={this.state.category}
+            style={{ width: 200, marginRight: 20, color: 'black' }}
+            onChange={this.handleChange}
+          >
+            <option value="wszystkieKategorie">Wszystkie</option>
             <option value="pojazdy">Pojazdy</option>
             <option value="elektronika">Elektronika</option>
             <option value="ludzie">Ludzie</option>
@@ -36,18 +61,22 @@ class FlashcardsContent extends Component {
             <option value="ogolne">Ogólne</option>
             <option value="emocje">Emocje</option>
             <option value="inne">Inne</option>
-          </Select>
+          </select>
           Poziom:{' '}
-          <Select defaultValue="A1" style={{ width: 200, marginRight: 20 }}>
+          <select
+            defaultValue="wszystkie"
+            style={{ width: 200, marginRight: 20, color: 'black' }}
+            onChange={this.handleChange}
+            name="level"
+          >
+            <option value="wszystkiePoziomy">Wszystkie</option>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
             <option value="B1">B1</option>
             <option value="B2">B2</option>
             <option value="C1">C1</option>
             <option value="C2">C2</option>
-          </Select>
-          Tagi:{' '}
-          <Search placeholder="" onSearch={(value) => console.log(value)} style={{ width: 200, marginRight: 20 }} />
+          </select>
           <Button type="primary" onClick={this.showDrawer}>
             Nauka
           </Button>
@@ -58,21 +87,16 @@ class FlashcardsContent extends Component {
             onClose={this.onClose}
             visible={this.state.visible}
           >
-            <p>Fiszka1...</p>
-            <p>Fiszka2...</p>
-            <p>Fiszka3...</p>
-            <p>Fiszka4...</p>
-            <p>Fiszka5...</p>
-            <p>Fiszka6...</p>
-            <p>Fiszka7...</p>
-            <p>Fiszka8...</p>
-            <p>Fiszka9...</p>
-            <p>Fiszka10...</p>
-            <Button>ROZPOCZNIJ NAUKE!</Button>
+            {this.state.listDataFromChild.map((value, key) => (
+              <Button className="button-flashcards" key={key}>
+                {value}
+              </Button>
+            ))}
+            <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
           </Drawer>
         </Header>{' '}
         <Content style={{ marginLeft: 20, marginRight: 20 }}>
-          <Flashcards />
+          <Flashcards callbackFromParent={this.myCallback} category={this.state.category} level={this.state.level} />
         </Content>
       </>
     );
