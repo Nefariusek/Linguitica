@@ -1,9 +1,9 @@
 @import '~antd/dist/antd.css';
-@import url('https://fonts.googleapis.com/css2?family=Spectral+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 
 body {
   background: rgb(219, 238, 232);
-  font-family: 'Spectral SC', serif;
+  font-family: 'Prompt', sans-serif;
 }
 
 /*-------------------------------login -------------------*/
@@ -740,4 +740,15 @@ h1:before {
 
 .button-flashcards:hover {
   transform: scale(1.02);
+}
+
+.button-flashcards-learn {
+  background-color: #0070ad;
+  width: 10%;
+  transition: all 0.5s ease-in-out;
+}
+
+.button-flashcards-learn:hover {
+  background-color: white;
+  color: #0070ad;
 }

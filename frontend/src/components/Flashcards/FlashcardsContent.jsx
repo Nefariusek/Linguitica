@@ -77,7 +77,7 @@ class FlashcardsContent extends Component {
             <option value="C1">C1</option>
             <option value="C2">C2</option>
           </select>
-          <Button type="primary" onClick={this.showDrawer}>
+          <Button type="primary" className="button-flashcards-learn" onClick={this.showDrawer}>
             Nauka
           </Button>
           <Drawer
