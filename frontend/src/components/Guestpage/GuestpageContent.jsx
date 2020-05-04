@@ -40,7 +40,7 @@ class GuestpageContent extends React.Component {
               </div>
             </div>
             <div className="start-cover">
-              <img src={studyTime} />
+              <img src={studyTime} alt="" />
             </div>
           </div>
 
