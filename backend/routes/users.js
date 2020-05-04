@@ -1,6 +1,7 @@
 const express = require('express');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 const { validateUser } = require('../models/user');
@@ -29,6 +30,15 @@ router.get('/', async (req, res) => {
   const User = res.locals.models.user;
   const user = await User.find().sort('username');
   res.send(user);
+});
+
+router.get('/userInfo', auth, async (req, res) => {
+  const User = res.locals.models.user;
+
+  const user = await User.findById(req.user._id);
+  if (!user) return res.status(404).send('The user with the given ID was not found.');
+
+  res.send(_.pick(user, ['_id', 'username', 'email', 'plant_id']));
 });
 
 //Getting user by ID

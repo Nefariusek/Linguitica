@@ -58,6 +58,7 @@ const createFlashsets = async (amount, models, flashcardCatalog) => {
     flashcards = [];
     flashcards.push(flashcardCatalog[x] === undefined ? null : new Flashcard(defaultFlashcards[0]));
     return {
+      title: 'InitializerSet',
       flashcards,
     };
   });
