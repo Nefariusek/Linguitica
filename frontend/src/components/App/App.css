@@ -921,3 +921,206 @@ body {
 .button-flashcards:hover {
   transform: scale(1.02);
 }
+
+/* ----------------------learning ----------------- */
+.cardRow {
+  margin-top: 3%;
+  margin-left: 0;
+  padding: 0;
+  border-color: lawngreen;
+}
+.writeRow {
+  margin-top: 3%;
+  margin-left: 36%;
+  padding: 0;
+  border-color: lawngreen;
+  justify-content: flex-start;
+}
+
+.btn-next {
+  padding: 5px;
+}
+.learningCardContainer,
+.writeCardContainer,
+.quizCardContainer {
+  cursor: pointer;
+  height: 350px;
+  width: 400px;
+  position: relative;
+  margin: auto;
+  flex-direction: column;
+}
+.quizCardContainer {
+  margin-top: 3%;
+}
+.learningCard,
+.learningCard .front,
+.learningCard .back {
+  height: 350px;
+  width: 400px;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: all 0.4s ease-in-out;
+  border-radius: 30px;
+  align-items: center;
+  border: none;
+}
+.learningCard:hover {
+  transform: rotateY(180deg);
+  transition: all 0.4s ease-in-out;
+}
+.learningCard .front {
+  backface-visibility: hidden;
+  overflow: hidden;
+  text-align: center;
+  background-color: transparent;
+  margin-bottom: 50%;
+  box-shadow: 0px 0px 30px #12abdb;
+}
+.learningCard .back {
+  text-align: center;
+  transform: rotateY(180deg);
+  background-color: transparent;
+  box-shadow: 0px 0px 30px #65e616;
+}
+.german,
+.polish {
+  color: #333;
+  font-size: 3.3em;
+  padding-top: 20%;
+}
+.word,
+.wordQuiz {
+  color: #333;
+  font-size: 3.3em;
+  margin-bottom: 0px;
+  margin-top: 10%;
+}
+.wordQuiz {
+  margin-top: 5%;
+}
+.category {
+  color: rgba(200, 10, 10, 1);
+  font-size: 2.3em;
+  padding-top: 10%;
+}
+.clickNextBtn,
+.tipBtn,
+.checkAnswer {
+  font-size: 1.5em;
+  border: none;
+  width: 200px;
+  height: 50px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  box-shadow: inset 0px 0px 10px #2c3e50;
+  background: #12abdb;
+  margin: auto;
+}
+
+.checkAnswer {
+  width: 150px;
+  height: 50px;
+  margin-left: 10%;
+  background-color: white;
+  color: #0070ad;
+  font-weight: bold;
+}
+.clickNextBtn {
+  position: relative;
+  margin-top: 30px;
+}
+.wordContent {
+  height: 70%;
+  margin-left: 10%;
+}
+.tipBtn,
+.checkAnswer {
+  width: 40%;
+  font-size: 1em;
+  margin-right: 5%;
+  position: relative;
+  margin-bottom: 5px;
+  padding: 0;
+  height: 40px;
+}
+.odpBtn {
+  width: 40%;
+  margin-right: auto;
+  padding: 0;
+}
+.learningMenu {
+  border: 1px solid #0070ad;
+  width: 25%;
+  margin-top: 0%;
+  margin-left: 37%;
+}
+.sider-flashsets-learning {
+  height: 100vh;
+}
+.mainLearning {
+  display: flex;
+  height: 85vh;
+}
+.menuChoice {
+  border: none;
+  justify-content: center;
+  width: 100%;
+  padding: auto;
+  margin-top: 3%;
+  align-items: center;
+  height: 60vh;
+}
+
+.writeCard,
+.quizCard {
+  height: 350px;
+  width: 400px;
+  position: absolute;
+  border-radius: 30px;
+  align-items: center;
+  border: none;
+  overflow: hidden;
+  text-align: center;
+  background-color: transparent;
+  margin-bottom: 50%;
+  box-shadow: 0px 0px 30px #12abdb;
+}
+
+.learningCardContainer h1 {
+  color: black;
+}
+.writeCardContainer {
+  height: 50vh;
+  padding: 0;
+  margin: 0;
+}
+
+.translateInput {
+  padding: 0;
+  width: 60%;
+}
+.translateDiv {
+  margin-top: 30%;
+  margin-bottom: 10%;
+  margin-left: 10%;
+  padding: 0;
+  width: 85%;
+  justify-content: center;
+  display: flex;
+}
+.asnwerDiv {
+  width: 55%;
+  align-items: center;
+}
+/* -------------- quiz -------- */
+.possibleAnswers {
+  margin: 0;
+  padding: 2%;
+  justify-content: space-between;
+}
+.singleAnswer {
+  margin-top: 3%;
+}
