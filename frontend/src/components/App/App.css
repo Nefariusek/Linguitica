@@ -949,6 +949,7 @@ body {
 
 .button-flashcards-learn {
   background-color: #1890ff;
+  border-color: #ffffff;
   width: 10%;
   transition: all 0.5s ease-in-out;
 }
