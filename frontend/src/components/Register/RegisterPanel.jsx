@@ -123,7 +123,7 @@ class RegisterPanel extends React.Component {
             </p>
           </form>
           <div>
-            jeśli masz już konto -<NavLink to="/login">zaloguj się</NavLink>
+            Jeśli masz już konto - <NavLink to="/login">zaloguj się</NavLink>
           </div>
         </div>
       </div>
