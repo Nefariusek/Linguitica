@@ -1,14 +1,21 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { Col, Divider, Row, Layout, Breadcrumb, Button } from 'antd';
 import { FileDoneOutlined, LineChartOutlined, HomeOutlined, ReadOutlined, BellOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import UserInformation from './UserInformation';
 
+import Store from '../../Store';
+
 const { Content } = Layout;
 const DemoBox = (props) => <p className={`height-${props.value}`}>{props.children}</p>;
 
 class HomepageContent extends React.Component {
+  static contextType = Store;
+
   render() {
+    if (!this.context.hasPlant) return <Redirect to="/plantCreation" />;
+
     return (
       <Layout className="layout">
         <Content style={{ padding: '0' }}>
@@ -35,7 +42,7 @@ class HomepageContent extends React.Component {
                 </Link>
               </DemoBox>
               <DemoBox value={200}>
-                <Link to="/flashsets">
+                <Link to="/statistics">
                   <Button block>
                     <LineChartOutlined className="buttonIcon" />
                     <div className="buttonText">STATYSTYKI</div>

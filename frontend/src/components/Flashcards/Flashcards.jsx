@@ -1,52 +1,111 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-
+import { List, Button } from 'antd';
+import { PlusCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
+import setHeaders from '../../utils/setHeaders';
 class Cards extends Component {
+  state = {
+    flashcards: [],
+    temp: [],
+    category: this.props.category,
+    level: this.props.level,
+    selected: [],
+    names: [],
+  };
+
+  getFlashcards = async () => {
+    const response = await fetch('/api/flashcards', setHeaders());
+    const body = await response.json();
+    let filteredBody = body;
+    if (this.state.level !== 'wszystkie') {
+      let expectedLevel = this.state.level;
+      filteredBody = body.filter((flashcard) => {
+        return flashcard.level === expectedLevel;
+      });
+    }
+
+    this.setState({ flashcards: filteredBody });
+    console.log(this.state.flashcards);
+  };
+
+  handleSelect = async (e) => {
+    //ustawienie gwiazdki (pusta lub wypelniona)
+    const { temp } = this.state;
+    temp[e.target.name] = !temp[e.target.name];
+    this.setState({ temp });
+
+    await this.zmiany(e);
+    //dodanie wybranych fiszek do listy
+  };
+
+  zmiany = async (e) => {
+    this.state.temp[e.target.name] === true
+      ? this.state.selected.push(e.target.value)
+      : this.state.selected.splice(e.target.value, 1);
+
+    console.log('wybrane: ', this.state.selected);
+
+    this.state.temp[e.target.name] === true
+      ? this.state.names.push(e.target.attributes.zmienna.nodeValue)
+      : this.state.names.splice(e.target.attributes.zmienna.nodeValue, 1);
+
+    //wyslanie listy indexow wybranych fiszek
+    this.props.callbackFromParent([this.state.selected, this.state.names]);
+  };
+
+  componentDidMount = async () => {
+    await this.getFlashcards();
+    for (let i = 0; i < this.state.flashcards.length; i++) {
+      const { temp } = this.state;
+      temp[i] = false;
+    }
+    console.log('kategoria:', this.state.category);
+    console.log('poziom:', this.state.level);
+  };
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps.category !== this.props.category || prevProps.level !== this.props.level) {
+      await this.setState({ category: this.props.category });
+      console.log('szukana kategoria:', this.state.category);
+      await this.setState({ level: this.props.level }, () => {
+        this.getFlashcards();
+      });
+      console.log('szukany poziom:', this.state.level);
+    }
+  };
+
   render() {
-    let data = [
-      { title: 'Card title1', value: 'Card content1' },
-      { title: 'Card title2', value: 'Card content2' },
-      { title: 'Card title3', value: 'Card content3' },
-      { title: 'Card title4', value: 'Card content4' },
-      { title: 'Card title5', value: 'Card content5' },
-      { title: 'Card title6', value: 'Card content6' },
-      { title: 'Card title7', value: 'Card content7' },
-      { title: 'Card title8', value: 'Card content8' },
-      { title: 'Card title9', value: 'Card content9' },
-      { title: 'Card title10', value: 'Card content10' },
-      { title: 'Card title11', value: 'Card content11' },
-      { title: 'Card title12', value: 'Card content12' },
-      { title: 'Card title13', value: 'Card content13' },
-      { title: 'Card title14', value: 'Card content14' },
-      { title: 'Card title15', value: 'Card content15' },
-      { title: 'Card title1', value: 'Card content1' },
-      { title: 'Card title2', value: 'Card content2' },
-      { title: 'Card title3', value: 'Card content3' },
-      { title: 'Card title4', value: 'Card content4' },
-      { title: 'Card title5', value: 'Card content5' },
-      { title: 'Card title6', value: 'Card content6' },
-      { title: 'Card title7', value: 'Card content7' },
-      { title: 'Card title7', value: 'Card content7' },
-      { title: 'Card title8', value: 'Card content8' },
-      { title: 'Card title9', value: 'Card content9' },
-      { title: 'Card title10', value: 'Card content10' },
-      { title: 'Card title11', value: 'Card content11' },
-      { title: 'Card title12', value: 'Card content12' },
-      { title: 'Card title13', value: 'Card content13' },
-      { title: 'Card title999', value: 'Card content9' },
-    ];
     return (
       <div>
-        {data.map((val) => (
-          <Card title={val.title} style={{ width: 290, padding: 6 }}>
-            <p>{val.value}</p>
-            <Button onClick={this.handleOpen} id={val.id}>
-              Wybierz
-              <PlusOutlined />
-            </Button>
-          </Card>
-        ))}
+        <List
+          itemLayout="horizontal"
+          dataSource={this.state.flashcards}
+          renderItem={(item, index) => (
+            <List.Item key={item.id}>
+              <div className="flashcard">
+                <div className="flashcard-polish">{item.polish}</div>
+                <div className="flashcard-german">{item.german}</div>
+
+                <div className="flashcard-category">
+                  KATEGORIA: <br />
+                  {item.category}
+                </div>
+                <div className="flashcard-level">
+                  {' '}
+                  POZIOM: <br />
+                  {item.level}
+                </div>
+                <Button
+                  className="flashcard-icon"
+                  zmienna={item.polish}
+                  value={item._id}
+                  onClick={this.handleSelect}
+                  name={index}
+                >
+                  {this.state.temp[index] ? <PlusCircleFilled key="add" /> : <PlusCircleOutlined key="add" />}
+                </Button>
+              </div>
+            </List.Item>
+          )}
+        />
       </div>
     );
   }

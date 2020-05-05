@@ -6,12 +6,14 @@ import { useContext } from 'react';
 import Store from '../../Store';
 
 const NavBar = () => {
-  const { isLogged, changeStore } = useContext(Store);
+  const { isLogged, changeStore, hasPlant } = useContext(Store);
 
   const handleLogout = () => {
-    changeStore('isLogged', false);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    changeStore('isLogged', false);
+    changeStore('userProfile', null);
+    changeStore('hasPlant', null);
     window.location.reload();
   };
 
@@ -33,7 +35,29 @@ const NavBar = () => {
           </Menu>
         </>
       )}
-      {isLogged && (
+      {isLogged && !hasPlant && (
+        <div className="mainBar">
+          <div className="leftBar">
+            <Menu theme="dark" mode="horizontal" className="menuBar">
+              <Menu.Item className="menuItem">
+                <Link to="/plantCreation">Tworzenie rośliny</Link>
+              </Menu.Item>
+            </Menu>
+          </div>
+          <div className="rightBar">
+            <Menu theme="dark" mode="horizontal" className="menuBar">
+              <Menu.Item className="menuItem">
+                <Link to="/profile">Profil</Link>
+              </Menu.Item>
+              <Menu.Item className="menuItem" onClick={handleLogout}>
+                Wyloguj się
+              </Menu.Item>
+            </Menu>
+          </div>
+        </div>
+      )}
+
+      {isLogged && hasPlant && (
         <div className="mainBar">
           <div className="leftBar">
             <Menu theme="dark" mode="horizontal" className="menuBar">

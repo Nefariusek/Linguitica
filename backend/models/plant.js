@@ -44,6 +44,11 @@ const plantSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  flashsets: {
+    type: [ObjectId],
+    default: [],
+    ref: 'Flashsets',
+  },
   quests: {
     type: [ObjectId],
     default: [],
@@ -56,13 +61,9 @@ const plantSchema = new mongoose.Schema({
   },
 });
 
-const validatePlant = plant => {
+const validatePlant = (plant) => {
   const schema = Joi.object({
-    name: Joi.string()
-      .required()
-      .min(5)
-      .max(16)
-      .trim(),
+    name: Joi.string().required().min(5).max(16).trim(),
     species: Joi.valid('Bonsai', 'Cactus', 'Rose', 'Dandelion'),
     level: Joi.number().min(0),
     irrigation_points: Joi.number().min(0),
@@ -72,6 +73,7 @@ const validatePlant = plant => {
     health: Joi.number().min(0),
     max_health: Joi.number().min(0),
     quests: Joi.array().items(Joi.objectId()),
+    flashsets: Joi.array().items(Joi.objectId()),
     statistics_id: Joi.objectId().required(),
   });
 

@@ -3,7 +3,7 @@ const _ = require('lodash');
 
 const defaultFlashcards = require('./defaultObjects/defaultFlashcards');
 
-const transactional = initializer => async (model, models, idCatalog) => {
+const transactional = (initializer) => async (model, models, idCatalog) => {
   let result;
   const session = await model.startSession();
   await session.withTransaction(async () => {
@@ -13,7 +13,7 @@ const transactional = initializer => async (model, models, idCatalog) => {
   return result;
 };
 
-const hashPassword = async password => await bcrypt.hash(password, await bcrypt.genSalt());
+const hashPassword = async (password) => await bcrypt.hash(password, await bcrypt.genSalt());
 
 const createModelBatch = async (model, data) => {
   const createdDocuments = [];
@@ -23,17 +23,17 @@ const createModelBatch = async (model, data) => {
     await createdDocument.save();
   }
   const idArray = [];
-  createdDocuments.forEach(element => {
+  createdDocuments.forEach((element) => {
     idArray.push(element._id);
   });
 
   return idArray;
 };
 
-const arrayWithCount = count => func => [...Array(count).keys()].map(func);
+const arrayWithCount = (count) => (func) => [...Array(count).keys()].map(func);
 
 const createFlashcards = async (amount, models) => {
-  const flashcardData = arrayWithCount(amount)(x => {
+  const flashcardData = arrayWithCount(amount)((x) => {
     if (defaultFlashcards[x] !== undefined) {
       return defaultFlashcards[x];
     } else {
@@ -54,10 +54,11 @@ const createFlashcards = async (amount, models) => {
 
 const createFlashsets = async (amount, models, flashcardCatalog) => {
   const Flashcard = models.flashcard;
-  const flashsetData = arrayWithCount(amount)(x => {
+  const flashsetData = arrayWithCount(amount)((x) => {
     flashcards = [];
     flashcards.push(flashcardCatalog[x] === undefined ? null : new Flashcard(defaultFlashcards[0]));
     return {
+      title: 'InitializerSet',
       flashcards,
     };
   });
@@ -66,7 +67,7 @@ const createFlashsets = async (amount, models, flashcardCatalog) => {
 };
 
 const createQuests = async (amount, models, flashsetCatalog) => {
-  const questData = arrayWithCount(amount)(x => {
+  const questData = arrayWithCount(amount)((x) => {
     return {
       goal: 'muszę to zrobić',
       category: 'categoria',
@@ -83,7 +84,7 @@ const createQuests = async (amount, models, flashsetCatalog) => {
 };
 
 const createStatistics = async (amount, models, idCatalog) => {
-  const statisticsData = arrayWithCount(amount)(x => {
+  const statisticsData = arrayWithCount(amount)((x) => {
     return {
       words_learned: 10 + x,
       quest_completed: 2 + x,
@@ -96,7 +97,7 @@ const createStatistics = async (amount, models, idCatalog) => {
 };
 
 const createPlants = async (amount, models, questCatalog, statisticsCatalog) => {
-  const plantData = arrayWithCount(amount)(x => {
+  const plantData = arrayWithCount(amount)((x) => {
     return {
       name: 'Plant_' + x,
       level: 5 + x,
@@ -115,7 +116,7 @@ const createPlants = async (amount, models, questCatalog, statisticsCatalog) => 
 
 const createUsers = async (amount, models, plantCatalog) => {
   //const password = await hashPassword()
-  const userData = arrayWithCount(amount)(x => {
+  const userData = arrayWithCount(amount)((x) => {
     return {
       username: 'UserNumber' + x,
       email: `usernumber${x}@mail.com`,
@@ -127,27 +128,27 @@ const createUsers = async (amount, models, plantCatalog) => {
 };
 
 const flashcardInitializer = async (models, idCatalog) => {
-  return await createFlashcards(10, models);
+  return await createFlashcards(defaultFlashcards.length, models);
 };
 
 const flashsetInitializer = async (models, idCatalog) => {
-  return await createFlashsets(5, models, idCatalog['flashcard']);
+  return await createFlashsets(1, models, idCatalog['flashcard']);
 };
 
 const questInitializer = async (models, idCatalog) => {
-  return await createQuests(5, models, idCatalog['flashset']);
+  return await createQuests(1, models, idCatalog['flashset']);
 };
 
 const statisticsInitializer = async (models, idCatalog) => {
-  return await createStatistics(5, models);
+  return await createStatistics(1, models);
 };
 
 const plantInitializer = async (models, idCatalog) => {
-  return await createPlants(5, models, idCatalog['quest'], idCatalog['statistics']);
+  return await createPlants(1, models, idCatalog['quest'], idCatalog['statistics']);
 };
 
 const userInitializer = async (models, idCatalog) => {
-  return await createUsers(5, models, idCatalog['plant']);
+  return await createUsers(1, models, idCatalog['plant']);
 };
 
 const defaultInitializers = new Map([
