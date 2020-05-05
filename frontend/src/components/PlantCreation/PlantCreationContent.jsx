@@ -66,7 +66,7 @@ class PlantCreationContent extends Component {
     e.preventDefault();
     await this.postPlant();
     await this.putPlantId();
-    this.context.changeStore('hasCharacter', true);
+    this.context.changeStore('hasPlant', true);
   };
 
   handleInputChange = (e) => {
