@@ -38,6 +38,11 @@ const App = () => {
         (res) => {
           changeStore('isLogged', true);
           changeStore('userProfile', res.data);
+          if (res.data.plant_id) {
+            changeStore('hasPlant', true);
+          } else {
+            changeStore('hasPlant', false);
+          }
         },
         (err) => {
           console.log(err);

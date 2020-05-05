@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Carousel, Button, Input, Radio, message } from 'antd';
 import axios from 'axios';
 
@@ -65,6 +66,7 @@ class PlantCreationContent extends Component {
     e.preventDefault();
     await this.postPlant();
     await this.putPlantId();
+    this.context.changeStore('hasCharacter', true);
   };
 
   handleInputChange = (e) => {
@@ -75,6 +77,8 @@ class PlantCreationContent extends Component {
   };
 
   render() {
+    if (this.context.hasPlant) return <Redirect to="/home" />;
+
     return (
       <div className="Wrapper">
         <div className="PlantTitle">
