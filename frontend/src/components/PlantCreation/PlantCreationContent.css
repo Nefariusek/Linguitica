@@ -1,0 +1,84 @@
+.Wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1em auto;
+  grid-gap: 10px;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+  .PlantTitle {
+    grid-column: 2/12;
+    grid-row: 2/3;
+  }
+  .PlantImage {
+    grid-column: 2/12;
+    grid-row: 3/10;
+  }
+  .PlantInfo {
+    grid-column: 2/12;
+    grid-row: 10/12;
+  }
+  .PlantType {
+    grid-column: 2/12;
+    grid-row: 12/13;
+  }
+  .PlantName {
+    grid-column: 2/12;
+    grid-row: 13/14;
+  }
+  .PlantName > * {
+    margin-top: 5px;
+  }
+}
+
+@media (min-width: 768px) {
+  .PlantTitle {
+    grid-column: 2/12;
+    grid-row: 2/3;
+  }
+  .PlantImage {
+    grid-column: 2/6;
+    grid-row: 3/8;
+  }
+  .PlantInfo {
+    grid-column: 7/12;
+    grid-row: 3/8;
+  }
+  .PlantType {
+    grid-column: 2/12;
+    grid-row: 8/9;
+  }
+  .PlantName {
+    grid-column: 2/12;
+    grid-row: 9/10;
+  }
+  .PlantName > * {
+    margin-top: 5px;
+  }
+}
+.ant-carousel {
+  height: 100%;
+  background: #16df16;
+}
+
+.ant-radio-group {
+  width: 100%;
+}
+
+.ant-radio-button-wrapper {
+  width: 25%;
+  text-align: center;
+}
+
+.slick-slider {
+  text-align: center;
+  height: 100%;
+  line-height: 100%;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
