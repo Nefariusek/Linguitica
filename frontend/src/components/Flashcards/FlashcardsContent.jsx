@@ -97,12 +97,10 @@ class FlashcardsContent extends Component {
               </Button>
             ))}
 
-            <Link to="/learning">
-              <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
-            </Link>
-
             {this.state.formatList.length > 0 ? (
-              <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
+              <Link to="/learning">
+                <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
+              </Link>
             ) : (
               <Button disabled className="button-flashcards-start">
                 ROZPOCZNIJ NAUKE!
