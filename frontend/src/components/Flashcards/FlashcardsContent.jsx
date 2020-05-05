@@ -101,7 +101,6 @@ class FlashcardsContent extends Component {
               <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
             </Link>
 
-
             {this.state.formatList.length > 0 ? (
               <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
             ) : (

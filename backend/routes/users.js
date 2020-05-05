@@ -96,4 +96,50 @@ router.put('/:id/email', async (req, res) => {
   res.send('E-mail changed');
 });
 
+router.put('/:id/plant_id', (req, res) => {
+  const User = res.locals.models.user;
+  getUsers(User, req.params.id).then((result) => {
+    if (!result) {
+      res.status(404).send(`User with this id: ${req.params.id} not found`);
+    } else {
+      User.findByIdAndUpdate(
+        req.params.id,
+        {
+          plant_id: req.body.plant_id,
+        },
+        {
+          new: true,
+        },
+      ).then(
+        (r) => {
+          res.send('PlantID updated!');
+        },
+        (err) => {
+          res.status(403).send('Bad request!');
+        },
+      );
+    }
+  });
+});
+
+getUsers = async (User, id) => {
+  if (id) {
+    return await User.find({
+      _id: id,
+    }).then(
+      (result) => {
+        return result[0];
+      },
+      (err) => console.log('Error', err),
+    );
+  } else {
+    return await User.find().then(
+      (result) => {
+        return result;
+      },
+      (err) => console.log('Error', err),
+    );
+  }
+};
+
 module.exports = router;
