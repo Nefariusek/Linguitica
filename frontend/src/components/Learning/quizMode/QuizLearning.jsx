@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Quiz from './Quiz';
 import NextButton from '../cardMode/NextButton.jsx';
-import { Button } from 'antd';
 
 class QuizLearning extends Component {
   constructor(props) {

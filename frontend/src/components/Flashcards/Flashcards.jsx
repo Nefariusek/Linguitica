@@ -11,12 +11,22 @@ class Cards extends Component {
     selected: [],
     names: [],
   };
+
   getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
     const body = await response.json();
-    this.setState({ flashcards: body });
+    let filteredBody = body;
+    if (this.state.level !== 'wszystkie') {
+      let expectedLevel = this.state.level;
+      filteredBody = body.filter((flashcard) => {
+        return flashcard.level === expectedLevel;
+      });
+    }
+
+    this.setState({ flashcards: filteredBody });
     console.log(this.state.flashcards);
   };
+
   handleSelect = async (e) => {
     //ustawienie gwiazdki (pusta lub wypelniona)
     const { temp } = this.state;
@@ -55,7 +65,9 @@ class Cards extends Component {
     if (prevProps.category !== this.props.category || prevProps.level !== this.props.level) {
       await this.setState({ category: this.props.category });
       console.log('szukana kategoria:', this.state.category);
-      await this.setState({ level: this.props.level });
+      await this.setState({ level: this.props.level }, () => {
+        this.getFlashcards();
+      });
       console.log('szukany poziom:', this.state.level);
     }
   };

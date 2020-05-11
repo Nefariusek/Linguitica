@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal, Input } from 'antd';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
+import Store from '../../Store';
+
 export default class FlashsetCreate extends Component {
   state = {
     open: false,
@@ -10,6 +12,9 @@ export default class FlashsetCreate extends Component {
 
     body: '',
   };
+
+  static contextType = Store;
+
   handleOpen = () => {
     this.setState({ open: true });
     console.log(this.state.body);
@@ -31,7 +36,7 @@ export default class FlashsetCreate extends Component {
     await this.addFlashsetID();
     //this.addFlashsetID();
 
-    window.location.reload(false);
+    //window.location.reload(false);
     //this.props.callbackFromParent(true);
 
     this.handleClose();
@@ -48,6 +53,7 @@ export default class FlashsetCreate extends Component {
     await axios({
       url: '/api/flashsets/',
       method: 'post',
+      headers: setHeaders(),
       data: {
         title: this.state.title,
         flashcards: [
@@ -56,21 +62,25 @@ export default class FlashsetCreate extends Component {
           },
         ],
       },
-      headers: setHeaders(),
     }).then((res) => this.setState({ body: res.data._id }));
   };
 
   addFlashsetID = async () => {
     await axios({
-      url: `/api/plants/${this.state.plantID}/flashsets`,
+      url: `/api/plants/${this.context.userProfile.plant_id}/flashsets`,
       method: 'put',
+      headers: setHeaders(),
       data: {
         flashsets: {
           _id: this.state.body,
         },
       },
-      headers: setHeaders(),
-    }).catch((error) => console.log(error));
+    }).then(
+      (res) => {},
+      (error) => {
+        console.log(error);
+      },
+    );
   };
 
   render() {

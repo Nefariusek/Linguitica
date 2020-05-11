@@ -31,13 +31,14 @@ class FlashsetsContent extends Component {
   static contextType = Store;
 
   componentDidMount = async () => {
+    console.log(this.context);
     //getting user ID from localstorage
-    let ID = localStorage.getItem('id');
-    await this.setState({ userID: ID });
+    //let ID = localStorage.getItem('id');
+    //await this.setState({ userID: ID });
     // console.log('ID uzytkownika: ', this.state.userID);
 
     //getting plantID
-    await this.getPlantID();
+    // await this.getPlantID();
 
     //getting flashsetsID
     await this.getFlashsetsID();
@@ -58,24 +59,24 @@ class FlashsetsContent extends Component {
     }
   };
 
-  getPlantID = async () => {
-    await axios({
-      url: `/api/users/${this.state.userID}`,
-      method: 'get',
-      headers: setHeaders(),
-    }).then(
-      (response) => {
-        this.setState({ plantID: response.data.plant_id[0] });
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
-  };
+  // getPlantID = async () => {
+  //   await axios({
+  //     url: `/api/users/${this.state.userID}`,
+  //     method: 'get',
+  //     headers: setHeaders(),
+  //   }).then(
+  //     (response) => {
+  //       this.setState({ plantID: response.data.plant_id[0] });
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     },
+  //   );
+  // };
 
   getFlashsetsID = async () => {
     await axios({
-      url: `/api/plants/${this.state.plantID}`,
+      url: `/api/plants/${this.context.userProfile.plant_id}`,
       method: 'get',
       headers: setHeaders(),
     }).then(
@@ -219,7 +220,6 @@ class FlashsetsContent extends Component {
             {this.state.counter > 0 ? (
               <div className="learn-flashsets">
                 <Badge count={this.state.counter} overflowCount={99}>
-                  <a href="#" className="head-example" />
                   <Button className="learn-button-flashsets" shape="round" size="large">
                     NAUKA
                   </Button>
@@ -228,7 +228,6 @@ class FlashsetsContent extends Component {
             ) : (
               <div className="learn-flashsets-none">
                 <Badge count={this.state.counter} overflowCount={99}>
-                  <a href="#" className="head-example" />
                   <Button className="learn-button-flashsets" shape="round" size="large">
                     NAUKA
                   </Button>

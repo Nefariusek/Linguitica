@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Menu } from 'antd';
 import CardLearning from './cardMode/CardLearning';
 import WriteLearning from './writeMode/WriteLearning';
@@ -39,9 +38,9 @@ class LearningContent extends Component {
   renderSelectedLearnMode(selectedLearnMode) {
     if (!selectedLearnMode) return <CardLearning />;
 
-    if (selectedLearnMode == 'cardMode') return <CardLearning />;
-    if (selectedLearnMode == 'writeMode') return <WriteLearning />;
-    if (selectedLearnMode == 'quizMode') return <QuizLearning />;
+    if (selectedLearnMode === 'cardMode') return <CardLearning />;
+    if (selectedLearnMode === 'writeMode') return <WriteLearning />;
+    if (selectedLearnMode === 'quizMode') return <QuizLearning />;
   }
 }
 
