@@ -8,8 +8,6 @@ import CardsCreate from './CardsCreate';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-//import { LoadingOutlined } from '@ant-design/icons';
-//const antIcon = <LoadingOutlined style={{ fontSize: 24, color: 'black' }} spin />;
 
 const { Header, Content, Sider } = Layout;
 
@@ -32,47 +30,18 @@ class FlashsetsContent extends Component {
 
   componentDidMount = async () => {
     console.log(this.context);
-    //getting user ID from localstorage
-    //let ID = localStorage.getItem('id');
-    //await this.setState({ userID: ID });
-    // console.log('ID uzytkownika: ', this.state.userID);
-
-    //getting plantID
-    // await this.getPlantID();
-
-    //getting flashsetsID
     await this.getFlashsetsID();
-    //console.log('ID flashsetow: ', this.state.flashsetsID);
 
     this.setState({
       currentFlashsetID: this.state.flashsetsID[0],
     });
-
     let count = this.state.flashsetsID.length;
-
-    //console.log(count);
     if (count > 0) {
       await this.setState({ temp3: false });
       await this.getFlashsets(count);
-      // console.log(this.state.flashsets);
       await this.changeTemp(count);
     }
   };
-
-  // getPlantID = async () => {
-  //   await axios({
-  //     url: `/api/users/${this.state.userID}`,
-  //     method: 'get',
-  //     headers: setHeaders(),
-  //   }).then(
-  //     (response) => {
-  //       this.setState({ plantID: response.data.plant_id[0] });
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //   );
-  // };
 
   getFlashsetsID = async () => {
     await axios({
@@ -89,7 +58,6 @@ class FlashsetsContent extends Component {
     );
   };
 
-  //getting flashsets
   getFlashsets = async (count) => {
     let index;
     for (index = 0; index < count; index++) {
