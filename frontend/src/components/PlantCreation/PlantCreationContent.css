@@ -82,3 +82,7 @@
 .ant-carousel .slick-slide h3 {
   color: #fff;
 }
+
+img {
+  width: 100%;
+}
