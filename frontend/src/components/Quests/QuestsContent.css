@@ -8,8 +8,6 @@
 }
 
 .container-all {
-  min-height: 100vh;
-
   margin-left: auto;
   margin-right: auto;
 }
@@ -18,6 +16,7 @@
   .container-all {
     max-width: 80vw;
     min-width: 50vw;
+    min-height: 100vh;
   }
   .quest-all {
     background-color: rgb(228, 227, 228);
@@ -25,8 +24,8 @@
     margin: 10px;
     max-width: 45vw;
     min-width: 38vw;
-    min-height: 30vh;
-    max-height: 35vh;
+    min-height: 35vh;
+    max-height: 37vh;
     display: inline-block;
     text-align: center;
   }
@@ -36,6 +35,81 @@
     max-width: 85%;
     border-radius: 20px 20px 0 0;
     margin-top: 10px;
+    background-color: lightseagreen;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .quest-description {
+    font-size: 16px;
+    max-width: 85%;
+    border-radius: 0 0 20px 20px;
+    background-color: rgb(185, 223, 221);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 15vh;
+  }
+
+  .quest-attributes {
+    font-size: 16px;
+    max-width: 100%;
+    margin-top: 20px;
+    background-color: rgb(219, 202, 197);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 5vh;
+  }
+  .quest-countdown {
+    font-size: 16px;
+    max-width: 70%;
+
+    margin-right: auto;
+    min-height: 5vh;
+  }
+  .quest-info-button {
+    float: right;
+
+    justify-content: flex-end;
+    display: flex;
+    margin: 10px;
+  }
+  .quest-add {
+    margin-top: 6vh;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50vw;
+    background-color: rgb(224, 223, 223);
+    border-radius: 50px;
+    padding: 40px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 1000px) {
+  .container-all {
+    max-width: 80vw;
+    min-width: 50vw;
+    max-height: 60vh;
+    min-height: 30vh;
+  }
+  .quest-all {
+    background-color: rgb(228, 227, 228);
+    margin: 10px;
+    max-width: 80vw;
+    min-width: 80vw;
+    min-height: 40vh;
+    max-height: 50vh;
+
+    text-align: center;
+    border-radius: 10px 40px;
+  }
+
+  .quest-all h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    max-width: 85%;
+    border-radius: 20px 20px 0 0;
+    margin-top: 15px;
     background-color: lightseagreen;
     color: white;
     margin-left: auto;
@@ -84,44 +158,5 @@
     background-color: rgb(224, 223, 223);
     border-radius: 50px;
     padding: 40px;
-  }
-}
-
-@media (min-width: 0px) and (max-width: 1000px) {
-  .container-all {
-    max-width: 80vw;
-    min-width: 50vw;
-  }
-  .quest-all {
-    background-color: rgb(228, 227, 228);
-    margin: 10px;
-    max-width: 80vw;
-    min-width: 80vw;
-    min-height: 50vh;
-    max-height: 70vh;
-
-    text-align: center;
-    border-radius: 10px 40px;
-  }
-
-  .quest-all h2 {
-    font-size: 12px;
-    text-transform: uppercase;
-    max-width: 85%;
-    border-radius: 20px 20px 0 0;
-    margin-top: 20px;
-    background-color: rgb(255, 255, 255);
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0;
-  }
-  .quest-description {
-    font-size: 16px;
-    max-width: 85%;
-    border-radius: 0 0 20px 20px;
-    background-color: turquoise;
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 15vh;
   }
 }
