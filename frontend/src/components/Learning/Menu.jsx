@@ -1,7 +1,5 @@
 import React from 'react';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
-import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
 
 class MenuLearning extends React.Component {
   state = {
@@ -20,7 +18,6 @@ class MenuLearning extends React.Component {
           Tryb nauki
         </Menu.Item>
         <Menu.Item key="cards">Fiszki</Menu.Item>
-
         <Menu.Item key="write">Pisanie</Menu.Item>
         <Menu.Item key="quiz"> Quiz</Menu.Item>
       </Menu>
