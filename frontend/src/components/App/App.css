@@ -992,9 +992,10 @@ body {
 .word,
 .wordQuiz {
   color: #333;
-  font-size: 3.3em;
+  font-size: 3em;
   margin-bottom: 0px;
   margin-top: 10%;
+  width: 100%;
 }
 .wordQuiz {
   margin-top: 5%;
@@ -1053,7 +1054,7 @@ body {
 }
 .learningMenu {
   border: 1px solid #0070ad;
-  width: 25%;
+  width: 26%;
   margin-top: 0%;
   margin-left: 37%;
 }
@@ -1114,6 +1115,159 @@ body {
 .asnwerDiv {
   width: 55%;
   align-items: center;
+}
+/* -- jeszcze troche poprawic przy pisaniu buttona-- */
+@media screen and (max-width: 1300px) {
+  .learningMenu {
+    width: 30%;
+    margin-left: 35%;
+    margin-bottom: 5%;
+  }
+  .clickNextBtn {
+    margin-top: 5%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .learningMenu {
+    width: 35%;
+    margin-left: 33%;
+    margin-bottom: 5%;
+  }
+  .selectedMode .writeRow {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: -45px;
+  }
+  .writeRow {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10%;
+    padding: 0%;
+    height: 40vh;
+  }
+  .writeCard {
+    height: 100%;
+  }
+  .writeCardContainer {
+    margin-top: 20%;
+    margin-bottom: 10%;
+    padding-bottom: 0%;
+  }
+
+  .asnwerDiv {
+    margin-top: 0%;
+    margin-bottom: 3%;
+    padding-bottom: 0%;
+  }
+  .translateDiv {
+    margin-top: 0%;
+    padding: 0%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .learningMenu {
+    width: 40%;
+    margin-left: 32%;
+    margin-bottom: 5%;
+  }
+  .clickNextBtn {
+    margin-top: 5%;
+    margin-left: 42%;
+  }
+  .quizButtons .clickNextBtn {
+    margin-left: 7%;
+  }
+  .selectedMode .writeRow {
+    display: block;
+    margin-top: 0%;
+    margin-bottom: 0px;
+  }
+  .writeRow {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+    height: 50vh;
+  }
+  .writeCardContainer {
+    margin-top: 2%;
+    margin-bottom: 0%;
+  }
+  .writeCard {
+    height: 80%;
+  }
+  .asnwerDiv {
+    margin-top: 0%;
+    margin-bottom: 0%;
+  }
+}
+@media (max-width: 768px) {
+  .learningMenu {
+    width: 50%;
+    margin-top: 4%;
+    margin-left: 28%;
+    margin-bottom: 6%;
+  }
+  .clickNextBtn {
+    margin-top: 6%;
+    margin-left: 40%;
+  }
+  .quizButtons .clickNextBtn {
+    width: 10%;
+    margin-left: 7%;
+  }
+  .selectedMode .writeRow {
+    display: block;
+    margin-top: 0%;
+    margin-bottom: 0px;
+  }
+  .writeRow {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50vh;
+  }
+  .writeCard {
+    height: 100%;
+  }
+  .writeCardContainer {
+    margin-bottom: 3%;
+    margin-top: 0%;
+  }
+}
+@media (max-width: 576px) {
+  .learningMenu {
+    width: 80%;
+    margin-top: 4%;
+    margin-left: 10%;
+    margin-bottom: 8%;
+  }
+  .clickNextBtn {
+    margin-top: 8%;
+    margin-left: 30%;
+  }
+  .writeRow {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 55vh;
+  }
+  .writeCard {
+    height: 100%;
+  }
+
+  .writeCardContainer {
+    margin-bottom: 5%;
+    margin-top: 0%;
+  }
+  .quizButtons .clickNextBtn {
+    margin-left: 7%;
+  }
 }
 /* -------------- quiz -------- */
 .possibleAnswers {
