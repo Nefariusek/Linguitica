@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Carousel, Button, Input, Radio, message } from 'antd';
+import { Button, Input, Radio, message } from 'antd';
 import axios from 'axios';
 
+import PlantCarousel from './PlantCarousel';
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeaders';
 
-import bonsai1 from '../../images/bonsai1.PNG';
 import './PlantCreationContent.css';
 
 const plantChosen = {
   Bonsai: {
     name: 'Bonsai',
-    text: 'Tekst o bonsai',
-    stats: '',
+    text: 'Roślina dla wytrwałych, wymaga regularnego podlewania. Solidne podstawy zapewnią dobre efekty przez lata.',
+    stats: '+10 do wytrzymałości, +5 do urokliwości',
   },
   Cactus: {
     name: 'Kaktus',
-    text: 'Tekst o kaktusie',
-    stats: '',
+    text: 'Podlać i zapomnieć.',
+    stats: '+15 do wytrzymałości, +1 do urokliwości',
   },
   Rose: {
     name: 'Róża',
-    text: 'Tekst o róży',
-    stats: '',
+    text: 'Krucha i piękna',
+    stats: '+1 do wytrzymałości, +15 do urokliwości',
   },
   Dandelion: {
     name: 'Mlecz',
-    text: 'Ostatni w tym sezonie',
-    stats: '',
+    text: 'Ostatni w tym sezonie.',
+    stats: '+5 do wytrzymałości, +10 do urokliwości',
   },
 };
 
@@ -148,19 +148,11 @@ class PlantCreationContent extends Component {
           </h3>
         </div>
         <div className="PlantImage">
-          <Carousel>
-            <div className="Slide">
-              <img src={bonsai1} alt="nasionko" />{' '}
-            </div>
-            <div className="Slide">2</div>
-            <div className="Slide">3</div>
-            <div className="Slide">4</div>
-            <div className="Slide">5</div>
-            <div className="Slide">6</div>
-          </Carousel>
+          <PlantCarousel species={this.state.species} />
         </div>
         <div className="PlantInfo">
           <h3> {plantChosen[this.state.species].text}</h3>
+          <h3> {plantChosen[this.state.species].stats}</h3>
         </div>
         <div className="PlantType">
           Gatunek:

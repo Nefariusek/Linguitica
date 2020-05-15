@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Row, Col, Card } from 'antd';
-import rose6 from '../../images/rose6.PNG';
+import rose6 from '../../images/rose/rose6.PNG';
 
 class StatisticsContent extends Component {
   render() {
