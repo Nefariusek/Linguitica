@@ -5,7 +5,7 @@ import Store from '../../Store';
 
 const PublicRoute = ({ component: Component, ...rest }) => {
   const { isLogged } = useContext(Store);
-  return <Route {...rest} render={(props) => (isLogged ? <Redirect to="/" /> : <Component {...props} />)} />;
+  return <Route {...rest} render={(props) => (isLogged ? <Redirect to="/home" /> : <Component {...props} />)} />;
 };
 
 export default PublicRoute;

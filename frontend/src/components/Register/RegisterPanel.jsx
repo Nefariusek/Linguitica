@@ -12,45 +12,60 @@ class RegisterPanel extends React.Component {
     password: '',
     email: '',
     repPassword: '',
-    emailExists: false,
+    invalidData: false,
   };
 
   static contextType = Store;
 
   postUser = async () => {
-    try {
-      if (this.state.repPassword !== this.state.password) {
-        message.error('Both passwords must be the same.');
-        throw new Error('Both passwords must be the same.');
-      }
-      const res = await axios({
-        method: 'post',
-        url: '/api/users',
-        headers: setHeaders(),
-        data: {
-          username: this.state.login,
-          email: this.state.email,
-          password: this.state.password,
-        },
-      });
-      if (res.status === 200) {
-        message.success('Account has been created.');
-        document.location.href = '/login';
-      } else if (res.status === 409) {
-        message.error('This email is already taken.');
-        this.setState({ emailExists: true });
-      } else {
-        this.setState({ invalidData: true });
-      }
-    } catch (err) {
-      console.error('Error Registration:', err);
+    await axios({
+      method: 'post',
+      url: '/api/users',
+      headers: setHeaders(),
+      data: {
+        username: this.state.login,
+        email: this.state.email,
+        password: this.state.password,
+      },
+    }).then(
+      (res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          message.success('Account has been created!', 3).then((document.location.href = '/login'));
+        }
+      },
+      (err) => {
+        message.error(err.response.data);
+      },
+    );
+  };
+
+  nameValidate = () => {
+    if (this.state.login.length < 6 || this.state.login.length > 16) {
+      message.error('Login must be 6-16 letters long.', 3);
+      this.setState({ invalidData: true });
+    }
+  };
+
+  passwordValidate = () => {
+    if (this.state.password.length < 8) {
+      message.error('Password must be at least 8 characters long.', 3);
+      this.setState({ invalidData: true });
+    }
+    if (this.state.repPassword !== this.state.password) {
+      message.error('Both passwords must be the same.', 3);
       this.setState({ invalidData: true });
     }
   };
 
   onButtonSubmit = async (e) => {
+    this.setState({ invalidData: false });
     e.preventDefault();
-    this.postUser();
+    await this.nameValidate();
+    await this.passwordValidate();
+    if (this.state.invalidData === false) {
+      await this.postUser();
+    }
   };
 
   handleChange = (e) => {
@@ -108,7 +123,7 @@ class RegisterPanel extends React.Component {
             </p>
           </form>
           <div>
-            jeśli masz już konto -<NavLink to="/login">zaloguj się</NavLink>
+            Jeśli masz już konto - <NavLink to="/login">zaloguj się</NavLink>
           </div>
         </div>
       </div>

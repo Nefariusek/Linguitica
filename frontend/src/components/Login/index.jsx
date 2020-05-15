@@ -7,7 +7,7 @@ import Homepage from '../Homepage';
 
 const Login = () => {
   return (
-    <div classname="loginPanel">
+    <div className="loginPanel">
       <BrowserRouter>
         <Route exact path="/login" component={LoginPanel} />
         <Route exact path="/passwordreset" component={PasswordReset} />
