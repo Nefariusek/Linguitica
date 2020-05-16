@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CardsContent from './CardsContent';
-import { Layout, Menu, Empty, Button, Badge } from 'antd';
+import { Layout, Menu, Empty, Button } from 'antd';
 import { FileOutlined } from '@ant-design/icons';
 import FlashsetCreate from './FlashsetCreate';
 import FlashsetDelete from './FlashsetDelete';
@@ -24,7 +24,6 @@ class FlashsetsContent extends Component {
     temp2: false,
     temp3: true,
     created: false,
-    counter: 0,
   };
   static contextType = Store;
 
@@ -80,16 +79,14 @@ class FlashsetsContent extends Component {
 
     if (this.state.created === true) {
       this.setState({ temp2: false });
-      setTimeout(this.setState({ temp2: true }), 100);
+      //setTimeout(this.setState({ temp2: false }), 300);
+      this.changeTemp();
     }
-  };
-
-  myCallbackCounter = async (dataFromChild) => {
-    await this.setState({ counter: dataFromChild });
   };
 
   changeTemp = async () => {
     await this.setState({ temp: true });
+    await this.setState({ temp2: true });
   };
 
   handleChange = (e) => {
@@ -104,7 +101,7 @@ class FlashsetsContent extends Component {
       currentFlashsetID: e.item.props.id,
     });
 
-    this.setState({ temp2: true, counter: 0 });
+    this.setState({ temp2: true });
   };
   render() {
     return (
@@ -176,7 +173,7 @@ class FlashsetsContent extends Component {
           <Content style={{ margin: '24px 16px 0' }} className="content-flashcards">
             <div className="site-layout-background" style={{ padding: 24 }}>
               {this.state.temp2 ? (
-                <CardsContent id={this.state.currentFlashsetID} callbackFromParent={this.myCallbackCounter} />
+                <CardsContent id={this.state.currentFlashsetID} />
               ) : (
                 <Empty description={false} image={false}>
                   <div style={{ fontSize: 30 }}>
@@ -185,23 +182,6 @@ class FlashsetsContent extends Component {
                 </Empty>
               )}
             </div>
-            {this.state.counter > 0 ? (
-              <div className="learn-flashsets">
-                <Badge count={this.state.counter} overflowCount={99}>
-                  <Button className="learn-button-flashsets" shape="round" size="large">
-                    NAUKA
-                  </Button>
-                </Badge>
-              </div>
-            ) : (
-              <div className="learn-flashsets-none">
-                <Badge count={this.state.counter} overflowCount={99}>
-                  <Button className="learn-button-flashsets" shape="round" size="large">
-                    NAUKA
-                  </Button>
-                </Badge>
-              </div>
-            )}
           </Content>
         </Layout>
       </Layout>
