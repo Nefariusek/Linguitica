@@ -3,9 +3,9 @@ import './QuestsContent.css';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-import { Statistic, Menu, message, Button, Modal, Input, Form, InputNumber, DatePicker, Select } from 'antd';
+import { Statistic, Menu, message, Button, Modal, Calendar, Badge } from 'antd';
 
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ScheduleOutlined, CalendarOutlined, TrophyOutlined, BellOutlined } from '@ant-design/icons';
 const { Countdown } = Statistic;
 
 class QuestsContent extends Component {
@@ -25,6 +25,7 @@ class QuestsContent extends Component {
     date: '',
     goal: '',
     addedQuestID: '0',
+    dates: [],
   };
 
   static contextType = Store;
@@ -35,6 +36,7 @@ class QuestsContent extends Component {
     if (count > 0) {
       await this.getQuests(count);
       await this.getAllQuests();
+
       await this.setState({ isLoaded: true });
     }
   };
@@ -59,7 +61,6 @@ class QuestsContent extends Component {
     let index;
     for (index = 0; index < count; index++) {
       await axios({
-        // url: `/api/plants/${this.context.userProfile.plant_id}`,
         url: `/api/quests/${this.state.questsID[index]}`,
         method: 'get',
         headers: setHeaders(),
@@ -153,10 +154,6 @@ class QuestsContent extends Component {
       await this.setState({ isLoaded: true });
     }
   };
-  handleChange = async (e) => {
-    const { value, name } = e.target;
-    await this.setState({ [name]: value });
-  };
 
   handleMenuClick = (e) => {
     console.log('click ', e);
@@ -187,12 +184,6 @@ class QuestsContent extends Component {
     });
   };
 
-  onChangeDate = (value, dateString) => {
-    this.setState({ date: dateString });
-  };
-  onChangePriority = async (value) => {
-    await this.setState({ priority: value });
-  };
   handleCancel = (e) => {
     this.setState({
       visible: false,
@@ -248,19 +239,51 @@ class QuestsContent extends Component {
     await this.setState({
       quests: [],
     });
-    //await this.getQuestsID();
     let count = this.state.questsID.length;
-    // if (count > 0) {
     await this.getQuests(count);
     await this.setState({ isLoaded: true });
-    // }
   };
-  render() {
-    const layout = {
-      labelCol: { span: 5 },
-      wrapperCol: { span: 16 },
-    };
 
+  render() {
+    /*
+    function getListData(value) {
+      
+      for (let i = 0; i < this.state.quests.length; i++) {
+        await this.state.dates.push({
+          finish_date: this.state.quests[i].finish_date,
+          type:
+            (this.state.quests[i].status === 'in_progress' && 'warning') ||
+            (this.state.quests[i].status === 'completed' && 'success') ||
+            (this.state.quests[i].status === 'failed' && 'error'),
+        });
+      }
+  
+      let listData;
+      for (let i = 0; i < this.state.quests.length; i++) {
+        switch (value.date()) {
+          case this.state.quests[i].finish_date:
+            listData = [{ type: this.state.quests[i].status, content: 'fghdfghfdg' }];
+            break;
+
+          default:
+        }
+      }
+      return listData || [];
+    }
+
+    function dateCellRender(value) {
+      const listData = getListData(value);
+      return (
+        <ul className="events">
+          {listData.map((item) => (
+            <li key={item.content}>
+              <Badge status={item.type} text={item.content} />
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    */
     return (
       <>
         <div className="nav-quests">
@@ -272,9 +295,9 @@ class QuestsContent extends Component {
               Wszystkie zadania
             </Menu.Item>
 
-            <Menu.Item className="nav-item-quests" key="new">
-              <PlusOutlined />
-              Dodaj nowe zadanie
+            <Menu.Item className="nav-item-quests" key="schedule">
+              <ScheduleOutlined />
+              Harmonogram
             </Menu.Item>
           </Menu>
         </div>
@@ -287,9 +310,23 @@ class QuestsContent extends Component {
                   this.state.quests.map((val, key) => (
                     <div className="quest-all" key={key}>
                       <h2>opis</h2>
-                      <div className="quest-description"> {val.description}</div>
+                      <div className="quest-description">
+                        {' '}
+                        {val.description} <h3>twój cel</h3> {val.goal}
+                      </div>
                       <div className="quest-attributes">
-                        Długość: {val.duration}dni Priorytet: {val.priority} Cel: {val.goal}
+                        <div className="quest-single-attribute-1">
+                          {' '}
+                          Długość: {val.duration}dni <CalendarOutlined />{' '}
+                        </div>{' '}
+                        <div className="quest-single-attribute-2">
+                          Priorytet: {val.priority}
+                          <BellOutlined />{' '}
+                        </div>
+                        <div className="quest-single-attribute-3">
+                          Doświadczenie:
+                          <TrophyOutlined />{' '}
+                        </div>
                       </div>
                       <div className="quest-info-button">
                         <Button value={key} style={{ height: '7vh', borderRadius: '1000px' }} onClick={this.showModal}>
@@ -328,7 +365,11 @@ class QuestsContent extends Component {
                               <Countdown title="Pozostały czas:" value={val.finish_date} format="D dni HH:mm:ss" />
                             </div>
                           </>
-                        )) || <div>Ukonczyles questa</div>}
+                        )) || (
+                          <div className="quest-completed">
+                            <h1>Zadanie ukończone!</h1>
+                          </div>
+                        )}
 
                       <Modal
                         key={val.key}
@@ -377,9 +418,24 @@ class QuestsContent extends Component {
                     this.state.allQuests.map((val, key) => (
                       <div className="quest-all" key={key}>
                         <h2>opis</h2>
-                        <div className="quest-description"> {val.description}</div>
+                        <div className="quest-description">
+                          {' '}
+                          {val.description}
+                          <h3>cel zadania</h3> {val.goal}
+                        </div>
                         <div className="quest-attributes">
-                          Czas trwania: {val.duration}dni Priorytet: {val.priority} Cel: {val.goal}
+                          <div className="quest-single-attribute-1">
+                            {' '}
+                            Długość: {val.duration}dni <CalendarOutlined />{' '}
+                          </div>{' '}
+                          <div className="quest-single-attribute-2">
+                            Priorytet: {val.priority}
+                            <BellOutlined />{' '}
+                          </div>
+                          <div className="quest-single-attribute-3">
+                            Doświadczenie:
+                            <TrophyOutlined />{' '}
+                          </div>
                         </div>
                         <div className="quest-info-button">
                           <Button
@@ -430,47 +486,9 @@ class QuestsContent extends Component {
                 </div>
               </div>
             )) ||
-            (this.state.current === 'new' && (
-              <div className="container-all">
-                <div className="quest-add">
-                  <Form
-                    {...layout}
-                    name="nest-messages"
-                    onFinish={this.onFinish}
-                    validateMessages={this.validateMessages}
-                  >
-                    <Form.Item label="Cel" rules={[{ required: true }]}>
-                      <Input name="goal" value={this.state.goal} onChange={this.handleChange} />
-                    </Form.Item>
-                    <Form.Item name={'flashset_id'} label="Zestaw(y)">
-                      <Select
-                        mode="multiple"
-                        style={{ width: '100%' }}
-                        placeholder="Wybierz zestawy do których chcesz przypisać zadanie"
-                        onChange={this.handleChange}
-                      ></Select>
-                    </Form.Item>
-                    <Form.Item label="Priorytet" rules={[{ type: 'number', min: 0, max: 5 }]}>
-                      <InputNumber name="priority" value={this.state.priority} onChange={this.onChangePriority} />
-                    </Form.Item>
-                    <Form.Item label="Data">
-                      <DatePicker showTime onChange={this.onChangeDate} name="date" />
-                    </Form.Item>
-                    <Form.Item label="Opis">
-                      <Input.TextArea
-                        autoSize={{ minRows: 3, maxRows: 3 }}
-                        name="description"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Item>
-                    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                      <Button type="primary" htmlType="submit" style={{ width: '15vw', position: 'flex' }}>
-                        Dodaj
-                      </Button>
-                    </Form.Item>
-                  </Form>
-                </div>
+            (this.state.current === 'schedule' && (
+              <div className="container-schedule">
+                <Calendar dateCellRender={this.dateCellRender} />
               </div>
             )) || <div className="container-all">default</div>}
         </div>
