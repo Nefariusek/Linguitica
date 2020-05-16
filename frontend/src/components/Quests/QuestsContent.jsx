@@ -43,8 +43,8 @@ class QuestsContent extends Component {
 
   getQuestsID = async () => {
     await axios({
-      // url: `/api/plants/${this.context.userProfile.plant_id}`,
-      url: `/api/plants/${this.state.plantID}`,
+      url: `/api/plants/${this.context.userProfile.plant_id}`,
+      // url: `/api/plants/${this.state.plantID}`,
       method: 'get',
       headers: setHeaders(),
     }).then(
