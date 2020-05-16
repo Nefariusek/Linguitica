@@ -107,7 +107,7 @@ class WriteLearning extends Component {
         showContent: true,
       });
     } else if (event.keyCode === 13) {
-      if (this.state.isGood === true) {
+      if (this.state.isGood === true || this.state.showContent === true) {
         //    console.log('mozeenter');
         this.updateCard(event);
       }
@@ -137,8 +137,7 @@ class WriteLearning extends Component {
               <div className="tip" style={{ visibility: 'false' }}>
                 {showContent === true ? (
                   <div style={{ display: 'flex', marginTop: '10%', whiteSpace: 'pre' }}>
-                    <h1 style={{ fontWeight: 'bold', color: '#0070ad' }}>Podpowiedź: </h1>
-                    <h1>{this.state.level}</h1>
+                    <h1 style={{ fontWeight: 'bold', color: '#0070ad' }}>{this.state.german}</h1>
                   </div>
                 ) : (
                   ' '
@@ -173,7 +172,7 @@ class WriteLearning extends Component {
                 Sprawdź
               </Button>
               <Button className="tipBtn" onClick={this.toggleVisibility}>
-                Podpowiedź
+                Nie wiem
               </Button>
             </div>
           </div>
