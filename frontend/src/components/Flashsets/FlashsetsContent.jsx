@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CardsContent from './CardsContent';
-import { Layout, Menu, Empty, Button, Badge } from 'antd';
+import { Layout, Menu, Empty, Button } from 'antd';
 import { FileOutlined } from '@ant-design/icons';
 import FlashsetCreate from './FlashsetCreate';
 import FlashsetDelete from './FlashsetDelete';
@@ -8,8 +8,6 @@ import CardsCreate from './CardsCreate';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-//import { LoadingOutlined } from '@ant-design/icons';
-//const antIcon = <LoadingOutlined style={{ fontSize: 24, color: 'black' }} spin />;
 
 const { Header, Content, Sider } = Layout;
 
@@ -26,53 +24,23 @@ class FlashsetsContent extends Component {
     temp2: false,
     temp3: true,
     created: false,
-    counter: 0,
   };
   static contextType = Store;
 
   componentDidMount = async () => {
     console.log(this.context);
-    //getting user ID from localstorage
-    //let ID = localStorage.getItem('id');
-    //await this.setState({ userID: ID });
-    // console.log('ID uzytkownika: ', this.state.userID);
-
-    //getting plantID
-    // await this.getPlantID();
-
-    //getting flashsetsID
     await this.getFlashsetsID();
-    //console.log('ID flashsetow: ', this.state.flashsetsID);
 
     this.setState({
       currentFlashsetID: this.state.flashsetsID[0],
     });
-
     let count = this.state.flashsetsID.length;
-
-    //console.log(count);
     if (count > 0) {
       await this.setState({ temp3: false });
       await this.getFlashsets(count);
-      // console.log(this.state.flashsets);
       await this.changeTemp(count);
     }
   };
-
-  // getPlantID = async () => {
-  //   await axios({
-  //     url: `/api/users/${this.state.userID}`,
-  //     method: 'get',
-  //     headers: setHeaders(),
-  //   }).then(
-  //     (response) => {
-  //       this.setState({ plantID: response.data.plant_id[0] });
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //   );
-  // };
 
   getFlashsetsID = async () => {
     await axios({
@@ -89,7 +57,6 @@ class FlashsetsContent extends Component {
     );
   };
 
-  //getting flashsets
   getFlashsets = async (count) => {
     let index;
     for (index = 0; index < count; index++) {
@@ -112,16 +79,14 @@ class FlashsetsContent extends Component {
 
     if (this.state.created === true) {
       this.setState({ temp2: false });
-      setTimeout(this.setState({ temp2: true }), 100);
+      //setTimeout(this.setState({ temp2: false }), 300);
+      this.changeTemp();
     }
-  };
-
-  myCallbackCounter = async (dataFromChild) => {
-    await this.setState({ counter: dataFromChild });
   };
 
   changeTemp = async () => {
     await this.setState({ temp: true });
+    await this.setState({ temp2: true });
   };
 
   handleChange = (e) => {
@@ -136,7 +101,7 @@ class FlashsetsContent extends Component {
       currentFlashsetID: e.item.props.id,
     });
 
-    this.setState({ temp2: true, counter: 0 });
+    this.setState({ temp2: true });
   };
   render() {
     return (
@@ -208,7 +173,7 @@ class FlashsetsContent extends Component {
           <Content style={{ margin: '24px 16px 0' }} className="content-flashcards">
             <div className="site-layout-background" style={{ padding: 24 }}>
               {this.state.temp2 ? (
-                <CardsContent id={this.state.currentFlashsetID} callbackFromParent={this.myCallbackCounter} />
+                <CardsContent id={this.state.currentFlashsetID} />
               ) : (
                 <Empty description={false} image={false}>
                   <div style={{ fontSize: 30 }}>
@@ -217,23 +182,6 @@ class FlashsetsContent extends Component {
                 </Empty>
               )}
             </div>
-            {this.state.counter > 0 ? (
-              <div className="learn-flashsets">
-                <Badge count={this.state.counter} overflowCount={99}>
-                  <Button className="learn-button-flashsets" shape="round" size="large">
-                    NAUKA
-                  </Button>
-                </Badge>
-              </div>
-            ) : (
-              <div className="learn-flashsets-none">
-                <Badge count={this.state.counter} overflowCount={99}>
-                  <Button className="learn-button-flashsets" shape="round" size="large">
-                    NAUKA
-                  </Button>
-                </Badge>
-              </div>
-            )}
           </Content>
         </Layout>
       </Layout>

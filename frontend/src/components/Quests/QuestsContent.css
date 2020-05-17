@@ -1,0 +1,284 @@
+.nav-quests {
+  max-width: 40vw;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.container-all {
+  margin-left: auto;
+  margin-right: auto;
+}
+.container-schedule {
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 1150px) {
+  .container-all {
+    max-width: 80vw;
+    min-width: 50vw;
+    min-height: 100vh;
+  }
+  .container-schedule {
+    max-width: 70vw;
+    min-width: 50vw;
+    min-height: 80vh;
+  }
+  .quest-all {
+    background-color: rgb(228, 227, 228);
+    border-radius: 10px 40px;
+    margin: 10px;
+    max-width: 45vw;
+    min-width: 38vw;
+    min-height: 35vh;
+    max-height: 37vh;
+    display: inline-block;
+    text-align: center;
+  }
+  .quest-all h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    max-width: 85%;
+    border-radius: 20px 20px 0 0;
+    margin-top: 10px;
+    background-color: lightseagreen;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .quest-all h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    max-width: 75%;
+    border-radius: 20px;
+    margin-top: 25px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .quest-description {
+    font-size: 16px;
+    max-width: 85%;
+    border-radius: 0 0 20px 20px;
+    background-color: rgb(185, 223, 221);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 15vh;
+  }
+  .quest-completed {
+    padding-top: 0;
+  }
+
+  .quest-attributes {
+    font-size: 16px;
+    max-width: 100%;
+    margin-top: 20px;
+    background-color: rgb(219, 202, 197);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 5vh;
+  }
+  .quest-single-attribute-1 {
+    display: inline;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 20px;
+    margin-right: 0.8rem;
+    padding-left: 0.3rem;
+    padding-bottom: 0.45rem;
+  }
+  .quest-single-attribute-2 {
+    display: inline;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 20px;
+    margin-right: 0.8rem;
+    padding-left: 0.3rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .quest-single-attribute-3 {
+    display: inline;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 20px;
+    margin-right: 0.2rem;
+    padding-left: 0.2rem;
+    padding-right: 0.3rem;
+    padding-bottom: 0.45rem;
+  }
+  .quest-countdown {
+    max-width: 70%;
+
+    margin-right: auto;
+    min-height: 5vh;
+  }
+  .quest-info-button {
+    float: right;
+
+    justify-content: flex-end;
+    display: flex;
+    margin: 10px;
+  }
+  .quest-add {
+    margin-top: 6vh;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50vw;
+    background-color: rgb(224, 223, 223);
+    border-radius: 50px;
+    padding: 40px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 1150px) {
+  .container-all {
+    max-width: 80vw;
+    min-width: 50vw;
+    max-height: 60vh;
+    min-height: 30vh;
+  }
+  .container-schedule {
+    max-width: 60vw;
+    min-width: 50vw;
+    min-height: 50vh;
+  }
+  .quest-all {
+    background-color: rgb(228, 227, 228);
+    margin: 10px;
+    max-width: 80vw;
+    min-width: 80vw;
+    min-height: 50vh;
+    max-height: 50vh;
+
+    text-align: center;
+    border-radius: 10px 40px;
+  }
+
+  .quest-all h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    max-width: 85%;
+    border-radius: 20px 20px 0 0;
+    margin-top: 15px;
+    background-color: lightseagreen;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .quest-all h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    max-width: 75%;
+    border-radius: 20px;
+    margin-top: 25px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .quest-description {
+    font-size: 16px;
+    max-width: 85%;
+    border-radius: 0 0 20px 20px;
+    background-color: rgb(185, 223, 221);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 25vh;
+  }
+
+  .quest-attributes {
+    font-size: 16px;
+    max-width: 100%;
+    margin-top: 20px;
+    background-color: rgb(219, 202, 197);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 5vh;
+  }
+  .quest-single-attribute-1 {
+    display: inline;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 20px;
+    margin-right: 0.8rem;
+    padding-left: 0.3rem;
+    padding-bottom: 0.45rem;
+  }
+  .quest-single-attribute-2 {
+    display: inline;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 20px;
+    margin-right: 0.8rem;
+    padding-left: 0.3rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .quest-single-attribute-3 {
+    display: inline;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 20px;
+    margin-right: 0.2rem;
+    padding-left: 0.2rem;
+    padding-right: 0.3rem;
+    padding-bottom: 0.45rem;
+  }
+  .quest-countdown {
+    font-size: 16px;
+    max-width: 70%;
+
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 5vh;
+  }
+  .quest-info-button {
+    float: right;
+
+    justify-content: flex-end;
+    display: flex;
+    margin: 10px;
+  }
+  .quest-add {
+    margin-top: 6vh;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50vw;
+    background-color: rgb(224, 223, 223);
+    border-radius: 50px;
+    padding: 40px;
+  }
+}
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.events .ant-badge-status {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.notes-month {
+  text-align: center;
+  font-size: 28px;
+}
+.notes-month section {
+  font-size: 28px;
+}
