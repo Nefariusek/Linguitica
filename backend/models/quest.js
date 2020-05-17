@@ -40,6 +40,10 @@ const questSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  copy: {
+    type: Boolean,
+    default: false,
+  },
   flashset_id: {
     type: [ObjectId],
     required: true,
@@ -47,11 +51,9 @@ const questSchema = new mongoose.Schema({
   },
 });
 
-const validateQuest = quest => {
+const validateQuest = (quest) => {
   const schema = Joi.object({
-    goal: Joi.string()
-      .required()
-      .max(255),
+    goal: Joi.string().required().max(255),
     category: Joi.string(), //.valid()
     status: Joi.string().valid('in_progress', 'failed', 'completed'),
     finish_date: Joi.date(),
@@ -59,6 +61,7 @@ const validateQuest = quest => {
     description: Joi.string().max(420),
     priority: Joi.number().valid(0, 1, 2, 3, 4, 5),
     is_requrring: Joi.boolean(),
+    copy: Joi.boolean(),
     flashset_id: Joi.array().items(Joi.objectId()),
   });
 

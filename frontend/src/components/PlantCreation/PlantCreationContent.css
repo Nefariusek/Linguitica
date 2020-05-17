@@ -41,6 +41,10 @@
     grid-column: 2/6;
     grid-row: 3/8;
   }
+  .PlantImage img {
+    grid-column: 2/6;
+    grid-row: 3/8;
+  }
   .PlantInfo {
     grid-column: 7/12;
     grid-row: 3/8;
@@ -75,10 +79,16 @@
   text-align: center;
   height: 100%;
   line-height: 100%;
-  background: #364d79;
+  background: #fff;
   overflow: hidden;
 }
 
-.ant-carousel .slick-slide h3 {
-  color: #fff;
+.ant-carousel .slick-slide img {
+  zoom: 2;
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
 }
