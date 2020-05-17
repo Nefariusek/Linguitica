@@ -6,6 +6,9 @@ body {
   font-family: 'Prompt', sans-serif;
 }
 
+.AppContent {
+  min-height: 100vh;
+}
 /*-------------------------------login -------------------*/
 
 .login-logo {
@@ -662,6 +665,11 @@ body {
 
 .ant-menu-horizontal > .ant-menu-item > a:hover {
   color: white;
+}
+
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub {
+  background-color: #1890ff;
 }
 
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
