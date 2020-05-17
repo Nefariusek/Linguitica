@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { List, Modal, Input, Button } from 'antd';
-import { EditOutlined, StarOutlined, StarFilled, DeleteOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import { Modal, Input, Button, Table, Space } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
+
 class CardsContent extends Component {
   state = {
     minValue: 0,
@@ -19,13 +22,27 @@ class CardsContent extends Component {
     pol: '',
     niem: '',
     kat: '',
+    selectedRowKeys: [],
+    selectedFlashcards: [],
+    loaded: false,
+    data: [],
   };
 
   getFlashcards = async () => {
     const response = await fetch(`/api/flashsets/${this.state.flashsetID}`, setHeaders());
     const body = await response.json();
-    this.setState({ flashsets: body });
-    // console.log(this.state.flashsets);
+    await this.setState({ flashsets: body });
+
+    for (let i = 0; i < this.state.flashsets.flashcards.length; i++) {
+      await this.state.data.push({
+        key: i,
+        polish: this.state.flashsets.flashcards[i].polish,
+        german: this.state.flashsets.flashcards[i].german,
+        category: this.state.flashsets.flashcards[i].category,
+      });
+    }
+    console.log('data', this.state.data);
+    await this.setState({ loaded: true });
   };
 
   componentDidMount() {
@@ -34,13 +51,17 @@ class CardsContent extends Component {
       const { temp } = this.state;
       temp[i] = false;
     }
+    this.setState({ loaded: false });
     console.log(this.state.flashsetID);
     this.getFlashcards();
   }
 
   componentDidUpdate = async () => {};
-  handleOpen = (e) => {
+
+  handleOpen = async (e) => {
     this.setState({ open: true });
+    console.log(e.target.value);
+
     this.setState({
       curID: e.target.value,
       curPolish: this.state.flashsets.flashcards[e.target.value].polish,
@@ -49,7 +70,7 @@ class CardsContent extends Component {
     });
   };
   handleClose = () => {
-    this.setState({ open: false, curPolish: '', niem: '', kat: '' });
+    this.setState({ open: false, pol: '', niem: '', kat: '' });
   };
 
   handleDelete = async (e) => {
@@ -57,20 +78,37 @@ class CardsContent extends Component {
     flashcards.splice([e.target.value], 1);
     console.log(flashcards);
     await this.setState({ flashcards });
+
+    this.setState({ loaded: false, data: [] });
+
+    await this.saveChanges();
+    this.getFlashcards();
+  };
+
+  saveChanges = async () => {
+    await axios({
+      url: `/api/flashsets/${this.state.flashsetID}`,
+      method: 'put',
+      data: {
+        flashcards: this.state.flashsets.flashcards,
+      },
+      headers: setHeaders(),
+    }).then((res) => this.setState({ loaded: false }));
   };
 
   handleOk = async () => {
-    //console.log(this.state.curID);
-
     const { flashcards } = this.state.flashsets;
 
-    flashcards[this.state.curID].polish = this.state.pol;
-    flashcards[this.state.curID].german = this.state.niem;
-    flashcards[this.state.curID].category = this.state.kat;
-    console.log(flashcards);
+    if (this.state.pol !== '') flashcards[this.state.curID].polish = this.state.pol;
+    if (this.state.niem !== '') flashcards[this.state.curID].german = this.state.niem;
+    if (this.state.kat !== '') flashcards[this.state.curID].category = this.state.kat;
 
     await this.setState({ flashcards });
-    this.handleClose();
+    await this.handleClose();
+    this.setState({ pol: '', niem: '', kat: '', loaded: false, data: [] });
+
+    await this.saveChanges();
+    this.getFlashcards();
   };
 
   handleChange = (e) => {
@@ -78,17 +116,118 @@ class CardsContent extends Component {
     this.setState({ [name]: value });
   };
 
-  handleStar = async (e) => {
-    console.log(e.target.value);
+  onSelectChange = async (selectedRowKeys) => {
+    await this.setState({ selectedFlashcards: [] });
+    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    this.setState({ selectedRowKeys });
 
-    const { temp } = this.state;
-    temp[e.target.value] = !temp[e.target.value];
-    await this.setState({ temp });
+    for (let i = 0; i < selectedRowKeys.length; i++) {
+      this.state.selectedFlashcards.push(this.state.flashsets.flashcards[selectedRowKeys[i]]);
+    }
+    console.log('wybrane fiszki: ', this.state.selectedFlashcards);
   };
   render() {
+    const columns = [
+      {
+        title: 'Polski',
+        dataIndex: 'polish',
+      },
+      {
+        title: 'Niemiecki',
+        dataIndex: 'german',
+      },
+      {
+        title: 'Kategoria',
+        dataIndex: 'category',
+      },
+      {
+        title: 'Opcje',
+        dataIndex: 'action',
+        fixed: 'false',
+        render: (key, record) => (
+          <Space size="middle">
+            <Button className="card-icon" onClick={this.handleOpen} value={record.key}>
+              <EditOutlined key="edit" />
+            </Button>
+            <Button className="card-icon" onClick={this.handleDelete} value={record.key}>
+              <DeleteOutlined key="delete" />
+            </Button>
+          </Space>
+        ),
+      },
+    ];
+    const { loading, selectedRowKeys } = this.state;
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+    };
+    const hasSelected = selectedRowKeys.length > 0;
+
     return (
       <>
-        <List
+        <div style={{ marginTop: 0 }}>
+          <div style={{ marginBottom: 16, paddingTop: 0 }}>
+            <Link
+              to={{
+                pathname: '/learning',
+                flashcards: this.state.selectedFlashcards,
+              }}
+            >
+              <Button type="primary" onClick={this.handleStart} disabled={!hasSelected} loading={loading}>
+                Nauka
+              </Button>
+            </Link>
+            <span style={{ marginLeft: 8 }}>{hasSelected ? `Wybrano ${selectedRowKeys.length}` : ''}</span>
+          </div>
+          {this.state.loaded ? (
+            <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.data}></Table>
+          ) : (
+            <h1></h1>
+          )}
+        </div>
+
+        <Modal
+          title="Edycja fiszki"
+          visible={this.state.open}
+          onOk={this.handleOk}
+          //confirmLoading={confirmLoading}
+          onCancel={this.handleClose}
+        >
+          <h4>Polskie tłumaczenie:</h4>
+          <Input
+            name="pol"
+            onChange={this.handleChange}
+            style={{ marginTop: 10, marginBottom: 20 }}
+            placeholder={this.state.curPolish}
+            value={this.state.pol}
+          ></Input>
+          <h4>Niemieckie tłumaczenie:</h4>
+          <Input
+            name="niem"
+            onChange={this.handleChange}
+            style={{ marginBottom: 20 }}
+            placeholder={this.state.curGerman}
+            value={this.state.niem}
+          ></Input>
+          <h4>Kategoria:</h4>
+          <Input
+            name="kat"
+            onChange={this.handleChange}
+            style={{ marginBottom: 20 }}
+            placeholder={this.state.curCategory}
+            value={this.state.kat}
+          ></Input>
+        </Modal>
+      </>
+    );
+  }
+}
+
+export default CardsContent;
+//<h2>Edycja fiszki ID: {this.state.curID}</h2>
+
+/*
+  <List
           itemLayout="horizontal"
           dataSource={this.state.flashsets.flashcards}
           renderItem={(item, index) => (
@@ -104,8 +243,12 @@ class CardsContent extends Component {
                   <EditOutlined key="edit" />
                 </Button>
 
-                <Button className="card-icon" onClick={this.handleStar} value={index} id={item._id}>
-                  {this.state.temp[index] ? <StarFilled key="add" /> : <StarOutlined key="add" />}
+                <Button className="card-icon" onClick={this.handlePlus} value={index} id={item._id}>
+                  {this.state.temp[index] ? (
+                    <PlusCircleFilled key="add" style={{ color: 'red' }} />
+                  ) : (
+                    <PlusCircleOutlined key="add" />
+                  )}
                 </Button>
                 <Button className="card-icon" onClick={this.handleDelete} value={index}>
                   <DeleteOutlined key="delete" />
@@ -113,40 +256,4 @@ class CardsContent extends Component {
               </div>
             </List.Item>
           )}
-        />
-        <Modal
-          title="Edycja fiszki"
-          visible={this.state.open}
-          onOk={this.handleOk}
-          //confirmLoading={confirmLoading}
-          onCancel={this.handleClose}
-        >
-          <h4>Polskie tłumaczenie:</h4>
-          <Input
-            name="pol"
-            onChange={this.handleChange}
-            style={{ marginTop: 10, marginBottom: 20 }}
-            placeholder={this.state.curPolish}
-          ></Input>
-          <h4>Niemieckie tłumaczenie:</h4>
-          <Input
-            name="niem"
-            onChange={this.handleChange}
-            style={{ marginBottom: 20 }}
-            placeholder={this.state.curGerman}
-          ></Input>
-          <h4>Kategoria:</h4>
-          <Input
-            name="kat"
-            onChange={this.handleChange}
-            style={{ marginBottom: 20 }}
-            placeholder={this.state.curCategory}
-          ></Input>
-        </Modal>
-      </>
-    );
-  }
-}
-
-export default CardsContent;
-//<h2>Edycja fiszki ID: {this.state.curID}</h2>
+        /> */

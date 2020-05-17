@@ -58,6 +58,7 @@ const createFlashsets = async (amount, models, flashcardCatalog) => {
     flashcards = [];
     flashcards.push(flashcardCatalog[x] === undefined ? null : new Flashcard(defaultFlashcards[0]));
     return {
+      title: 'InitializerSet',
       flashcards,
     };
   });
@@ -131,23 +132,23 @@ const flashcardInitializer = async (models, idCatalog) => {
 };
 
 const flashsetInitializer = async (models, idCatalog) => {
-  return await createFlashsets(5, models, idCatalog['flashcard']);
+  return await createFlashsets(1, models, idCatalog['flashcard']);
 };
 
 const questInitializer = async (models, idCatalog) => {
-  return await createQuests(5, models, idCatalog['flashset']);
+  return await createQuests(1, models, idCatalog['flashset']);
 };
 
 const statisticsInitializer = async (models, idCatalog) => {
-  return await createStatistics(5, models);
+  return await createStatistics(1, models);
 };
 
 const plantInitializer = async (models, idCatalog) => {
-  return await createPlants(5, models, idCatalog['quest'], idCatalog['statistics']);
+  return await createPlants(1, models, idCatalog['quest'], idCatalog['statistics']);
 };
 
 const userInitializer = async (models, idCatalog) => {
-  return await createUsers(5, models, idCatalog['plant']);
+  return await createUsers(1, models, idCatalog['plant']);
 };
 
 const defaultInitializers = new Map([

@@ -28,6 +28,8 @@ export default class FlashsetDelete extends Component {
     this.deleteFlashsetsID();
     console.log(this.state.flashsetID);
     console.log(this.state.body);
+    this.handleClose();
+    window.location.reload(false);
   };
 
   deleteFlashsetsID = async () => {

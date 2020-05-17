@@ -8,8 +8,6 @@ import CardsCreate from './CardsCreate';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-//import { LoadingOutlined } from '@ant-design/icons';
-//const antIcon = <LoadingOutlined style={{ fontSize: 24, color: 'black' }} spin />;
 
 const { Header, Content, Sider } = Layout;
 
@@ -25,93 +23,28 @@ class FlashsetsContent extends Component {
     temp: false,
     temp2: false,
     temp3: true,
+    created: false,
   };
   static contextType = Store;
 
   componentDidMount = async () => {
-    //getting user ID from localstorage
-    let ID = localStorage.getItem('id');
-    await this.setState({ userID: ID });
-    // console.log('ID uzytkownika: ', this.state.userID);
-
-    //getting plantID
-    await this.getPlantID();
-    //console.log('ID plantsa: ', this.state.plantID);
-
-    //getting questID
-    //await this.getQuestID();
-    //console.log('ID questa: ', this.state.questID);
-
-    //getting flashsetsID
+    console.log(this.context);
     await this.getFlashsetsID();
-    //console.log('ID flashsetow: ', this.state.flashsetsID);
 
     this.setState({
       currentFlashsetID: this.state.flashsetsID[0],
     });
-
     let count = this.state.flashsetsID.length;
-
-    //console.log(count);
     if (count > 0) {
       await this.setState({ temp3: false });
       await this.getFlashsets(count);
-      // console.log(this.state.flashsets);
       await this.changeTemp(count);
     }
   };
-  refresh = async () => {
-    await this.getFlashsetsID();
-    // console.log('ID flashsetow: ', this.state.flashsetsID);
 
-    this.setState({
-      currentFlashsetID: this.state.flashsetsID[0],
-    });
-
-    let count = this.state.flashsetsID.length;
-
-    // console.log(count);
-    if (count > 0) {
-      await this.setState({ temp3: false });
-      await this.getFlashsets(count);
-      //console.log(this.state.flashsets);
-      await this.changeTemp(count);
-    }
-  };
-  getPlantID = async () => {
-    await axios({
-      url: `/api/users/${this.state.userID}`,
-      method: 'get',
-      headers: setHeaders(),
-    }).then(
-      (response) => {
-        this.setState({ plantID: response.data.plant_id[0] });
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
-  };
-
-  /*
-  getQuestID = async () => {
-    await axios({
-      url: `/api/plants/${this.state.plantID}`,
-      method: 'get',
-      headers: setHeaders(),
-    }).then(
-      (response) => {
-        this.setState({ questID: response.data.quests[0] });
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
-  };
-*/
   getFlashsetsID = async () => {
     await axios({
-      url: `/api/plants/${this.state.plantID}`,
+      url: `/api/plants/${this.context.userProfile.plant_id}`,
       method: 'get',
       headers: setHeaders(),
     }).then(
@@ -124,7 +57,6 @@ class FlashsetsContent extends Component {
     );
   };
 
-  //getting flashsets
   getFlashsets = async (count) => {
     let index;
     for (index = 0; index < count; index++) {
@@ -142,16 +74,19 @@ class FlashsetsContent extends Component {
       );
     }
   };
+  myCallback = async (dataFromChild) => {
+    await this.setState({ created: dataFromChild });
+
+    if (this.state.created === true) {
+      this.setState({ temp2: false });
+      //setTimeout(this.setState({ temp2: false }), 300);
+      this.changeTemp();
+    }
+  };
 
   changeTemp = async () => {
     await this.setState({ temp: true });
-  };
-
-  componentDidUpdate = async (prevProps, prevState) => {
-    if (prevState.flashsets !== this.state.flashsets) {
-      await this.refresh();
-      console.log('po aktualizacji:', this.state.flashsets);
-    }
+    await this.setState({ temp2: true });
   };
 
   handleChange = (e) => {
@@ -160,10 +95,6 @@ class FlashsetsContent extends Component {
   };
 
   handleClick = async (e) => {
-    //console.log('click ', e);
-    //console.log(e.item.props.title);
-
-    //console.log(e.item.props.id);
     await this.setState({
       temp2: false,
       currentTitle: e.item.props.title,
@@ -216,7 +147,11 @@ class FlashsetsContent extends Component {
             {this.state.currentTitle}
 
             {this.state.temp2 ? (
-              <CardsCreate temp={this.state.temp2} flashsetID={this.state.currentFlashsetID} />
+              <CardsCreate
+                callbackFromParent={this.myCallback}
+                temp={this.state.temp2}
+                flashsetID={this.state.currentFlashsetID}
+              />
             ) : (
               <Button
                 onClick={this.handleOpen}

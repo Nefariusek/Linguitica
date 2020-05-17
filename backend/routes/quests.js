@@ -33,4 +33,25 @@ router.get('/', async (req, res) => {
 
 //Updating quest ... [TODO]
 
+//Update status
+router.put('/:id/status', async (req, res) => {
+  const Quest = res.locals.models.quest;
+
+  let quest;
+
+  quest = await Quest.findByIdAndUpdate(
+    req.params.id,
+    {
+      status: req.body.status,
+      finish_date: req.body.finish_date,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!quest) return res.status(404).send('Quest with the given ID was not found.');
+
+  res.send('Quests status changed');
+});
 module.exports = router;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Layout, Row, Col, Card, Avatar } from 'antd';
-import rose6 from '../../images/rose6.PNG';
+import { Layout, Row, Col, Card } from 'antd';
+import rose6 from '../../images/rose/rose6.PNG';
 
 class StatisticsContent extends Component {
   render() {
@@ -10,7 +10,7 @@ class StatisticsContent extends Component {
           <Col span={3}>
             <Card title="twoja roślinka" style={{ width: 400, padding: 6 }}>
               <Row justify="space-around" gutter={16}>
-                <img src={rose6} style={{ width: 200 }}></img>
+                <img alt="plant" src={rose6} style={{ width: 200 }}></img>
               </Row>
               <p>Czas życia: 16 dni</p>
               <p></p>
@@ -18,16 +18,25 @@ class StatisticsContent extends Component {
           </Col>
           <Col span={3}>
             <Card title="nauka" style={{ width: 400, padding: 6 }}>
-              <p>Liczba nauczonych słówek: 56 </p>
-              <p>Słówka nauczone dzisiaj: 6</p>
-              <p>Liczba ukończonych misji: 78 </p>
+              <p>
+                Liczba nauczonych słówek: <strong>26</strong>
+              </p>
+              <p>
+                Słówka nauczone dzisiaj: <strong>2</strong>
+              </p>
+              <p>
+                Liczba ukończonych misji: <strong>3</strong>{' '}
+              </p>
             </Card>
           </Col>
           <Col span={3}>
             <Card title="bitwy" style={{ width: 400, padding: 6 }}>
-              <p>Liczba wygranych bitw:</p>
               <p>
-                <strong>value</strong>
+                Liczba wygranych bitw: <strong>value</strong>
+              </p>
+
+              <p>
+                Liczba rozegranych bitw: <strong>value</strong>
               </p>
             </Card>
           </Col>
