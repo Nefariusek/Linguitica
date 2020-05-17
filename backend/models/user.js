@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema({
     trim: true,
   },
   plant_id: {
-    type: [ObjectId],
-    default: [],
+    type: ObjectId,
+    default: null,
     ref: 'Plant',
   },
 });
@@ -37,7 +37,7 @@ const validateUser = (user) => {
     username: Joi.string().required().min(6).max(16).trim(),
     email: Joi.string().required().max(255).trim(),
     password: Joi.string().required().min(8).max(1024).trim(),
-    plant_id: Joi.array().items(Joi.objectId()),
+    plant_id: Joi.objectId(),
   });
 
   return schema.validate(user);

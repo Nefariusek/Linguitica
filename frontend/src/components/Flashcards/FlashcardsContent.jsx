@@ -12,11 +12,13 @@ class FlashcardsContent extends Component {
     category: 'wszystkie',
     listDataFromChild: [],
     formatList: [],
+    flashcards: [],
   };
 
   //callback zeby pobrac liste wybranych fiszek od komponentu dziecka
   myCallback = async (dataFromChild) => {
-    await this.setState({ listDataFromChild: dataFromChild });
+    await this.setState({ listDataFromChild: dataFromChild[0] });
+    await this.setState({ formatList: dataFromChild[1] });
     console.log('od dziecka', this.state.listDataFromChild);
   };
 
@@ -26,6 +28,7 @@ class FlashcardsContent extends Component {
     this.setState({
       visible: true,
     });
+
     console.log('sformatowana lista', this.state.formatList);
   };
 
@@ -78,9 +81,6 @@ class FlashcardsContent extends Component {
             <option value="C1">C1</option>
             <option value="C2">C2</option>
           </select>
-          <Button type="primary" onClick={this.showDrawer}>
-            Nauka
-          </Button>
           <Drawer
             title="Lista wybranych fiszek"
             placement="right"
@@ -88,14 +88,21 @@ class FlashcardsContent extends Component {
             onClose={this.onClose}
             visible={this.state.visible}
           >
-            {this.state.listDataFromChild.map((value, key) => (
+            {this.state.formatList.map((value, key) => (
               <Button className="button-flashcards" key={key}>
                 {value}
               </Button>
             ))}
-            <Link to="/learning">
-              <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
-            </Link>
+
+            {this.state.formatList.length > 0 ? (
+              <Link to="/learning">
+                <Button className="button-flashcards-start">ROZPOCZNIJ NAUKE!</Button>
+              </Link>
+            ) : (
+              <Button disabled className="button-flashcards-start">
+                ROZPOCZNIJ NAUKE!
+              </Button>
+            )}
           </Drawer>
         </Header>{' '}
         <Content style={{ marginLeft: 20, marginRight: 20 }}>

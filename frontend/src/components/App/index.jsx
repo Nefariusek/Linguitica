@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Layout } from 'antd';
 import { Switch, BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
+
 import NavBar from '../NavBar';
 import Login from '../Login';
 import Register from '../Register';
@@ -13,13 +15,42 @@ import Flashcards from '../Flashcards';
 import PlantCreation from '../PlantCreation';
 import Statistics from '../Statistics';
 import Learning from '../Learning';
-
 import PrivateRoute from '../PrivateRoute';
 import PublicRoute from '../PublicRoute';
+import Store from '../../Store';
 
 import './App.css';
 
 const App = () => {
+  const { isLogged, changeStore } = useContext(Store);
+
+  useEffect(() => {
+    if (!isLogged) return;
+
+    (async () => {
+      await axios({
+        url: 'api/users/userInfo',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('token'),
+        },
+      }).then(
+        (res) => {
+          changeStore('isLogged', true);
+          changeStore('userProfile', res.data);
+          if (res.data.plant_id) {
+            changeStore('hasPlant', true);
+          } else {
+            changeStore('hasPlant', false);
+          }
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
+    })();
+  }, [changeStore, isLogged]);
+
   return (
     <BrowserRouter>
       <Layout>

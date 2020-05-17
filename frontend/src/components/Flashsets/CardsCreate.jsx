@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input } from 'antd';
+import { Button, Modal, Input, Checkbox } from 'antd';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 
@@ -12,15 +12,18 @@ export default class CardsCreate extends Component {
     category: '',
     flashsetID: this.props.flashsetID,
     body: '',
+    checked: false,
   };
   handleOpen = () => {
     this.setState({ open: true });
   };
-  handleClose = () => {
+  handleClose = async () => {
     this.setState({ open: false });
     this.setState({ polish: '' });
     this.setState({ german: '' });
     this.setState({ category: '' });
+    this.setState({ checked: false });
+    this.props.callbackFromParent(true);
   };
 
   handleSubmit = () => {};
@@ -31,7 +34,16 @@ export default class CardsCreate extends Component {
   handleOk = async () => {
     await this.addFlashcard();
     console.log(this.state.body);
-    this.handleClose();
+    if (this.state.checked === false) {
+      this.handleClose();
+      this.props.callbackFromParent(true);
+    } else {
+      this.setState({ open: true });
+      this.setState({ polish: '' });
+      this.setState({ german: '' });
+      this.setState({ category: '' });
+    }
+    // this.props.callbackFromParent(true);
   };
 
   componentDidMount = () => {
@@ -51,7 +63,11 @@ export default class CardsCreate extends Component {
       headers: setHeaders(),
     }).then((res) => this.setState({ body: res.data }));
   };
-
+  handleCheckbox = async (e) => {
+    console.log(e.target);
+    await this.setState({ checked: !this.state.checked });
+    console.log(this.state.checked);
+  };
   render() {
     return (
       <>
@@ -108,8 +124,12 @@ export default class CardsCreate extends Component {
               <option value="internet">Internet</option>
               <option value="ogolne">Ogólne</option>
               <option value="emocje">Emocje</option>
+              <option value="zwierzeta">Zwierzęta</option>
               <option value="inne">Inne</option>
             </select>
+            <Checkbox onChange={this.handleCheckbox} value={this.state.checked}>
+              Dodaj kolejną fiszkę!
+            </Checkbox>
           </form>
         </Modal>
       </>

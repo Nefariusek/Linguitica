@@ -156,4 +156,31 @@ router.put('/:id/flashsets', async (req, res) => {
   res.send(plantt);
 });
 
+//update quest
+router.put('/:id/quests', async (req, res) => {
+  const Plant = res.locals.models.plant;
+
+  const plant = await Plant.findById(req.params.id);
+  if (!plant) res.status(404).send(`Plant with id ${req.params.id} not found!`);
+  res.send(plant);
+
+  plant.quests.push(req.body.quests);
+
+  let plantt;
+
+  plantt = await Plant.findByIdAndUpdate(
+    req.params.id,
+    {
+      quests: plant.quests,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!plantt) return res.status(404).send('Plant with the given ID was not found.');
+
+  res.send(plantt);
+});
+
 module.exports = router;

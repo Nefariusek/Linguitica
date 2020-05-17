@@ -34,9 +34,18 @@ router.get('/', async (req, res) => {
 //Deleting flashset
 router.delete('/:id', async (req, res) => {
   const Flashset = res.locals.models.flashset;
+  const Plant = res.locals.models.plant;
+  //delete from flashsets
   let flashset = await Flashset.findByIdAndRemove(req.params.id, (err) => {
     if (err) res.status(404).send(err);
   });
+  //delete flashset from plants
+  let plant = await Plant.updateMany(
+    {},
+    {
+      $pull: { flashsets: req.params.id },
+    },
+  );
   res.send(`Flashset with id ${req.params.id} deleted`);
 });
 

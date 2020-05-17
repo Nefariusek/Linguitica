@@ -4,7 +4,7 @@ import GuestpageContent from './GuestpageContent';
 const Guestpage = () => {
   return (
     <div>
-      <GuestpageContent />;
+      <GuestpageContent />
     </div>
   );
 };
