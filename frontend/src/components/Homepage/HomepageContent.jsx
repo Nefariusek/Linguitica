@@ -14,8 +14,9 @@ class HomepageContent extends React.Component {
   static contextType = Store;
 
   render() {
-    if (!this.context.hasPlant) return <Redirect to="/plantCreation" />;
-
+    if (!this.context.hasPlant) {
+      return <div>Placeholder</div>;
+    }
     return (
       <Layout className="layout">
         <Content style={{ padding: '0' }}>

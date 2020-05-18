@@ -55,7 +55,7 @@ class ProfileContent extends Component {
     return (
       <div className="Wrapper">
         <div className="ProfilePlantImage">
-          <PlantImage />
+          <PlantImage species={this.state.species} level={this.state.level} />
         </div>
         <div className="ProgressBars">
           <ProgressBar current={this.state.health} maximum={this.state.max_health} />

@@ -129,6 +129,7 @@ class PlantCreationContent extends Component {
     await this.postPlant();
     await this.putPlantId();
     this.context.changeStore('hasPlant', true);
+    this.setState({ hasPlant: true });
   };
 
   handleInputChange = (e) => {
@@ -139,7 +140,7 @@ class PlantCreationContent extends Component {
   };
 
   render() {
-    if (this.context.hasPlant) return <Redirect to="/home" />;
+    if (this.state.hasPlant) return <Redirect to="/home" />;
     return (
       <div className="Wrapper">
         <div className="PlantTitle">
