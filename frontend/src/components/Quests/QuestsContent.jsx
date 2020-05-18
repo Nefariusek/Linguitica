@@ -15,6 +15,8 @@ class QuestsContent extends Component {
     quests: [],
     allQuests: [],
     isLoaded: false,
+    isLoaded2: false,
+    hasQuests: false,
     deadline: [],
     current: 'your',
     visible: false,
@@ -30,15 +32,15 @@ class QuestsContent extends Component {
 
   static contextType = Store;
   componentDidMount = async () => {
-    // console.log(this.context);
+    console.log(this.context);
     await this.getQuestsID();
     let count = this.state.questsID.length;
     if (count > 0) {
       await this.getQuests(count);
-      await this.getAllQuests();
-
       await this.setState({ isLoaded: true });
     }
+    await this.getAllQuests();
+    await this.setState({ isLoaded2: true });
   };
 
   getQuestsID = async () => {
@@ -118,7 +120,7 @@ class QuestsContent extends Component {
 
   putQuest = async () => {
     await axios({
-      url: `/api/plants/${this.state.plantID}/quests`,
+      url: `/api/plants/${this.context.userProfile.plant_id}/quests`,
       method: 'put',
       data: {
         quests: {
@@ -405,8 +407,10 @@ class QuestsContent extends Component {
                       </Modal>
                     </div>
                   ))
+                ) : this.state.hasQuests ? (
+                  <div className="no-quests">Ładowanie zadań...</div>
                 ) : (
-                  <LoadingOutlined />
+                  <div className="no-quests">Wybierz zadanie z dostępnej listy i sprawdź się!</div>
                 )}
               </div>
             </div>
@@ -414,7 +418,7 @@ class QuestsContent extends Component {
             (this.state.current === 'all' && (
               <div className="container-all">
                 <div>
-                  {this.state.isLoaded ? (
+                  {this.state.isLoaded2 ? (
                     this.state.allQuests.map((val, key) => (
                       <div className="quest-all" key={key}>
                         <h2>opis</h2>
@@ -481,7 +485,7 @@ class QuestsContent extends Component {
                       </div>
                     ))
                   ) : (
-                    <LoadingOutlined />
+                    <div className="no-quests">Ładowanie zadań...</div>
                   )}
                 </div>
               </div>
