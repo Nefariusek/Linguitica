@@ -682,6 +682,9 @@ body {
 }
 /* --------------------------------flashsets ------------------------------*/
 
+.ant-empty-description {
+  display: none;
+}
 .site-layout-sub-header-background {
   background: #fff;
   padding: 0;

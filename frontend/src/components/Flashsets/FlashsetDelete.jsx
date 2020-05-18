@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Popconfirm } from 'antd';
+import { Button, Modal, Popconfirm, message } from 'antd';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 export default class FlashsetDelete extends Component {
@@ -7,7 +7,6 @@ export default class FlashsetDelete extends Component {
     open: false,
     body: '',
     temp: false,
-    //flashsetsID: this.props.id,
     flashsets: this.props.id,
     value: '',
     confirm: false,
@@ -16,20 +15,20 @@ export default class FlashsetDelete extends Component {
   handleOpen = () => {
     this.setState({ open: true, temp: true, confirm: false });
     console.log(this.state.flashsets);
-    // this.setState({ temp: true });
-    // this.setState({ confirm: false });
   };
 
   handleClose = () => {
     this.setState({ open: false, temp: false });
-    //this.setState({ temp: false });
+    this.props.callbackFromParent(false);
   };
-  handleOk = () => {
-    this.deleteFlashsetsID();
+  handleOk = async () => {
+    await this.deleteFlashsetsID();
     console.log(this.state.flashsetID);
     console.log(this.state.body);
+
+    await this.props.callbackFromParent(true);
     this.handleClose();
-    window.location.reload(false);
+    message.success('Zestaw usunięty.', 2);
   };
 
   deleteFlashsetsID = async () => {
@@ -47,8 +46,6 @@ export default class FlashsetDelete extends Component {
     );
   };
 
-  componentDidUpdate = () => {};
-
   handleChange = (e) => {
     this.setState({ value: e.target.value });
     this.setState({ flashsetID: e.target.options[e.target.selectedIndex].id });
@@ -65,8 +62,6 @@ export default class FlashsetDelete extends Component {
           className="modal-flashsets"
           title="Usuń wybrany zestaw fiszek!"
           visible={this.state.open}
-          //onOk={this.handleOk}
-          //confirmLoading={confirmLoading}
           onCancel={this.handleClose}
           footer={[
             <Button key="back" onClick={this.handleClose}>
@@ -91,9 +86,10 @@ export default class FlashsetDelete extends Component {
             ),
           ]}
         >
-          <span style={{ textAlign: 'center' }}>Twoje zestawy:</span>
+          <span style={{ textAlign: 'center', fontSize: '24px' }}>Twoje zestawy:</span>
           <br />
-          <select style={{ width: '100%' }} onChange={this.handleChange}>
+
+          <select defaultValue="" style={{ width: '100%' }} onChange={this.handleChange}>
             {this.state.temp ? (
               this.state.flashsets.map((val, keyy) => (
                 <option key={keyy} className="menuitem-flashsets" value={val.title} id={val._id}>
@@ -109,3 +105,4 @@ export default class FlashsetDelete extends Component {
     );
   }
 }
+/* */

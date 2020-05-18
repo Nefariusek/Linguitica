@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input } from 'antd';
+import { Button, Modal, Input, message } from 'antd';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
@@ -9,7 +9,6 @@ export default class FlashsetCreate extends Component {
     open: false,
     title: '',
     plantID: this.props.plantID,
-
     body: '',
   };
 
@@ -22,24 +21,21 @@ export default class FlashsetCreate extends Component {
   handleClose = () => {
     this.setState({ open: false });
     this.setState({ title: '' });
-    //this.props.callbackFromParent(false);
+    this.props.callbackFromParent(false);
   };
-  handleSubmit = () => {
-    // this.addFlashset();
-  };
+
   handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   };
   handleOK = async () => {
-    await this.addFlashset();
-    await this.addFlashsetID();
-    //this.addFlashsetID();
-
-    //window.location.reload(false);
-    //this.props.callbackFromParent(true);
-
-    this.handleClose();
+    if (this.state.title !== '') {
+      await this.addFlashset();
+      await this.addFlashsetID();
+      await this.props.callbackFromParent(true);
+      this.handleClose();
+      message.success('Zestaw utworzony!', 2);
+    } else message.error('Proszę wpisać nazwę zestawu!', 2);
   };
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.plantID !== this.props.plantID) {
@@ -48,7 +44,6 @@ export default class FlashsetCreate extends Component {
     }
   };
 
-  //dodanie nowego zestawu
   addFlashset = async () => {
     await axios({
       url: '/api/flashsets/',
@@ -56,11 +51,6 @@ export default class FlashsetCreate extends Component {
       headers: setHeaders(),
       data: {
         title: this.state.title,
-        flashcards: [
-          {
-            flashcards: [],
-          },
-        ],
       },
     }).then((res) => this.setState({ body: res.data._id }));
   };
