@@ -10,7 +10,7 @@ class ProgressBar extends Component {
   render() {
     return (
       <div>
-        <Progress percent={this.calculateProgress()} />
+        <Progress percent={this.calculateProgress()} showInfo={false} />
       </div>
     );
   }
