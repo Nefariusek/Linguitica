@@ -7,6 +7,8 @@ import setHeaders from '../../utils/setHeaders';
 import ProgressBar from './ProgressBar';
 import './ProfileContent.css';
 
+import Statistics from '../Statistics';
+
 import bonsai1 from '../../images/bonsai/bonsai1.PNG';
 import bonsai2 from '../../images/bonsai/bonsai2.PNG';
 import bonsai3 from '../../images/bonsai/bonsai3.PNG';
@@ -162,6 +164,13 @@ class ProfileContent extends Component {
           <h3>Poziom: {this.state.level}</h3>
           <h3>Wytrzymałość: {this.state.toughness}</h3>
           <h3>Urokliwość: {this.state.charmingness}</h3>
+        </div>
+        <div className="Statistics">
+          <h2>Statystyki nauki</h2>
+          <Statistics />
+        </div>
+        <div className="PasswordChange">
+          <Button>Zmiana hasła</Button>
         </div>
       </div>
     );

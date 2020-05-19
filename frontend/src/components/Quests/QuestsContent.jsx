@@ -3,9 +3,9 @@ import './QuestsContent.css';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-import { Statistic, Menu, message, Button, Modal, Calendar, Badge } from 'antd';
+import { Statistic, Menu, message, Button, Modal, Calendar } from 'antd';
 
-import { LoadingOutlined, ScheduleOutlined, CalendarOutlined, TrophyOutlined, BellOutlined } from '@ant-design/icons';
+import { ScheduleOutlined, CalendarOutlined, TrophyOutlined, BellOutlined } from '@ant-design/icons';
 const { Countdown } = Statistic;
 
 class QuestsContent extends Component {

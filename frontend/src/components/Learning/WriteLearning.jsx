@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import setHeaders from '../../utils/setHeaders';
 import { Input, Form, Button } from 'antd';
-const { Search } = Input;
-
+import Store from '../../Store';
 /* ----- shift - podpowiedz, (trzeba ja wymyslic jeszcze, bo na razie kategoria)
 enter dalej gdy dobra odpowiedz, 
 shift trzeba zmienic, bo jak sie da duza literke to sie włącza podpowiedz 
@@ -28,6 +27,8 @@ class WriteLearning extends Component {
     answer: ' ',
     isGood: ' ',
   };
+
+  static contextType = Store;
 
   updateAnswer(e) {
     this.setState({
@@ -64,8 +65,9 @@ class WriteLearning extends Component {
   };
 
   componentDidMount = async () => {
-    await this.getFlashcards();
-
+    // await this.getFlashcards();
+    await this.setState({ flashcards: this.context.setToLearn });
+    console.log(this.state.flashcards);
     const randNum = Math.floor(Math.random() * this.state.flashcards.length);
     const randCard = this.state.flashcards[randNum].polish;
     const randGer = this.state.flashcards[randNum].german;

@@ -5,10 +5,6 @@
   grid-template-rows: 1em auto;
   grid-gap: 10px;
 }
-/* 
-.ProgressBars {
-  outline-style: dashed;
-} */
 
 @media (min-width: 0px) and (max-width: 768px) {
   .ProfilePlantImage {
@@ -23,6 +19,14 @@
     grid-column: 2/12;
     grid-row: 12/16;
   }
+  .Statistics {
+    grid-column: 2/12;
+    grid-row: 16/20;
+  }
+  .PasswordChange {
+    grid-column: 2/12;
+    grid-row: 20/21;
+  }
 }
 
 @media (min-width: 768px) {
@@ -36,6 +40,14 @@
   }
   .PlantStats {
     grid-column: 2/6;
+    grid-row: 7/10;
+  }
+  .Statistics {
+    grid-column: 7/11;
+    grid-row: 2/7;
+  }
+  .PasswordChange {
+    grid-column: 7/11;
     grid-row: 7/10;
   }
 }

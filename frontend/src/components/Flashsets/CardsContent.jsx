@@ -4,7 +4,7 @@ import { Modal, Input, Button, Table, Space } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
-
+import Store from '../../Store';
 class CardsContent extends Component {
   state = {
     minValue: 0,
@@ -28,6 +28,8 @@ class CardsContent extends Component {
     data: [],
   };
 
+  static contextType = Store;
+
   getFlashcards = async () => {
     const response = await fetch(`/api/flashsets/${this.state.flashsetID}`, setHeaders());
     const body = await response.json();
@@ -42,6 +44,7 @@ class CardsContent extends Component {
       });
     }
     console.log('data', this.state.data);
+    this.context.changeStore('setToLearn', this.state.data);
     await this.setState({ loaded: true });
   };
 
@@ -124,7 +127,7 @@ class CardsContent extends Component {
     for (let i = 0; i < selectedRowKeys.length; i++) {
       this.state.selectedFlashcards.push(this.state.flashsets.flashcards[selectedRowKeys[i]]);
     }
-    console.log('wybrane fiszki: ', this.state.selectedFlashcards);
+    this.context.changeStore('setToLearn', this.state.selectedFlashcards);
   };
   render() {
     const columns = [

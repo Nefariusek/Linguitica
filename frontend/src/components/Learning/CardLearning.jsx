@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 import setHeaders from '../../utils/setHeaders';
-
+import Store from '../../Store';
 /* ----- shift - obraca fiszkę
 enter nastepna 
 jak sie zahaczy o buttona to spacja w sumie tez przewija do nastepnej fiszki
@@ -23,6 +23,8 @@ class CardLearning extends Component {
     changeLanguage: false,
   };
 
+  static contextType = Store;
+
   getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
     const body = await response.json();
@@ -30,8 +32,10 @@ class CardLearning extends Component {
   };
 
   componentDidMount = async () => {
-    await this.getFlashcards();
+    //await this.getFlashcards();
 
+    await this.setState({ flashcards: this.context.setToLearn });
+    console.log(this.state.flashcards);
     const randNum = Math.floor(Math.random() * this.state.flashcards.length);
     const randCard = this.state.flashcards[randNum].polish;
     const randGer = this.state.flashcards[randNum].german;
