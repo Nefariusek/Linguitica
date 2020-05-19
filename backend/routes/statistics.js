@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { validateStatistics } = require('../models/statistics');
 
 //Getting stats by ID
 router.get('/:id', async (req, res) => {
@@ -7,6 +8,17 @@ router.get('/:id', async (req, res) => {
 
   const statistics = await Statistics.findById(req.params.id);
   if (!statistics) res.status(404).send(`Statistics with id ${req.params.id} not found!`);
+  res.send(statistics);
+});
+
+router.post('/', async (req, res) => {
+  const Statistics = res.locals.models.statistics;
+
+  const { error } = validateStatistics(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let statistics = new Statistics(req.body);
+  await statistics.save();
   res.send(statistics);
 });
 

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import UserInformation from './UserInformation';
 
 import Store from '../../Store';
+import './HomepageContent.css';
 
 const { Content } = Layout;
 const DemoBox = (props) => <p className={`height-${props.value}`}>{props.children}</p>;
@@ -15,7 +16,13 @@ class HomepageContent extends React.Component {
 
   render() {
     if (!this.context.hasPlant) {
-      return <div>Placeholder</div>;
+      return (
+        <div className="no-plant">
+          Na początek stwórz swoją wymarzoną roślinkę.
+          <br></br>
+          <Button href="/plantCreation">Tworzenie rośliny</Button>
+        </div>
+      );
     }
     return (
       <Layout className="layout">

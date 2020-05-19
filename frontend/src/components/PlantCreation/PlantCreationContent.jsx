@@ -40,7 +40,7 @@ class PlantCreationContent extends Component {
     health: 0,
     toughness: 0,
     charmingness: 0,
-    statistics_id: '5eb0a90442688a21ecd19507',
+    statistics_id: null,
     irrigation_required: 100,
   };
 
@@ -74,6 +74,21 @@ class PlantCreationContent extends Component {
     }
   };
 
+  postStatistics = async () => {
+    await axios({
+      url: 'api/statistics',
+      method: 'POST',
+      headers: setHeaders(),
+    }).then(
+      (res) => {
+        this.setState({ statistics_id: res.data._id });
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  };
+
   putPlantId = async () => {
     await axios({
       url: `api/users/${this.context.userProfile._id}/plant_id`,
@@ -95,6 +110,7 @@ class PlantCreationContent extends Component {
   };
 
   postPlant = async () => {
+    await this.postStatistics();
     await axios({
       url: 'api/plants',
       method: 'POST',

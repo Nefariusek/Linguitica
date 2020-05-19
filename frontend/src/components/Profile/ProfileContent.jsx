@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button } from 'antd';
 
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeaders';
@@ -136,6 +137,15 @@ class ProfileContent extends Component {
   };
 
   render() {
+    if (!this.context.hasPlant) {
+      return (
+        <div className="no-plant">
+          Na początek stwórz swoją wymarzoną roślinkę.
+          <br></br>
+          <Button href="/plantCreation">Tworzenie rośliny</Button>
+        </div>
+      );
+    }
     return (
       <div className="Wrapper">
         <div className="ProfilePlantImage">
