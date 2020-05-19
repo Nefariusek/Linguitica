@@ -7,15 +7,16 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "antd": "^4.1.0",
+    "antd": "^4.2.3",
     "axios": "^0.19.2",
     "expo": "~36.0.0",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.25.3",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-web": "~0.11.7",
-    "react-router-dom": "^5.1.2",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0"
   },
   "scripts": {
@@ -45,14 +46,14 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.9.6",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "babel-preset-expo": "~8.0.0",
     "flow-bin": "^0.121.0",
     "jest-expo": "^36.0.1",
     "react-native-scripts": "^2.0.1",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.13.1"
   },
   "proxy": "http://localhost:8080/"
 }

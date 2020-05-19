@@ -7,7 +7,7 @@ const flashsets = require('./routes/flashsets');
 const flashcards = require('./routes/flashcards');
 const auth = require('./routes/auth');
 const quests = require('./routes/quests');
-const path = require('path');
+const statistics = require('./routes/statistics');
 
 const main = async () => {
   const app = express();
@@ -36,6 +36,7 @@ const main = async () => {
   app.use('/api/flashcards', flashcards);
   app.use('/api/auth', auth);
   app.use('/api/quests', quests);
+  app.use('/api/statistics', statistics);
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));

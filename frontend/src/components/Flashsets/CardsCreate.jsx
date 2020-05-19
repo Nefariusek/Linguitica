@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input } from 'antd';
+import { Button, Modal, Input, Checkbox, message } from 'antd';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 
@@ -9,31 +9,41 @@ export default class CardsCreate extends Component {
     temp: false,
     polish: '',
     german: '',
-    category: '',
+    category: 'pojazdy',
     flashsetID: this.props.flashsetID,
     body: '',
+    checked: false,
   };
   handleOpen = () => {
     this.setState({ open: true });
   };
-  handleClose = () => {
+  handleClose = async () => {
     this.setState({ open: false });
     this.setState({ polish: '' });
     this.setState({ german: '' });
     this.setState({ category: '' });
-    this.props.callbackFromParent(false);
+    this.setState({ checked: false });
+    this.props.callbackFromParent(true);
   };
 
-  handleSubmit = () => {};
   handleChange = async (e) => {
     const { value, name } = e.target;
     await this.setState({ [name]: value });
   };
   handleOk = async () => {
-    await this.addFlashcard();
-    console.log(this.state.body);
-    this.handleClose();
-    this.props.callbackFromParent(true);
+    if (this.state.polish !== '' && this.state.german !== '') {
+      await this.addFlashcard();
+      message.success('Udało się utworzyć fiszkę!', 2);
+      if (this.state.checked === false) {
+        this.handleClose();
+        this.props.callbackFromParent(true);
+      } else {
+        this.setState({ open: true });
+        this.setState({ polish: '' });
+        this.setState({ german: '' });
+        this.setState({ category: '' });
+      }
+    } else message.error('Proszę wypełnić wszystkie pola.', 2);
   };
 
   componentDidMount = () => {
@@ -53,7 +63,11 @@ export default class CardsCreate extends Component {
       headers: setHeaders(),
     }).then((res) => this.setState({ body: res.data }));
   };
-
+  handleCheckbox = async (e) => {
+    console.log(e.target);
+    await this.setState({ checked: !this.state.checked });
+    console.log(this.state.checked);
+  };
   render() {
     return (
       <>
@@ -113,6 +127,9 @@ export default class CardsCreate extends Component {
               <option value="zwierzeta">Zwierzęta</option>
               <option value="inne">Inne</option>
             </select>
+            <Checkbox onChange={this.handleCheckbox} value={this.state.checked}>
+              Dodaj kolejną fiszkę!
+            </Checkbox>
           </form>
         </Modal>
       </>

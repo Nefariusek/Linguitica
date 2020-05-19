@@ -1,11 +1,11 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { Col, Divider, Row, Layout, Breadcrumb, Button } from 'antd';
 import { FileDoneOutlined, LineChartOutlined, HomeOutlined, ReadOutlined, BellOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import UserInformation from './UserInformation';
 
 import Store from '../../Store';
+import './HomepageContent.css';
 
 const { Content } = Layout;
 const DemoBox = (props) => <p className={`height-${props.value}`}>{props.children}</p>;
@@ -14,8 +14,15 @@ class HomepageContent extends React.Component {
   static contextType = Store;
 
   render() {
-    if (!this.context.hasPlant) return <Redirect to="/plantCreation" />;
-
+    if (!this.context.hasPlant) {
+      return (
+        <div className="no-plant">
+          Na początek stwórz swoją wymarzoną roślinkę.
+          <br></br>
+          <Button href="/plantCreation">Tworzenie rośliny</Button>
+        </div>
+      );
+    }
     return (
       <Layout className="layout">
         <Content style={{ padding: '0' }}>
@@ -37,33 +44,33 @@ class HomepageContent extends React.Component {
                 <Link to="/flashsets">
                   <Button block>
                     <ReadOutlined className="buttonIcon" />
-                    <div className="buttonText">NAUKA</div>
+                    <div className="buttonText">ZESTAWY</div>
                   </Button>
                 </Link>
               </DemoBox>
               <DemoBox value={200}>
-                <Link to="/statistics">
+                <Link to="/profile">
                   <Button block>
                     <LineChartOutlined className="buttonIcon" />
-                    <div className="buttonText">STATYSTYKI</div>
+                    <div className="buttonText">PROFIL</div>
                   </Button>
                 </Link>
               </DemoBox>
             </Col>
             <Col span={7}>
               <DemoBox value={200}>
-                <Link to="/flashsets">
+                <Link to="/quests">
                   <Button block>
                     <BellOutlined className="buttonIcon" />
-                    <div className="buttonText">KALENDARZ</div>
+                    <div className="buttonText">ZADANIA</div>
                   </Button>
                 </Link>
               </DemoBox>
               <DemoBox value={200}>
-                <Link to="/flashsets">
+                <Link to="/flashcards">
                   <Button block>
                     <FileDoneOutlined className="buttonIcon" />
-                    <div className="buttonText">TESTY</div>
+                    <div className="buttonText">FISZKI</div>
                   </Button>
                 </Link>
               </DemoBox>
