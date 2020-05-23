@@ -29,6 +29,7 @@ class QuestsContent extends Component {
     addedQuestID: '0',
     dates: [],
     date: 0,
+    curEvent: '',
   };
 
   static contextType = Store;
@@ -161,6 +162,52 @@ class QuestsContent extends Component {
       await this.getQuests(count);
       await this.setState({ isLoaded: true });
     }
+  };
+  addQuestAndStart = async (e) => {
+    await this.setState({
+      secondCurID: e.target.value,
+      questsID: [],
+      quests: [],
+    });
+    await this.postQuestAndStart();
+    await this.putQuest();
+
+    await this.getQuestsID();
+    let count = this.state.questsID.length;
+    if (count > 0) {
+      await this.getQuests(count);
+      await this.setState({ isLoaded: true });
+    }
+  };
+  postQuestAndStart = async () => {
+    var moment = require('moment'); // require
+    await axios({
+      url: 'api/quests/',
+      method: 'post',
+      data: {
+        status: 'in_progress',
+        duration: this.state.allQuests[this.state.secondCurID].duration,
+        description: this.state.allQuests[this.state.secondCurID].description,
+        is_requrring: this.state.allQuests[this.state.secondCurID].is_requrring,
+        flashset_id: this.state.allQuests[this.state.secondCurID].flashset_id,
+        goal: this.state.allQuests[this.state.secondCurID].goal,
+        finish_date: moment().add(this.state.allQuests[this.state.secondCurID].duration, 'day').format(),
+        copy: true,
+      },
+      headers: setHeaders(),
+    }).then(
+      (res) => {
+        if (res.status === 200) {
+          console.log(res.data._id);
+          this.setState({ addedQuestID: res.data._id });
+          console.log(this.state.addedQuestID);
+          message.success('Quest dodany', 3);
+        }
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
   };
   getListOfData = async () => {
     for (let i = 0; i < this.state.quests.length; i++) {
@@ -525,6 +572,13 @@ class QuestsContent extends Component {
                           </Button>
                           <Button value={key} style={{ height: '7vh', borderRadius: '1000px' }} onClick={this.addQuest}>
                             DODAJ DO MOJEJ LISTY
+                          </Button>
+                          <Button
+                            value={key}
+                            style={{ height: '7vh', borderRadius: '1000px' }}
+                            onClick={this.addQuestAndStart}
+                          >
+                            ROZPOCZNIJ ZADANIE
                           </Button>
                         </div>
 
