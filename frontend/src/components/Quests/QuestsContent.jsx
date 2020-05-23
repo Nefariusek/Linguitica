@@ -3,7 +3,7 @@ import './QuestsContent.css';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-import { Statistic, Menu, message, Button, Modal, Calendar } from 'antd';
+import { Statistic, Menu, message, Button, Modal, Calendar, Badge, Input, Form, InputNumber } from 'antd';
 
 import { ScheduleOutlined, CalendarOutlined, TrophyOutlined, BellOutlined } from '@ant-design/icons';
 const { Countdown } = Statistic;
@@ -16,6 +16,7 @@ class QuestsContent extends Component {
     allQuests: [],
     isLoaded: false,
     isLoaded2: false,
+    isLoaded3: false,
     hasQuests: false,
     deadline: [],
     current: 'your',
@@ -24,20 +25,26 @@ class QuestsContent extends Component {
     secondCurID: '0',
     priority: 0,
     description: '',
-    date: '',
     goal: '',
     addedQuestID: '0',
     dates: [],
+    date: 0,
   };
 
   static contextType = Store;
   componentDidMount = async () => {
     console.log(this.context);
+
     await this.getQuestsID();
+
     let count = this.state.questsID.length;
+
     if (count > 0) {
       await this.getQuests(count);
       await this.setState({ isLoaded: true });
+
+      await this.getListOfData();
+      await this.setState({ isLoaded3: true });
     }
     await this.getAllQuests();
     await this.setState({ isLoaded2: true });
@@ -147,7 +154,6 @@ class QuestsContent extends Component {
     });
     await this.postQuest();
     await this.putQuest();
-    // await this.setState({ isLoaded: false });
 
     await this.getQuestsID();
     let count = this.state.questsID.length;
@@ -156,7 +162,18 @@ class QuestsContent extends Component {
       await this.setState({ isLoaded: true });
     }
   };
-
+  getListOfData = async () => {
+    for (let i = 0; i < this.state.quests.length; i++) {
+      await this.state.dates.push({
+        finish_date: this.state.quests[i].finish_date,
+        type:
+          (this.state.quests[i].status === 'in_progress' && 'warning') ||
+          (this.state.quests[i].status === 'completed' && 'success') ||
+          (this.state.quests[i].status === 'failed' && 'error'),
+        description: this.state.quests[i].description,
+      });
+    }
+  };
   handleMenuClick = (e) => {
     console.log('click ', e);
     this.setState({
@@ -240,52 +257,107 @@ class QuestsContent extends Component {
   reload = async () => {
     await this.setState({
       quests: [],
+      dates: [],
     });
     let count = this.state.questsID.length;
     await this.getQuests(count);
+    await this.getListOfData();
     await this.setState({ isLoaded: true });
+    await this.setState({ isLoaded3: true });
   };
+  getListData = (value) => {
+    let listData;
 
-  render() {
-    /*
-    function getListData(value) {
-      
-      for (let i = 0; i < this.state.quests.length; i++) {
-        await this.state.dates.push({
-          finish_date: this.state.quests[i].finish_date,
-          type:
-            (this.state.quests[i].status === 'in_progress' && 'warning') ||
-            (this.state.quests[i].status === 'completed' && 'success') ||
-            (this.state.quests[i].status === 'failed' && 'error'),
-        });
-      }
-  
-      let listData;
-      for (let i = 0; i < this.state.quests.length; i++) {
-        switch (value.date()) {
-          case this.state.quests[i].finish_date:
-            listData = [{ type: this.state.quests[i].status, content: 'fghdfghfdg' }];
-            break;
-
-          default:
+    if (this.state.dates.length > 0) {
+      for (let i = 0; i < this.state.dates.length; i++) {
+        if (
+          value.date() === parseInt(this.state.dates[i].finish_date.slice(8, 10), 10) &&
+          value.month() === parseInt(this.state.dates[i].finish_date.slice(5, 7) - 1, 10)
+        ) {
+          listData = [
+            {
+              type: this.state.dates[i].type,
+              content: this.state.dates[i].description,
+            },
+          ];
         }
       }
       return listData || [];
     }
+  };
 
-    function dateCellRender(value) {
-      const listData = getListData(value);
-      return (
-        <ul className="events">
-          {listData.map((item) => (
-            <li key={item.content}>
-              <Badge status={item.type} text={item.content} />
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    */
+  dateCellRender = (value) => {
+    var listData = this.getListData(value);
+    console.log(listData);
+
+    return listData ? (
+      <div>
+        {listData.map((item) => (
+          <Badge status={item.type} text={item.content} />
+        ))}
+      </div>
+    ) : null;
+  };
+  onFinish = async () => {
+    if (this.state.description !== '' && this.state.priority !== 0 && this.state.date !== 0 && this.state.goal !== '') {
+      await this.addMyQuest();
+      await this.putQuest();
+      await this.getQuestsID();
+      let count = this.state.questsID.length;
+      if (count > 0) {
+        await this.getQuests(count);
+        await this.setState({ isLoaded: true });
+      }
+      await this.setState({ description: '', priority: 0, date: 0, goal: '' });
+    } else message.error('Proszę wypełnić wszystkie pola!', 3);
+  };
+
+  addMyQuest = async () => {
+    var moment = require('moment'); // require
+    var mom = moment().format();
+
+    await axios({
+      url: 'api/quests/',
+      method: 'post',
+      data: {
+        status: 'failed',
+        duration: this.state.date,
+        description: this.state.description,
+        priority: this.state.priority,
+        goal: this.state.goal,
+        finish_date: mom,
+        copy: true,
+      },
+      headers: setHeaders(),
+    }).then(
+      (res) => {
+        if (res.status === 200) {
+          console.log(res.data._id);
+          this.setState({ addedQuestID: res.data._id });
+          console.log(this.state.addedQuestID);
+          message.success('Quest dodany', 3);
+        }
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  };
+  onChangePriority = async (value) => {
+    await this.setState({ priority: value });
+  };
+  onChangeData = async (value) => {
+    await this.setState({ date: value });
+  };
+  handleChange = async (e) => {
+    const { value, name } = e.target;
+    await this.setState({ [name]: value });
+  };
+  render() {
+    const layout = {
+      labelCol: { span: 5 },
+      wrapperCol: { span: 16 },
+    };
     return (
       <>
         <div className="nav-quests">
@@ -296,7 +368,9 @@ class QuestsContent extends Component {
             <Menu.Item className="nav-item-quests" key="all">
               Wszystkie zadania
             </Menu.Item>
-
+            <Menu.Item className="nav-item-quests" key="new">
+              Dodaj zadanie
+            </Menu.Item>
             <Menu.Item className="nav-item-quests" key="schedule">
               <ScheduleOutlined />
               Harmonogram
@@ -490,11 +564,54 @@ class QuestsContent extends Component {
                 </div>
               </div>
             )) ||
-            (this.state.current === 'schedule' && (
-              <div className="container-schedule">
-                <Calendar dateCellRender={this.dateCellRender} />
+            (this.state.current === 'new' && (
+              <div className="container-all">
+                <div className="quest-add">
+                  <Form
+                    {...layout}
+                    name="nest-messages"
+                    onFinish={this.onFinish}
+                    validateMessages={this.validateMessages}
+                  >
+                    <Form.Item label="Cel" rules={[{ required: true }]}>
+                      <Input name="goal" value={this.state.goal} onChange={this.handleChange} />
+                    </Form.Item>
+
+                    <Form.Item label="Priorytet" rules={[{ type: 'number', min: 0, max: 5 }]}>
+                      <InputNumber name="priority" value={this.state.priority} onChange={this.onChangePriority} />
+                    </Form.Item>
+                    <Form.Item label="Długość" rules={[{ type: 'number', min: 0, max: 10 }]}>
+                      <InputNumber name="date" value={this.state.date} onChange={this.onChangeData} />
+                    </Form.Item>
+
+                    <Form.Item label="Opis">
+                      <Input.TextArea
+                        autoSize={{ minRows: 3, maxRows: 3 }}
+                        name="description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Item>
+                    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                      <Button type="primary" htmlType="submit" style={{ width: '15vw', position: 'flex' }}>
+                        Dodaj
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </div>
               </div>
-            )) || <div className="container-all">default</div>}
+            )) ||
+            (this.state.current === 'schedule' &&
+              (this.state.isLoaded3 ? (
+                <div className="container-schedule">
+                  <Calendar dateCellRender={this.dateCellRender} />
+                </div>
+              ) : (
+                <div className="container-schedule">
+                  sialala
+                  <Calendar />
+                </div>
+              ))) || <div className="container-all">default</div>}
         </div>
       </>
     );

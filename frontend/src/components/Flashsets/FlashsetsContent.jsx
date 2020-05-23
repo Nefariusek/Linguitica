@@ -108,6 +108,7 @@ class FlashsetsContent extends Component {
   };
   changeTemp = async () => {
     await this.setState({ temp: true });
+    await this.setState({ temp2: true });
   };
 
   handleChange = (e) => {
