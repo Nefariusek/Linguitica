@@ -218,6 +218,7 @@ class QuestsContent extends Component {
           (this.state.quests[i].status === 'completed' && 'success') ||
           (this.state.quests[i].status === 'failed' && 'error'),
         description: this.state.quests[i].description,
+        index: i,
       });
     }
   };
@@ -313,7 +314,7 @@ class QuestsContent extends Component {
     await this.setState({ isLoaded3: true });
   };
   getListData = (value) => {
-    let listData;
+    let listData = [];
 
     if (this.state.dates.length > 0) {
       for (let i = 0; i < this.state.dates.length; i++) {
@@ -321,16 +322,14 @@ class QuestsContent extends Component {
           value.date() === parseInt(this.state.dates[i].finish_date.slice(8, 10), 10) &&
           value.month() === parseInt(this.state.dates[i].finish_date.slice(5, 7) - 1, 10)
         ) {
-          listData = [
-            {
-              type: this.state.dates[i].type,
-              content: this.state.dates[i].description,
-            },
-          ];
+          listData.push({
+            type: this.state.dates[i].type,
+            content: this.state.dates[i].description,
+          });
         }
       }
-      return listData || [];
     }
+    return listData || [];
   };
 
   dateCellRender = (value) => {
