@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 import setHeaders from '../../utils/setHeaders';
-
+import Store from '../../Store';
 /* ----- shift - podpowiedz, 
 enter zatwierdza odp + dalej gdy dobra odpowiedz, 
 strzałka góra - pisanko,
@@ -30,6 +30,8 @@ class QuizLearning extends Component {
     focus: ' ',
   };
 
+  static contextType = Store;
+
   getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
     const body = await response.json();
@@ -37,7 +39,10 @@ class QuizLearning extends Component {
   };
 
   componentDidMount = async () => {
-    await this.getFlashcards();
+    //await this.getFlashcards();
+    await this.setState({ flashcards: this.context.setToLearn });
+    console.log(this.state.flashcards);
+
     const randNum = Math.floor(Math.random() * this.state.flashcards.length);
     const randCard = this.state.flashcards[randNum].polish;
     const randGer = this.state.flashcards[randNum].german;

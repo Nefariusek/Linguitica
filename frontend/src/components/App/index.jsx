@@ -57,7 +57,7 @@ const App = () => {
         <Layout.Header>
           <NavBar />
         </Layout.Header>
-        <Layout.Content>
+        <Layout.Content className="AppContent">
           <Switch>
             <PublicRoute exact path="/" component={Guestpage} />
             <PublicRoute exact path="/register" component={Register} />

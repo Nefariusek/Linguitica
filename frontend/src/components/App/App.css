@@ -6,6 +6,9 @@ body {
   font-family: 'Prompt', sans-serif;
 }
 
+.AppContent {
+  min-height: 100vh;
+}
 /*-------------------------------login -------------------*/
 
 .login-logo {
@@ -664,6 +667,11 @@ body {
   color: white;
 }
 
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub {
+  background-color: #1890ff;
+}
+
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
 .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
   background-color: #1890ff;
@@ -674,6 +682,9 @@ body {
 }
 /* --------------------------------flashsets ------------------------------*/
 
+.ant-empty-description {
+  display: none;
+}
 .site-layout-sub-header-background {
   background: #fff;
   padding: 0;

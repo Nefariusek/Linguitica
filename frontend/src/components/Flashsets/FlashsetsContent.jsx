@@ -24,12 +24,15 @@ class FlashsetsContent extends Component {
     temp2: false,
     temp3: true,
     created: false,
+    createdFlashset: false,
+    isFlashsetCreated: false,
   };
   static contextType = Store;
 
   componentDidMount = async () => {
     console.log(this.context);
     await this.getFlashsetsID();
+    console.log('mount');
 
     this.setState({
       currentFlashsetID: this.state.flashsetsID[0],
@@ -79,11 +82,30 @@ class FlashsetsContent extends Component {
 
     if (this.state.created === true) {
       this.setState({ temp2: false });
-      //setTimeout(this.setState({ temp2: false }), 300);
+
       this.changeTemp();
     }
   };
 
+  myCallbackFlashset = async (dataFromChild) => {
+    await this.setState({ createdFlashset: dataFromChild });
+
+    if (this.state.createdFlashset === true) {
+      this.setState({ temp: false, flashsetID: [], flashsets: [] });
+
+      await this.getFlashsetsID();
+
+      this.setState({
+        currentFlashsetID: this.state.flashsetsID[0],
+      });
+      let count = this.state.flashsetsID.length;
+      if (count > 0) {
+        await this.setState({ temp3: false });
+        await this.getFlashsets(count);
+        await this.changeTemp(count);
+      }
+    }
+  };
   changeTemp = async () => {
     await this.setState({ temp: true });
     await this.setState({ temp2: true });
@@ -139,8 +161,8 @@ class FlashsetsContent extends Component {
               <h2 style={{ textAlign: 'center', color: 'white', marginTop: 10 }}>Ładowanie...</h2>
             )}
           </Menu>
-          <FlashsetCreate plantID={this.state.plantID} />
-          <FlashsetDelete id={this.state.flashsets} />
+          <FlashsetCreate plantID={this.state.plantID} callbackFromParent={this.myCallbackFlashset} />
+          <FlashsetDelete id={this.state.flashsets} callbackFromParent={this.myCallbackFlashset} />
         </Sider>
         <Layout>
           <Header className="site-layout-sub-header-background">
