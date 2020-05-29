@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "mon": "nodemon -r dotenv/config ./app.js",
     "start": "node -r dotenv/config ./app.js",
-    "dev-web": "concurrently -n react,express -k \"cd ../frontend && npm run start-web\"  \"npm run mon\""
+    "dev-web": "concurrently -n react,express -k \"cd ../frontend && npm run start-web\"  \"npm run mon\"",
+    "dev-mob": "concurrently -n react,express -k \"cd ../frontend && npm run start-expo\"  \"npm run mon\""
   },
   "author": "",
   "license": "ISC",
