@@ -12,19 +12,15 @@ export default class HomeScreen extends React.Component {
   };
   handleEmailChange = async (text) => {
     await this.setState({ email: text });
-    console.log('email', this.state.email);
   };
   handlePasswordChange = async (text) => {
     await this.setState({ password: text });
-    console.log('haslo', this.state.password);
   };
   handleLoginChange = async (text) => {
     await this.setState({ login: text });
-    console.log('login', this.state.login);
   };
   handlePasswordRepeatChange = async (text) => {
     await this.setState({ passwordRepeat: text });
-    console.log('haslo_powtorka', this.state.passwordRepeat);
   };
   render() {
     return (
@@ -55,15 +51,11 @@ export default class HomeScreen extends React.Component {
               marginBottom: 70,
             }}
           />
-          <Item
-            rounded
-            style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
-            autoCompleteType="login"
-          >
+          <Item rounded style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}>
             <Input placeholder="LOGIN" onChangeText={(text) => this.handleLoginChange(text)} />
           </Item>
           <Item rounded style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}>
-            <Input placeholder="EMAIL" onChangeText={(text) => this.handleEmailChange(text)} autoCompleteType="email" />
+            <Input placeholder="EMAIL" onChangeText={(text) => this.handleEmailChange(text)} />
           </Item>
           <Item rounded style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}>
             <Input
@@ -72,11 +64,7 @@ export default class HomeScreen extends React.Component {
               secureTextEntry={true}
             />
           </Item>
-          <Item
-            rounded
-            style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
-            autoCompleteType="password"
-          >
+          <Item rounded style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}>
             <Input
               secureTextEntry={true}
               placeholder="POWTÓRZ HASLO"

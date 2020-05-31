@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Flashcards from '../frontend/src/mobile/Flashcards/Flashcards.js';
 import Home from '../frontend/src/mobile/Home/Home.js';
@@ -14,10 +14,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Container, Content, Button } from 'native-base';
 import Logo from '../frontend/src/images/logo_mobile.png';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class App extends React.Component {
   state = {
     isReady: false,
+    isLogged: true,
   };
   async componentDidMount() {
     await Font.loadAsync({
@@ -32,15 +34,8 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
 
-    const Drawer = createDrawerNavigator({});
-    <Drawer.Screen
-      name="Logowanie"
-      component={Login}
-      options={{ drawerAnimation: 'none' }}
-      options={{
-        animationEnabled: false,
-      }}
-    />;
+    const Drawer = createDrawerNavigator();
+
     function CustomDrawerContent(props) {
       return (
         <Container>
@@ -58,7 +53,7 @@ export default class App extends React.Component {
                   height: 70,
                   width: 270,
                   marginLeft: 5,
-
+                  zIndex: 10,
                   justifyContent: 'center',
                   alignItems: 'center',
                   paddingBottom: 0,
@@ -88,7 +83,7 @@ export default class App extends React.Component {
 
     class Hidden extends React.Component {
       render() {
-        return null;
+        return <Container disabled style={styles.hid}></Container>;
       }
     }
 
@@ -100,7 +95,7 @@ export default class App extends React.Component {
             <CustomDrawerContent
               {...props}
               style={{
-                marginTop: 80,
+                marginTop: 70,
               }}
             />
           )}
@@ -115,19 +110,12 @@ export default class App extends React.Component {
           />
 
           <Drawer.Screen
-            name="Rejestracja"
-            component={Register}
-            options={{ drawerAnimation: 'none' }}
-            options={{
-              animationEnabled: false,
-            }}
-          />
-          <Drawer.Screen
             name="Fiszki"
             component={Flashcards}
             options={{ drawerAnimation: 'none' }}
             options={{
               animationEnabled: false,
+              gestureEnabled: false,
             }}
           />
           <Drawer.Screen
@@ -138,18 +126,38 @@ export default class App extends React.Component {
               animationEnabled: false,
             }}
           />
+          <Drawer.Screen
+            name="Logowanie"
+            component={Login}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+              drawerLabel: () => <Hidden />,
+            }}
+          />
+          <Drawer.Screen
+            name="Rejestracja"
+            component={Register}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+              drawerLabel: () => <Hidden />,
+            }}
+            style={() => null}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     );
   }
 }
-/*
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  hid: {
+    width: 0,
+    height: 0,
+    opacity: 0,
+  },
+  touch: {
+    backgroundColor: 'red',
   },
 });
-*/

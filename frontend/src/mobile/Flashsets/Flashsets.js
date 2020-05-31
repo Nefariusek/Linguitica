@@ -180,18 +180,4 @@ const styles = StyleSheet.create({
     marginLeft: 0,
   },
   normal: { marginLeft: 0 },
-  picker: { width: '50%', fontSize: 20 },
-  containerPicker: {
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
-    height: 40,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-  },
-  textPicker: {
-    marginTop: 10,
-    width: '50%',
-    fontSize: 20,
-    textAlign: 'center',
-  },
 });

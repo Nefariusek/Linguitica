@@ -10,11 +10,9 @@ export default class HomeScreen extends React.Component {
   };
   handleEmailChange = async (text) => {
     await this.setState({ email: text });
-    console.log('email', this.state.email);
   };
   handlePasswordChange = async (text) => {
     await this.setState({ password: text });
-    console.log('haslo', this.state.password);
   };
   authUser = async () => {
     Alert.alert('walidacja /todo/');
