@@ -134,19 +134,59 @@ export default class Flashcards extends Component {
                         style={[this.state.selected[key] ? styles.selected : styles.normal]}
                       >
                         <Body>
-                          <Text style={{ fontSize: 22 }}>{val.polish}</Text>
-                          <Text note numberOfLines={3} style={{ fontSize: 16 }}>
-                            {val.german} {val.category}
+                          <Text
+                            style={{
+                              fontSize: 22,
+                              width: 210,
+                              backgroundColor: 'lightgrey',
+                              textAlign: 'center',
+                              borderRadius: 10,
+                              borderWidth: 1,
+                              borderColor: '#fff',
+                            }}
+                          >
+                            {val.polish}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              width: 210,
+                              backgroundColor: '#1890ff',
+                              textAlign: 'center',
+                              borderRadius: 10,
+                              borderWidth: 1,
+                              borderColor: '#fff',
+                            }}
+                          >
+                            {val.german}
                           </Text>
                         </Body>
-                        <Right>
-                          <Button
-                            transparent
-                            onPress={() => Alert.alert(this.state.flashsets[keyy].flashcards[key].polish)}
-                          >
-                            <Icon style={{ color: '#1890ff' }} name="information-circle" />
-                          </Button>
-                        </Right>
+                        <Button
+                          onPress={() => this.onSelectChange(key)}
+                          large
+                          style={{ backgroundColor: 'lightgrey', height: 40 }}
+                        >
+                          {(val.category === 'pojazdy' && <Icon style={{ color: 'black' }} name="car" />) ||
+                            (val.category === 'praca' && <Icon style={{ color: 'black' }} name="hammer" />) ||
+                            (val.category === 'dom' && <Icon style={{ color: 'black' }} name="home" />) ||
+                            (val.category === 'ogólne' && <Icon style={{ color: 'black' }} name="list" />) ||
+                            (val.category === 'emocje' && <Icon style={{ color: 'black' }} name="happy" />) ||
+                            (val.category === 'rodzina' && <Icon style={{ color: 'black' }} name="people" />) ||
+                            (val.category === 'liczby' && <Icon style={{ color: 'black' }} name="stats" />) ||
+                            (val.category === 'czas' && <Icon style={{ color: 'black' }} name="time" />) ||
+                            (val.category === 'technika' && <Icon style={{ color: 'black' }} name="build" />) ||
+                            (val.category === 'technologia' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                            (val.category === 'zawody' && <Icon style={{ color: 'black' }} name="briefcase" />) ||
+                            (val.category === 'podróże' && <Icon style={{ color: 'black' }} name="jet" />) ||
+                            (val.category === 'elektronika' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                            (val.category === 'ludzie' && <Icon style={{ color: 'black' }} name="people" />) ||
+                            (val.category === 'internet' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                            (val.category === 'ogolne' && <Icon style={{ color: 'black' }} name="list" />) ||
+                            (val.category === 'inne' && <Icon style={{ color: 'black' }} name="list" />) ||
+                            (val.category === 'zwierzeta' && <Icon style={{ color: 'black' }} name="paw" />) ||
+                            (val.category === 'medycyna' && <Icon style={{ color: 'black' }} name="medkit" />) ||
+                            (val.category === 'historia' && <Icon style={{ color: 'black' }} name="archive" />)}
+                        </Button>
                       </ListItem>
                     ))}
                   </List>
