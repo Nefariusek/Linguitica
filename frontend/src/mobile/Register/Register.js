@@ -3,6 +3,29 @@ import { ImageBackground } from 'react-native';
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text, Item, Input } from 'native-base';
 import Logo from '../../images/logo_mobile.png';
 export default class HomeScreen extends React.Component {
+  state = {
+    login: '',
+    email: '',
+    password: '',
+    passwordRepeat: '',
+    invalidData: false,
+  };
+  handleEmailChange = async (text) => {
+    await this.setState({ email: text });
+    console.log('email', this.state.email);
+  };
+  handlePasswordChange = async (text) => {
+    await this.setState({ password: text });
+    console.log('haslo', this.state.password);
+  };
+  handleLoginChange = async (text) => {
+    await this.setState({ login: text });
+    console.log('login', this.state.login);
+  };
+  handlePasswordRepeatChange = async (text) => {
+    await this.setState({ passwordRepeat: text });
+    console.log('haslo_powtorka', this.state.passwordRepeat);
+  };
   render() {
     return (
       <Container>
@@ -37,28 +60,28 @@ export default class HomeScreen extends React.Component {
             style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
             autoCompleteType="login"
           >
-            <Input placeholder="LOGIN" />
+            <Input placeholder="LOGIN" onChangeText={(text) => this.handleLoginChange(text)} />
           </Item>
-          <Item
-            rounded
-            style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
-            autoCompleteType="email"
-          >
-            <Input placeholder="EMAIL" />
+          <Item rounded style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}>
+            <Input placeholder="EMAIL" onChangeText={(text) => this.handleEmailChange(text)} autoCompleteType="email" />
+          </Item>
+          <Item rounded style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}>
+            <Input
+              placeholder="HASLO"
+              onChangeText={(text) => this.handlePasswordChange(text)}
+              secureTextEntry={true}
+            />
           </Item>
           <Item
             rounded
             style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
             autoCompleteType="password"
           >
-            <Input placeholder="HASLO" />
-          </Item>
-          <Item
-            rounded
-            style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
-            autoCompleteType="password"
-          >
-            <Input placeholder="POWTÓRZ HASLO" />
+            <Input
+              secureTextEntry={true}
+              placeholder="POWTÓRZ HASLO"
+              onChangeText={(text) => this.handlePasswordRepeatChange(text)}
+            />
           </Item>
 
           <Button

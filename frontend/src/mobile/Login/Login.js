@@ -1,8 +1,28 @@
 import React from 'react';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, Alert } from 'react-native';
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text, Item, Input } from 'native-base';
 import Logo from '../../images/logo_mobile.png';
 export default class HomeScreen extends React.Component {
+  state = {
+    email: '',
+    password: '',
+    invalidData: false,
+  };
+  handleEmailChange = async (text) => {
+    await this.setState({ email: text });
+    console.log('email', this.state.email);
+  };
+  handlePasswordChange = async (text) => {
+    await this.setState({ password: text });
+    console.log('haslo', this.state.password);
+  };
+  authUser = async () => {
+    Alert.alert('walidacja /todo/');
+  };
+  onButtonSubmit = async (e) => {
+    e.preventDefault();
+    await this.authUser();
+  };
   render() {
     return (
       <Container>
@@ -37,14 +57,18 @@ export default class HomeScreen extends React.Component {
             style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
             autoCompleteType="email"
           >
-            <Input placeholder="EMAIL" />
+            <Input placeholder="EMAIL" onChangeText={(text) => this.handleEmailChange(text)} />
           </Item>
           <Item
             rounded
             style={{ marginTop: 10, height: 60, width: 350, marginLeft: 'auto', marginRight: 'auto' }}
             autoCompleteType="password"
           >
-            <Input placeholder="HASLO" />
+            <Input
+              placeholder="HASLO"
+              secureTextEntry={true}
+              onChangeText={(text) => this.handlePasswordChange(text)}
+            />
           </Item>
 
           <Button
@@ -58,7 +82,7 @@ export default class HomeScreen extends React.Component {
               marginLeft: 'auto',
               marginRight: 'auto',
             }}
-            onPress={() => this.props.navigation.navigate('Flashcards')}
+            onPress={this.onButtonSubmit}
           >
             <Text>Zaloguj sie</Text>
           </Button>

@@ -1,7 +1,7 @@
 export default () => ({
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
-    'x-auth-token': localStorage.getItem('token'),
+    //'x-auth-token': localStorage.getItem('token'),
   },
 });

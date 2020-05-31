@@ -32,8 +32,15 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
 
-    const Drawer = createDrawerNavigator();
-
+    const Drawer = createDrawerNavigator({});
+    <Drawer.Screen
+      name="Logowanie"
+      component={Login}
+      options={{ drawerAnimation: 'none' }}
+      options={{
+        animationEnabled: false,
+      }}
+    />;
     function CustomDrawerContent(props) {
       return (
         <Container>
@@ -74,7 +81,6 @@ export default class App extends React.Component {
           </Container>
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem label="Zamknij menu" onPress={() => props.navigation.closeDrawer()} />
           </DrawerContentScrollView>
         </Container>
       );
@@ -107,14 +113,7 @@ export default class App extends React.Component {
               animationEnabled: false,
             }}
           />
-          <Drawer.Screen
-            name="Logowanie"
-            component={Login}
-            options={{ drawerAnimation: 'none' }}
-            options={{
-              animationEnabled: false,
-            }}
-          />
+
           <Drawer.Screen
             name="Rejestracja"
             component={Register}
