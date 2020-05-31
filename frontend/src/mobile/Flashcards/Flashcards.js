@@ -1,7 +1,9 @@
 import React, { Component, useEffect } from 'react';
 import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import Store from '../../Store';
 import setHeaders from '../../utils/setHeaders';
+import axios from 'axios';
 import {
   Container,
   Footer,
@@ -19,47 +21,73 @@ import {
   Button,
   Form,
   Picker,
-  Toast,
+  Spinner,
 } from 'native-base';
 
 export default class Flashcards extends Component {
   state = {
     flashcards: [],
     selected: [],
-    selectedPicker: 'wszystkie',
-    selectedPicker2: 'wszystkie',
+    categoryPicker: 'wszystkie',
+    levelPicker: 'wszystkie',
     selectedFlashcards: [],
     temp: [],
-    chwiloweFiszki: [
-      { polish: 'polska', german: 'niemcy', category: 'kat' },
-      { polish: 'polska2', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska3', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska4', german: 'niemcy', category: 'kat' },
-      { polish: 'polska5', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska6', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska7', german: 'niemcy', category: 'kat' },
-      { polish: 'polska8', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska9', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska10', german: 'niemcy', category: 'kat' },
-      { polish: 'polska11', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska12', german: 'niemcy2', category: 'kat3' },
-    ],
     selectedRowKeys: [],
     selectedCounter: 0,
+    isLoaded: false,
   };
-  getFlashcards = async () => {
-    const response = await fetch('/api/quests', setHeaders());
-    const body = await response.json();
+  static contextType = Store;
 
-    this.setState({ flashcards: body });
+  getFlashcards = async () => {
+    const response = await fetch('http://linguitica.herokuapp.com/api/flashcards', setHeaders());
+    const body = await response.json();
+    let filteredBodyLevel = body;
+    let filteredBodyCategory = body;
+    let filteredBody = [];
+
+    if (this.state.levelPicker !== 'wszystkie') {
+      let expectedLevel = this.state.levelPicker;
+      filteredBodyLevel = body.filter((flashcard) => {
+        return flashcard.level === expectedLevel;
+      });
+    }
+    if (this.state.categoryPicker !== 'wszystkie') {
+      let expectedCategory = this.state.categoryPicker;
+      filteredBodyCategory = body.filter((flashcard) => {
+        return flashcard.category === expectedCategory;
+      });
+    }
+    if (this.state.levelPicker !== 'wszystkie' || this.state.categoryPicker !== 'wszystkie') {
+      for (let i = 0; i < filteredBodyLevel.length; i++) {
+        for (let j = 0; j < filteredBodyCategory.length; j++) {
+          if (filteredBodyLevel[i] === filteredBodyCategory[j]) {
+            filteredBody.push(filteredBodyLevel[i]);
+          }
+        }
+      }
+      this.setState({ flashcards: filteredBody, isLoaded: true });
+    } else {
+      this.setState({ flashcards: body, isLoaded: true });
+    }
   };
-  componentDidMount() {
-    // this.getFlashcards();
-    for (let i = 0; i < this.state.chwiloweFiszki.length; i++) {
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevState.categoryPicker !== this.state.categoryPicker || prevState.levelPicker !== this.state.levelPicker) {
+      await this.setState({ categoryPicker: this.state.categoryPicker });
+      console.log('szukana kategoria:', this.state.categoryPicker);
+      await this.setState({ levelPicker: this.state.levelPicker }, () => {
+        this.getFlashcards();
+      });
+      console.log('szukany poziom:', this.state.levelPicker);
+    }
+  };
+  componentDidMount = async () => {
+    await this.getFlashcards();
+
+    for (let i = 0; i < (await this.state.flashcards.length); i++) {
       const { selected } = this.state;
       selected[i] = false;
     }
-  }
+  };
 
   onSelectChange = async (selectedRowKeys) => {
     this.setState({ selectedFlashcards: [] });
@@ -74,7 +102,7 @@ export default class Flashcards extends Component {
     for (let i = 0; i < (await this.state.selected.length); i++) {
       if (this.state.selected[i] === true) {
         counter++;
-        await this.state.selectedFlashcards.push(this.state.chwiloweFiszki[i]);
+        await this.state.selectedFlashcards.push(this.state.flashcards[i]);
       }
     }
 
@@ -82,14 +110,16 @@ export default class Flashcards extends Component {
     console.log('selected flashcards: ', this.state.selectedFlashcards);
   };
 
-  onValueChange = async (value) => {
+  onCategoryChange = async (value) => {
     await this.setState({
-      selectedPicker: value,
+      categoryPicker: value,
+      isLoaded: false,
     });
   };
-  onValueChange2 = async (value) => {
+  onLevelChange = async (value) => {
     await this.setState({
-      selectedPicker2: value,
+      levelPicker: value,
+      isLoaded: false,
     });
   };
   render() {
@@ -118,18 +148,24 @@ export default class Flashcards extends Component {
                 placeholderStyle={{ color: '#bfc6ea' }}
                 placeholderIconColor="#007aff"
                 style={styles.picker}
-                selectedValue={this.state.selectedPicker}
-                onValueChange={this.onValueChange}
+                selectedValue={this.state.categoryPicker}
+                onValueChange={this.onCategoryChange}
               >
-                <Picker.Item label="Wszystkie" value="wszystkieKategorie" />
+                <Picker.Item label="Wszystkie" value="wszystkie" />
                 <Picker.Item label="Pojazdy" value="pojazdy" />
-                <Picker.Item label="Elektronika" value="elektronika" />
-                <Picker.Item label="Ludzie" value="ludzie" />
                 <Picker.Item label="Dom" value="dom" />
-                <Picker.Item label="Internet" value="internet" />
-                <Picker.Item label="Ogólne" value="ogolne" />
+                <Picker.Item label="Ogólne" value="ogólne" />
                 <Picker.Item label="Emocje" value="emocje" />
-                <Picker.Item label="Inne" value="inne" />
+                <Picker.Item label="Rodzina" value="rodzina" />
+                <Picker.Item label="Liczby" value="liczby" />
+                <Picker.Item label="Czas" value="czas" />
+                <Picker.Item label="Praca" value="praca" />
+                <Picker.Item label="Technika" value="technika" />
+                <Picker.Item label="Technologia" value="technologia" />
+                <Picker.Item label="Zawody" value="zawody" />
+                <Picker.Item label="Podróże" value="podróże" />
+                <Picker.Item label="Medycyna" value="medycyna" />
+                <Picker.Item label="Historia" value="historia" />
               </Picker>
             </Container>
             <Container style={styles.containerPicker}>
@@ -139,10 +175,10 @@ export default class Flashcards extends Component {
                 iosIcon={<Icon name="arrow-down" />}
                 placeholder="Poziom"
                 style={styles.picker}
-                selectedValue={this.state.selectedPicker2}
-                onValueChange={this.onValueChange2}
+                selectedValue={this.state.levelPicker}
+                onValueChange={this.onLevelChange}
               >
-                <Picker.Item label="Wszystkie" value="wszystkiePoziomy" />
+                <Picker.Item label="Wszystkie" value="wszystkie" />
                 <Picker.Item label="A1" value="A1" />
                 <Picker.Item label="A2" value="A2" />
                 <Picker.Item label="B1" value="B1" />
@@ -153,26 +189,31 @@ export default class Flashcards extends Component {
             </Container>
           </Form>
           <List>
-            {this.state.chwiloweFiszki.map((val, key) => (
-              <ListItem
-                key={key}
-                onPress={() => this.onSelectChange(key)}
-                //  onLongPress={this.onLongPress(key)}
-                style={[this.state.selected[key] ? styles.selected : styles.normal]}
-              >
-                <Body>
-                  <Text style={{ fontSize: 22 }}>{val.polish}</Text>
-                  <Text note numberOfLines={3} style={{ fontSize: 16 }}>
-                    {val.german} {val.category}
-                  </Text>
-                </Body>
-                <Right>
-                  <Button transparent onPress={() => Alert.alert(val.polish, val.german)}>
-                    <Icon style={{ color: '#1890ff' }} name="information-circle" />
-                  </Button>
-                </Right>
-              </ListItem>
-            ))}
+            {this.state.isLoaded ? (
+              this.state.flashcards.map((val, key) => (
+                <ListItem
+                  key={key}
+                  onPress={() => this.onSelectChange(key)}
+                  style={[this.state.selected[key] ? styles.selected : styles.normal]}
+                >
+                  <Body>
+                    <Text style={{ fontSize: 22 }}>{val.polish}</Text>
+                    <Text note numberOfLines={3} style={{ fontSize: 16 }}>
+                      {val.german} {val.category} {val.level}
+                    </Text>
+                  </Body>
+                  <Right>
+                    <Button transparent onPress={() => Alert.alert(this.state.flashcards[1].polish)}>
+                      <Icon style={{ color: '#1890ff' }} name="information-circle" />
+                    </Button>
+                  </Right>
+                </ListItem>
+              ))
+            ) : (
+              <Container>
+                <Spinner color="blue" />
+              </Container>
+            )}
           </List>
         </Content>
 

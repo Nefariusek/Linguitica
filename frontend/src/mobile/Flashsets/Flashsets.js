@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import Store from '../../Store';
 import setHeaders from '../../utils/setHeaders';
 import {
   Container,
@@ -17,9 +18,7 @@ import {
   Body,
   Right,
   Button,
-  Form,
-  Picker,
-  View,
+  Spinner,
   Tab,
   Tabs,
   ScrollableTab,
@@ -31,29 +30,17 @@ export default class Flashcards extends Component {
   state = {
     active: false,
     currentTab: 0,
-    chwiloweZestawy: [
-      { title: 'zestaw1' },
-      { title: 'zestaw2' },
-      { title: 'zestaw3' },
-      { title: 'zestaw4' },
-      { title: 'zestaw5' },
-      { title: 'zestaw6' },
-    ],
-    chwiloweFiszki: [
-      { polish: 'polska', german: 'niemcy', category: 'kat' },
-      { polish: 'polska2', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska3', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska4', german: 'niemcy', category: 'kat' },
-      { polish: 'polska5', german: 'niemcy2', category: 'kat3' },
-      { polish: 'polska6', german: 'niemcy2', category: 'kat3' },
-    ],
     selectedRowKeys: [],
     selectedCounter: 0,
     selectedFlashcards: [],
     temp: [],
     selected: [],
+    isLoaded: false,
+    flashsetsID: [],
+    flashsets: [],
+    length: 0,
   };
-
+  static contextType = Store;
   changeTab = async (props) => {
     await this.setState({ currentTab: props.i });
     // console.log(this.state.currentTab);
@@ -79,6 +66,34 @@ export default class Flashcards extends Component {
     this.setState({ selectedCounter: counter });
     console.log('selected flashcards: ', this.state.selectedFlashcards);
   };
+  getFlashsetsID = async () => {
+    const response = await fetch('http://linguitica.herokuapp.com/api/plants/5ed3db66415db20017e14e86', setHeaders()); //id testowe
+    const body = await response.json();
+
+    await this.setState({ flashsetsID: body.flashsets, length: body.flashsets.length });
+
+    if ((await this.state.length) > 0) {
+      this.setState({ flashsets: [] });
+      for (let i = 0; i < this.state.length; i++) {
+        await this.getFlashsets(this.state.flashsetsID[i]);
+      }
+      await this.setState({ isLoaded: true });
+    }
+  };
+  getFlashsets = async (id) => {
+    const response = await fetch(`http://linguitica.herokuapp.com/api/flashsets/${id}`, setHeaders());
+    const body = await response.json();
+
+    this.state.flashsets.push(body);
+  };
+  componentDidMount = async () => {
+    await this.getFlashsetsID();
+
+    for (let i = 0; i < (await this.state.flashsets.flashcards.length); i++) {
+      const { selected } = this.state;
+      selected[i] = false;
+    }
+  };
 
   render() {
     return (
@@ -91,49 +106,58 @@ export default class Flashcards extends Component {
           </Left>
 
           <Body>
-            <Title>Twoje zestawy (:{this.state.currentTab + 1})</Title>
+            <Title>Twoje zestawy</Title>
           </Body>
           <Right />
         </Header>
 
         <Content>
-          <Tabs
-            onChangeTab={this.changeTab}
-            renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#1890ff' }} />}
-          >
-            {this.state.chwiloweZestawy.map((val, key) => (
-              <Tab
-                heading={
-                  <TabHeading style={{ backgroundColor: '#1890ff' }}>
-                    <Text>{val.title}</Text>
-                  </TabHeading>
-                }
-              >
-                <List>
-                  {this.state.chwiloweFiszki.map((val, key) => (
-                    <ListItem
-                      key={key}
-                      onPress={() => this.onSelectChange(key)}
-                      //  onLongPress={this.onLongPress(key)}
-                      style={[this.state.selected[key] ? styles.selected : styles.normal]}
-                    >
-                      <Body>
-                        <Text style={{ fontSize: 22 }}>{val.polish}</Text>
-                        <Text note numberOfLines={3} style={{ fontSize: 16 }}>
-                          {val.german} {val.category}
-                        </Text>
-                      </Body>
-                      <Right>
-                        <Button transparent onPress={() => Alert.alert(val.polish, val.german)}>
-                          <Icon style={{ color: '#1890ff' }} name="information-circle" />
-                        </Button>
-                      </Right>
-                    </ListItem>
-                  ))}
-                </List>
-              </Tab>
-            ))}
-          </Tabs>
+          {this.state.isLoaded ? (
+            <Tabs
+              onChangeTab={this.changeTab}
+              renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#1890ff' }} />}
+            >
+              {this.state.flashsets.map((val, keyy) => (
+                <Tab
+                  heading={
+                    <TabHeading style={{ backgroundColor: '#1890ff' }}>
+                      <Text>{val.title}</Text>
+                    </TabHeading>
+                  }
+                >
+                  <List>
+                    {this.state.flashsets[keyy].flashcards.map((val, key) => (
+                      <ListItem
+                        key={key}
+                        onPress={() => this.onSelectChange(key)}
+                        //  onLongPress={this.onLongPress(key)}
+                        style={[this.state.selected[key] ? styles.selected : styles.normal]}
+                      >
+                        <Body>
+                          <Text style={{ fontSize: 22 }}>{val.polish}</Text>
+                          <Text note numberOfLines={3} style={{ fontSize: 16 }}>
+                            {val.german} {val.category}
+                          </Text>
+                        </Body>
+                        <Right>
+                          <Button
+                            transparent
+                            onPress={() => Alert.alert(this.state.flashsets[keyy].flashcards[key].polish)}
+                          >
+                            <Icon style={{ color: '#1890ff' }} name="information-circle" />
+                          </Button>
+                        </Right>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Tab>
+              ))}
+            </Tabs>
+          ) : (
+            <Container>
+              <Spinner color="blue" />
+            </Container>
+          )}
         </Content>
         {this.state.selectedCounter > 0 ? (
           <Footer>
