@@ -3,7 +3,6 @@ import { Menu } from 'antd';
 import CardLearning from './CardLearning';
 import WriteLearning from './WriteLearning';
 import QuizLearning from './QuizLearning';
-
 /* ----- strzałak gora- pisanko
 strzałka w prawo - quiz,
 strzałka w lewo - fiszki 
@@ -20,19 +19,19 @@ class LearningContent extends Component {
   };
 
   handleKey(event) {
-    if (event.keyCode === 37) {
-      console.log('tak');
+    if (event.keyCode === 49) {
+      console.log('49');
       this.setState({
         selectedLearnMode: 'cardMode',
       });
       console.log(this.state.SelectedLearnMode);
-    } else if (event.keyCode === 38) {
-      console.log('17');
+    } else if (event.keyCode === 50) {
+      console.log('50');
       this.setState({
         selectedLearnMode: 'writeMode',
       });
-    } else if (event.keyCode === 39) {
-      console.log('50');
+    } else if (event.keyCode === 51) {
+      console.log('51');
       this.setState({
         selectedLearnMode: 'quizMode',
       });

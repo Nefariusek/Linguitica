@@ -7,7 +7,7 @@ enter nastepna
 jak sie zahaczy o buttona to spacja w sumie tez przewija do nastepnej fiszki
 strzałka w prawo - quiz,
 strzałka góra - pisanko ------- */
-
+import Instruction from './Instruction';
 class CardLearning extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +36,10 @@ class CardLearning extends Component {
 
     await this.setState({ flashcards: this.context.setToLearn });
     console.log(this.state.flashcards);
-    const randNum = Math.floor(Math.random() * this.state.flashcards.length);
+    const numRows = 1;
+
+    const randNum = Math.floor(Math.random() * numRows);
+
     const randCard = this.state.flashcards[randNum].polish;
     const randGer = this.state.flashcards[randNum].german;
 
@@ -58,15 +61,16 @@ class CardLearning extends Component {
       german: randId,
       polish: this.state.flashcards[randNum].polish,
     });
+    console.log(this.state.flashcards[randNum].statistics);
   }
   handleKey(event) {
     if (event.keyCode === 13) {
       this.updateCard(event);
       this.setState({
-        changeLanguage: Math.floor(Math.random() * 1000),
+        changeLanguage: Math.floor(Math.random() * this.state.flashcards.length),
       });
     }
-    if (event.keyCode === 16) {
+    if (event.keyCode === 17) {
       //shift
       this.state.turn === true
         ? this.setState({
@@ -128,8 +132,9 @@ class CardLearning extends Component {
             </div>
           </div>
         )}
-        <div className="nextBtnContainer">
-          <Button className="clickNextBtn" onClick={this.updateCard}>
+        <div className="nextBtnContainer" style={{ display: 'flex', justifyContent: 'center' }}>
+          <Instruction />
+          <Button className="clickNextBtn" onClick={this.updateCard} style={{ marginLeft: '1%' }}>
             Dalej
           </Button>
         </div>
