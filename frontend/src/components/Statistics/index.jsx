@@ -5,9 +5,7 @@ import { Space } from 'antd';
 const Statistics = () => {
   return (
     <div>
-      <Space>
-        <StatisticsContent />
-      </Space>
+      <StatisticsContent />
     </div>
   );
 };

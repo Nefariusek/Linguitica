@@ -46,9 +46,7 @@ const NavBar = () => {
           </div>
           <div className="rightBar">
             <Menu theme="dark" mode="horizontal" className="menuBar">
-              <Menu.Item className="menuItem">
-                <Link to="/profile">Profil</Link>
-              </Menu.Item>
+              <Menu.Item className="menuItem">Profil</Menu.Item>
               <Menu.Item className="menuItem" onClick={handleLogout}>
                 Wyloguj się
               </Menu.Item>
@@ -77,9 +75,7 @@ const NavBar = () => {
           </div>
           <div className="rightBar">
             <Menu theme="dark" mode="horizontal" className="menuBar">
-              <Menu.Item className="menuItem">
-                <Link to="/profile">Profil</Link>
-              </Menu.Item>
+              <Menu.Item className="menuItem">Profil</Menu.Item>
               <Menu.Item className="menuItem" onClick={handleLogout}>
                 Wyloguj się
               </Menu.Item>
