@@ -2,7 +2,7 @@ import React, { Component, useEffect } from 'react';
 import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Store from '../../Store';
-import setHeaders from '../../utils/setHeaders';
+import setHeaders from '../../utils/setHeadersMobile';
 import axios from 'axios';
 import {
   Container,
@@ -219,6 +219,7 @@ export default class Flashcards extends Component {
                         borderRadius: 10,
                         borderWidth: 1,
                         borderColor: '#fff',
+                        color: 'white',
                       }}
                     >
                       {val.german}
@@ -234,7 +235,7 @@ export default class Flashcards extends Component {
                   <Button
                     onPress={() => this.onSelectChange(key)}
                     large
-                    style={{ backgroundColor: 'lightgrey', height: 40 }}
+                    style={{ backgroundColor: 'lightgrey', height: 40, maxWidth: 50 }}
                   >
                     {(val.category === 'pojazdy' && <Icon style={{ color: 'black' }} name="car" />) ||
                       (val.category === 'praca' && <Icon style={{ color: 'black' }} name="hammer" />) ||
@@ -245,7 +246,7 @@ export default class Flashcards extends Component {
                       (val.category === 'liczby' && <Icon style={{ color: 'black' }} name="stats" />) ||
                       (val.category === 'czas' && <Icon style={{ color: 'black' }} name="time" />) ||
                       (val.category === 'technika' && <Icon style={{ color: 'black' }} name="build" />) ||
-                      (val.category === 'technologia' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                      (val.category === 'technologia' && <Icon style={{ color: 'black' }} name="phone-portrait" />) ||
                       (val.category === 'zawody' && <Icon style={{ color: 'black' }} name="briefcase" />) ||
                       (val.category === 'podróże' && <Icon style={{ color: 'black' }} name="jet" />) ||
                       (val.category === 'medycyna' && <Icon style={{ color: 'black' }} name="medkit" />) ||
@@ -265,7 +266,7 @@ export default class Flashcards extends Component {
           <Footer>
             <FooterTab>
               <Button full style={{ backgroundColor: '#1890ff' }}>
-                <Text style={{ fontSize: 16, color: 'white' }}>NAUKA</Text>
+                <Text style={{ fontSize: 16, color: 'white' }}>NAUKA ({this.state.selectedCounter})</Text>
               </Button>
             </FooterTab>
           </Footer>
@@ -278,7 +279,7 @@ export default class Flashcards extends Component {
 }
 const styles = StyleSheet.create({
   selected: {
-    backgroundColor: '#B8FBFF',
+    backgroundColor: '#B5E3D3',
     marginLeft: 0,
   },
   normal: { marginLeft: 0 },

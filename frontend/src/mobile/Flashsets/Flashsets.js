@@ -2,7 +2,7 @@ import React, { Component, useEffect } from 'react';
 import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Store from '../../Store';
-import setHeaders from '../../utils/setHeaders';
+import setHeaders from '../../utils/setHeadersMobile';
 import {
   Container,
   Footer,
@@ -175,12 +175,18 @@ export default class Flashcards extends Component {
                             (val.category === 'liczby' && <Icon style={{ color: 'black' }} name="stats" />) ||
                             (val.category === 'czas' && <Icon style={{ color: 'black' }} name="time" />) ||
                             (val.category === 'technika' && <Icon style={{ color: 'black' }} name="build" />) ||
-                            (val.category === 'technologia' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                            (val.category === 'technologia' && (
+                              <Icon style={{ color: 'black' }} name="phone-portrait" />
+                            )) ||
                             (val.category === 'zawody' && <Icon style={{ color: 'black' }} name="briefcase" />) ||
                             (val.category === 'podróże' && <Icon style={{ color: 'black' }} name="jet" />) ||
-                            (val.category === 'elektronika' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                            (val.category === 'elektronika' && (
+                              <Icon style={{ color: 'black' }} name="phone-portrait" />
+                            )) ||
                             (val.category === 'ludzie' && <Icon style={{ color: 'black' }} name="people" />) ||
-                            (val.category === 'internet' && <Icon style={{ color: 'black' }} name="laptop" />) ||
+                            (val.category === 'internet' && (
+                              <Icon style={{ color: 'black' }} name="phone-portrait" />
+                            )) ||
                             (val.category === 'ogolne' && <Icon style={{ color: 'black' }} name="list" />) ||
                             (val.category === 'inne' && <Icon style={{ color: 'black' }} name="list" />) ||
                             (val.category === 'zwierzeta' && <Icon style={{ color: 'black' }} name="paw" />) ||

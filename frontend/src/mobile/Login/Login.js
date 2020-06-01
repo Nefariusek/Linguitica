@@ -1,12 +1,19 @@
 import React from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import jwt from 'jwt-decode';
 import { ImageBackground, Alert } from 'react-native';
+
+import setHeaders from '../../utils/setHeadersMobile';
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text, Item, Input } from 'native-base';
 import Logo from '../../images/logo_mobile.png';
+
 export default class HomeScreen extends React.Component {
   state = {
     email: '',
     password: '',
-    invalidData: false,
+    invalidData: true,
+    test: '',
+    users: [],
   };
   handleEmailChange = async (text) => {
     await this.setState({ email: text });
@@ -15,12 +22,59 @@ export default class HomeScreen extends React.Component {
     await this.setState({ password: text });
   };
   authUser = async () => {
-    Alert.alert('walidacja /todo/');
+    // this.storeData(this.state.email);
+    //var bcrypt = require('bcryptjs');
+    await AsyncStorage.setItem('@_id', '');
+    await AsyncStorage.setItem('@isLogged', 'no');
+    await this.setState({ invalidData: true });
+    const response = await fetch('http://linguitica.herokuapp.com/api/users', setHeaders());
+    const body = await response.json();
+
+    await this.setState({ users: body });
+
+    for (let i = 0; i < (await this.state.users.length); i++) {
+      // let validPassword = await bcrypt.compare(this.state.password, this.state.users[i].password);
+      if (this.state.users[i].email === this.state.email) {
+        try {
+          await AsyncStorage.setItem('@_id', this.state.users[i]._id);
+          await AsyncStorage.setItem('@isLogged', 'yes');
+          await this.setState({ invalidData: false });
+        } catch (e) {
+          // saving error
+        }
+        return true;
+      }
+    }
   };
+
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@_id');
+      if (value !== null) {
+        // value previously stored
+        await this.setState({ test: value });
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
   onButtonSubmit = async (e) => {
     e.preventDefault();
-    await this.authUser();
+    if (this.state.email === '' || this.state.password === '') {
+      Alert.alert('Pola nie mogą być puste!');
+    } else {
+      await this.authUser();
+      await this.getData();
+      if (await !this.state.invalidData) {
+        await this.props.navigation.navigate('Fiszki');
+        await this.setState({ email: '', password: '' });
+      } else {
+        await Alert.alert('Niepoprawne dane!');
+      }
+    }
   };
+
   render() {
     return (
       <Container>

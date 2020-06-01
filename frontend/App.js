@@ -10,8 +10,9 @@ import Login from '../frontend/src/mobile/Login/Login.js';
 import Register from '../frontend/src/mobile/Register/Register.js';
 import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.js';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
+
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Button } from 'native-base';
 import Logo from '../frontend/src/images/logo_mobile.png';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -19,7 +20,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 export default class App extends React.Component {
   state = {
     isReady: false,
-    isLogged: true,
+    isLogged: false,
   };
   async componentDidMount() {
     await Font.loadAsync({
@@ -27,8 +28,10 @@ export default class App extends React.Component {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       ...Ionicons.font,
     });
-    this.setState({ isReady: true });
+    // await this.getData();
+    await this.setState({ isReady: true });
   }
+
   render() {
     if (!this.state.isReady) {
       return <AppLoading />;
@@ -110,29 +113,12 @@ export default class App extends React.Component {
           />
 
           <Drawer.Screen
-            name="Fiszki"
-            component={Flashcards}
-            options={{ drawerAnimation: 'none' }}
-            options={{
-              animationEnabled: false,
-              gestureEnabled: false,
-            }}
-          />
-          <Drawer.Screen
-            name="Zestawy"
-            component={Flashsets}
-            options={{ drawerAnimation: 'none' }}
-            options={{
-              animationEnabled: false,
-            }}
-          />
-          <Drawer.Screen
             name="Logowanie"
             component={Login}
             options={{ drawerAnimation: 'none' }}
             options={{
               animationEnabled: false,
-              drawerLabel: () => <Hidden />,
+              // drawerLabel: () => <Hidden />,
             }}
           />
           <Drawer.Screen
@@ -141,9 +127,28 @@ export default class App extends React.Component {
             options={{ drawerAnimation: 'none' }}
             options={{
               animationEnabled: false,
-              drawerLabel: () => <Hidden />,
+
+              //  drawerLabel: () => <Hidden />,
             }}
-            style={() => null}
+          />
+          <Drawer.Screen
+            name="Fiszki"
+            component={Flashcards}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+              gestureEnabled: false,
+              //  drawerLabel: () => <Hidden />,
+            }}
+          />
+
+          <Drawer.Screen
+            name="Zestawy"
+            component={Flashsets}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
           />
         </Drawer.Navigator>
       </NavigationContainer>
