@@ -4,15 +4,11 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-
-    "@ant-design/react-native": "^3.3.0",
-
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/drawer": "^5.8.1",
     "@react-navigation/native": "^5.5.0",
     "@react-navigation/stack": "^5.4.1",
-
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -23,22 +19,14 @@
     "jwt-decode": "^2.2.0",
     "moment": "^2.25.3",
     "native-base": "2.13.8",
-
-    "rc-tabs": "^10.1.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-card-flip": "^1.0.6",
-    "react-native-navbar": "^2.1.0",
-
-    "react": "~16.9.0",
-    
     "react-native-gesture-handler": "~1.5.0",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "2.0.0-alpha.12",
-
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.3.9",
     "react-navigation-stack": "^2.5.1",

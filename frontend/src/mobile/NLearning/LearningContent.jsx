@@ -21,8 +21,8 @@ class LearningContent extends Component {
       <Container>
         <Header style={{ backgroundColor: '#1890ff' }}>
           <Left>
-            <Button transparent>
-              <Icon name="arrow-back" />
+            <Button transparent onPress={() => this.props.navigation.openDrawer()}>
+              <Icon name="menu" />
             </Button>
           </Left>
           <Body>

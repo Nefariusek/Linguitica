@@ -1,6 +1,6 @@
-import React, { Component, useEffect } from 'react';
-import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeadersMobile';
 import {
@@ -23,7 +23,6 @@ import {
   Tabs,
   ScrollableTab,
   TabHeading,
-  Fab,
 } from 'native-base';
 
 export default class Flashcards extends Component {
@@ -43,8 +42,6 @@ export default class Flashcards extends Component {
   static contextType = Store;
   changeTab = async (props) => {
     await this.setState({ currentTab: props.i });
-    // console.log(this.state.currentTab);
-    console.log(this.state.currentTab);
   };
   onSelectChange = async (selectedRowKeys) => {
     this.setState({ selectedFlashcards: [] });
@@ -53,7 +50,6 @@ export default class Flashcards extends Component {
     const { selected } = this.state;
     selected[selectedRowKeys] = !selected[selectedRowKeys];
     this.setState({ selected });
-    // console.log('wybrane fiszki: ', this.state.selected);
     let counter = 0;
 
     for (let i = 0; i < (await this.state.selected.length); i++) {
@@ -156,6 +152,7 @@ export default class Flashcards extends Component {
                               borderRadius: 10,
                               borderWidth: 1,
                               borderColor: '#fff',
+                              color: 'white',
                             }}
                           >
                             {val.german}

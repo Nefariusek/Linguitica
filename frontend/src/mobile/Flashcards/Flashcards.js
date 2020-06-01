@@ -1,9 +1,7 @@
-import React, { Component, useEffect } from 'react';
-import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeadersMobile';
-import axios from 'axios';
 import {
   Container,
   Footer,

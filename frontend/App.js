@@ -9,13 +9,12 @@ import Home from '../frontend/src/mobile/Home/Home.js';
 import Login from '../frontend/src/mobile/Login/Login.js';
 import Register from '../frontend/src/mobile/Register/Register.js';
 import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.js';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-
+import LearningContent from './src/mobile/NLearning/LearningContent';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Button } from 'native-base';
 import Logo from '../frontend/src/images/logo_mobile.png';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class App extends React.Component {
   state = {
@@ -150,6 +149,14 @@ export default class App extends React.Component {
               animationEnabled: false,
             }}
           />
+          <Drawer.Screen
+            name="Nauka"
+            component={LearningContent}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     );
@@ -166,4 +173,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
 });
-

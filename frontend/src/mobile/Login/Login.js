@@ -51,12 +51,9 @@ export default class HomeScreen extends React.Component {
     try {
       const value = await AsyncStorage.getItem('@_id');
       if (value !== null) {
-        // value previously stored
         await this.setState({ test: value });
       }
-    } catch (e) {
-      // error reading value
-    }
+    } catch (e) {}
   };
 
   onButtonSubmit = async (e) => {

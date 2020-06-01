@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, StyleSheet } from 'react-native';
-import setHeaders from '../../utils/setHeaders';
+import setHeaders from '../../utils/setHeadersMobile';
 import axios from 'axios';
 import { Container, Button, View, DeckSwiper, Thumbnail, Card, Text, Left, Body, Icon, H1 } from 'native-base';
 export default class CardLearning extends Component {
