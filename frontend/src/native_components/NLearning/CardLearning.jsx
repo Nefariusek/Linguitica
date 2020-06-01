@@ -124,7 +124,7 @@ export default class CardLearning extends Component {
             <Icon name="sync" />
             <Text>Obróć</Text>
           </Button>
-          <Button iconRight style={{ width: '40%' }} onPress={() => this.updateCard()}>
+          <Button iconRight style={{ width: '40%', backgroundColor: '#1890ff' }} onPress={() => this.updateCard()}>
             <Text>Dalej</Text>
             <Icon name="arrow-forward" />
           </Button>

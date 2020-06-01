@@ -19,7 +19,7 @@ class LearningContent extends Component {
   render() {
     return (
       <Container>
-        <Header>
+        <Header style={{ backgroundColor: '#1890ff' }}>
           <Left>
             <Button transparent>
               <Icon name="arrow-back" />
@@ -36,7 +36,7 @@ class LearningContent extends Component {
         </Content>
 
         <Footer>
-          <FooterTab style={{ position: 'absolute' }}>
+          <FooterTab style={{ backgroundColor: '#1890ff' }}>
             <Button full>
               <Text>Linguitica</Text>
             </Button>
