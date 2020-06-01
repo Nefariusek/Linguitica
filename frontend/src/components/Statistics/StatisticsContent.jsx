@@ -1,32 +1,25 @@
 import React, { Component } from 'react';
-import { Layout, Row, Col, Card } from 'antd';
-import rose6 from '../../images/rose/rose6.PNG';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 
+import Store from '../../Store';
+
 class StatisticsContent extends Component {
   state = {
-    statistics_ID: '5ec17864572090064000e480',
+    statistics_ID: null,
     plantID: '',
-    words_learned: '5',
-    quest_completed: '5',
-    tests_passed: '5',
-    streak: '5',
-    learning_since: Date,
-    from: '',
+    words_learned: '',
+    quest_completed: '',
+    tests_passed: '',
+    streak: '',
+    learning_since: null,
     statistics: '',
   };
-
-  componentDidMount = async () => {
-    console.log(this.context);
-    //await this.getStatisticsID();
-    await this.getStatistics();
-    this.state.from = this.state.learning_since.slice(0, 10);
-  };
+  static contextType = Store;
 
   getStatisticsID = async () => {
     await axios({
-      url: `/api/plants/${this.context.userProfile.plantID}`,
+      url: `/api/plants/${this.context.userProfile.plant_id}`,
       method: 'get',
       headers: setHeaders(),
     }).then(
@@ -46,12 +39,14 @@ class StatisticsContent extends Component {
       headers: setHeaders(),
     }).then(
       (response) => {
+        let formatted_data = response.data.learning_since.slice(0, 10);
+        console.log(response.data);
         this.setState({
           words_learned: response.data.words_learned,
           tests_passed: response.data.tests_passed,
           quest_completed: response.data.quest_completed,
           streak: response.data.streak,
-          learning_since: response.data.learning_since,
+          learning_since: formatted_data,
         });
       },
       (error) => {
@@ -60,29 +55,21 @@ class StatisticsContent extends Component {
     );
   };
 
+  componentDidMount = async () => {
+    console.log(this.context);
+    await this.getStatisticsID();
+    await this.getStatistics();
+  };
+
   render() {
     return (
-      <Layout className="flashsets-layout">
-        <Row justify="space-around" gutter={50}>
-          <Col span={2}>
-            <Card title="twoja roślinka" style={{ width: 500, padding: 6 }}>
-              <Row justify="space-around" gutter={16}>
-                <img src={rose6} style={{ width: 200 }}></img>
-              </Row>
-              <p>Z nami od: {this.state.from}</p>
-              <p></p>
-            </Card>
-          </Col>
-          <Col span={2}>
-            <Card title="nauka" style={{ width: 500, padding: 6 }}>
-              <p>Streak: {this.state.streak}</p>
-              <p>Liczba nauczonych słówek: {this.state.words_learned} </p>
-              <p>Słówka ukończonych testów: {this.state.tests_passed}</p>
-              <p>Liczba ukończonych misji: {this.state.quest_completed} </p>
-            </Card>
-          </Col>
-        </Row>
-      </Layout>
+      <div>
+        <h3>Z nami od: {this.state.learning_since}</h3>
+        <h3>Streak: {this.state.streak}</h3>
+        <h3>Liczba nauczonych słówek: {this.state.words_learned} </h3>
+        <h3>Słówka ukończonych testów: {this.state.tests_passed}</h3>
+        <h3>Liczba ukończonych misji: {this.state.quest_completed} </h3>
+      </div>
     );
   }
 }

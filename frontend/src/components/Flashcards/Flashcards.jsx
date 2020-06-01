@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Table } from 'antd';
 import setHeaders from '../../utils/setHeaders';
+import Store from '../../Store';
+
 class Cards extends Component {
   state = {
     flashcards: [],
@@ -15,6 +17,8 @@ class Cards extends Component {
     data: [],
     loaded: false,
   };
+
+  static contextType = Store;
 
   getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
@@ -96,6 +100,7 @@ class Cards extends Component {
       this.state.selectedFlashcards.push(this.state.flashcards[selectedRowKeys[i]]);
     }
     console.log('wybrane fiszki: ', this.state.selectedFlashcards);
+    this.context.changeStore('setToLearn', this.state.selectedFlashcards);
   };
   render() {
     const columns = [

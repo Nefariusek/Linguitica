@@ -7,6 +7,7 @@ export class StoreProvider extends React.Component {
     isLogged: localStorage.getItem('token') ? true : false,
     userProfile: null,
     hasPlant: null,
+    setToLearn: null,
   };
 
   changeStore = (name, value) => {

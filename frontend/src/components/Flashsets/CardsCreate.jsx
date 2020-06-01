@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input, Checkbox } from 'antd';
+import { Button, Modal, Input, Checkbox, message } from 'antd';
 import axios from 'axios';
 import setHeaders from '../../utils/setHeaders';
 
@@ -9,7 +9,7 @@ export default class CardsCreate extends Component {
     temp: false,
     polish: '',
     german: '',
-    category: '',
+    category: 'pojazdy',
     flashsetID: this.props.flashsetID,
     body: '',
     checked: false,
@@ -26,24 +26,24 @@ export default class CardsCreate extends Component {
     this.props.callbackFromParent(true);
   };
 
-  handleSubmit = () => {};
   handleChange = async (e) => {
     const { value, name } = e.target;
     await this.setState({ [name]: value });
   };
   handleOk = async () => {
-    await this.addFlashcard();
-    console.log(this.state.body);
-    if (this.state.checked === false) {
-      this.handleClose();
-      this.props.callbackFromParent(true);
-    } else {
-      this.setState({ open: true });
-      this.setState({ polish: '' });
-      this.setState({ german: '' });
-      this.setState({ category: '' });
-    }
-    // this.props.callbackFromParent(true);
+    if (this.state.polish !== '' && this.state.german !== '') {
+      await this.addFlashcard();
+      message.success('Udało się utworzyć fiszkę!', 2);
+      if (this.state.checked === false) {
+        this.handleClose();
+        this.props.callbackFromParent(true);
+      } else {
+        this.setState({ open: true });
+        this.setState({ polish: '' });
+        this.setState({ german: '' });
+        this.setState({ category: '' });
+      }
+    } else message.error('Proszę wypełnić wszystkie pola.', 2);
   };
 
   componentDidMount = () => {
