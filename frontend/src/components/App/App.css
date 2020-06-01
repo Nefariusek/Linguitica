@@ -830,9 +830,10 @@ body {
   font-size: 24px;
   margin: 10px;
   text-align: justify;
-  width: 27%;
+  width: auto;
   height: 80%;
   border-right: #1890ff 2px double;
+  word-break: 'break-all';
 }
 
 .card-german {
@@ -1042,14 +1043,29 @@ body {
   color: #333;
   font-size: 3.3em;
   padding-top: 20%;
+  width: 100%;
+  word-break: 'break-all';
+  word-wrap: break-word;
 }
 .word,
 .wordQuiz {
   color: #333;
   font-size: 3em;
   margin-bottom: 0px;
-  margin-top: 10%;
+  margin-top: 6%;
   width: 100%;
+  word-break: 'break-all';
+  word-wrap: break-word;
+}
+.tip {
+  margin-top: 3%;
+  width: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
+  font-weight: bold;
+  color: #0070ad;
+  height: auto;
+  font-size: 1.5em;
 }
 .wordQuiz {
   margin-top: 5%;
@@ -1102,9 +1118,10 @@ body {
   height: 40px;
 }
 .odpBtn {
-  width: 40%;
+  min-width: 40%;
   margin-right: auto;
   padding: 0;
+  width: auto;
 }
 .learningMenu {
   border: 1px solid #1890ff;

@@ -1,19 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
+import { Container } from 'native-base';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Zapraszam do nauki języków</Text>
-    </View>
-  );
+import LearningContent from './src/native_components/NLearning/LearningContent';
+
+export default class App extends React.Component {
+  state = {
+    isReady: false,
+  };
+  async componentDidMount() {
+    await Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      ...Ionicons.font,
+    });
+    this.setState({ isReady: true });
+  }
+  render() {
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
+    return <LearningContent />;
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
