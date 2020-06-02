@@ -23,6 +23,7 @@ class WriteLearning extends Component {
     showAnswer: false,
     isGood: ' ',
     learnedWord: 0,
+    statistics_ID: '',
   };
   static contextType = Store;
 
@@ -121,16 +122,38 @@ class WriteLearning extends Component {
       }
     }
   }
+  getStatisticsID = async () => {
+    await axios({
+      url: `/api/plants/${this.context.userProfile.plant_id}`,
+      method: 'get',
+      headers: setHeaders(),
+    }).then(
+      (response) => {
+        this.setState({ statistics_ID: response.data.statistics_id });
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
 
   saveStatistics = async () => {
+    await this.getStatisticsID();
     await axios({
-      url: `/api/statistics/${this.context.userProfile.plant_id.statistics_id}/updateWordsLearned`,
+      url: `/api/statistics/${this.state.statistics_ID}/updateWordsLearned`,
       method: 'put',
       data: {
         words_learned: this.state.learnedWord,
       },
       headers: setHeaders(),
-    }).then((res) => this.setState({ loaded: false }));
+    }).then(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
   };
 
   render() {
