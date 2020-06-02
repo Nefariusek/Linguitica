@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import setHeaders from '../../utils/setHeaders';
 import { Input, Form, Button } from 'antd';
 import Instruction from './Instruction';
+import Store from '../../Store';
 
 /* ----- shift - podpowiedz, (trzeba ja wymyslic jeszcze, bo na razie kategoria)
 enter dalej gdy dobra odpowiedz, 
@@ -25,6 +26,7 @@ class WriteLearning extends Component {
     showAnswer: false,
     isGood: ' ',
   };
+  static contextType = Store;
 
   updateAnswer(e) {
     e.preventDefault();
@@ -64,7 +66,6 @@ class WriteLearning extends Component {
   componentDidMount = async () => {
     // await this.getFlashcards();
     await this.setState({ flashcards: this.context.setToLearn });
-    console.log(this.state.flashcards);
     const numRows = this.state.flashcards.length;
     const randNum = Math.floor(Math.random() * numRows);
     const randCard = this.state.flashcards[randNum].polish;
@@ -123,7 +124,7 @@ class WriteLearning extends Component {
       }
     }
   }
-
+  //
   render() {
     const { isGood } = this.state;
     const { showContent } = this.state;
