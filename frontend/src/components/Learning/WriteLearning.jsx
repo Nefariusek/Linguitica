@@ -3,19 +3,16 @@ import setHeaders from '../../utils/setHeaders';
 import { Input, Form, Button } from 'antd';
 import Instruction from './Instruction';
 import Store from '../../Store';
+import axios from 'axios';
 
-/* ----- shift - podpowiedz, (trzeba ja wymyslic jeszcze, bo na razie kategoria)
-enter dalej gdy dobra odpowiedz, 
-shift trzeba zmienic, bo jak sie da duza literke to sie włącza podpowiedz 
-strzałka w prawo - quiz,
-strzałka w lewo - fiszki ------- */
+const { Search } = Input;
 
 class WriteLearning extends Component {
   constructor(props) {
     super(props);
     this.updateCard = this.updateCard.bind(this);
     this.toggleVisibility = this.toggleVisibility.bind(this);
-    this.toggleAnswer = this.toggleAnswer.bind(this);
+    //this.toggleAnswer = this.toggleAnswer.bind(this);
     this.updateAnswer = this.updateAnswer.bind(this);
     this.handleKey = this.handleKey.bind(this);
   }
@@ -25,6 +22,7 @@ class WriteLearning extends Component {
     showContent: false,
     showAnswer: false,
     isGood: ' ',
+    learnedWord: 0,
   };
   static contextType = Store;
 
@@ -42,20 +40,20 @@ class WriteLearning extends Component {
     });
   }
 
-  toggleAnswer(event) {
-    event.preventDefault();
-
+  toggleAnswer = async () => {
     if (this.state.answer === this.state.german) {
       this.setState({
         showAnswer: true,
         isGood: true,
+        learnedWord: this.state.learnedWord + 1,
       });
+      await this.saveStatistics();
     } else {
       this.setState({
         isGood: false,
       });
     }
-  }
+  };
 
   getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
@@ -64,17 +62,16 @@ class WriteLearning extends Component {
   };
 
   componentDidMount = async () => {
-    // await this.getFlashcards();
+    //await this.getFlashcards();
     await this.setState({ flashcards: this.context.setToLearn });
-    const numRows = this.state.flashcards.length;
-    const randNum = Math.floor(Math.random() * numRows);
+
+    const randNum = Math.floor(Math.random() * this.state.flashcards.length);
     const randCard = this.state.flashcards[randNum].polish;
     const randGer = this.state.flashcards[randNum].german;
-    const randTip = this.state.flashcards[randNum].level;
 
     Math.floor(Math.random() * 10000) % 2 === 0
-      ? this.setState({ polish: randCard, german: randGer, level: randTip, answer: ' ' })
-      : this.setState({ polish: randGer, german: randCard, level: randTip, answer: ' ' });
+      ? this.setState({ polish: randCard, german: randGer, answer: ' ' })
+      : this.setState({ polish: randGer, german: randCard, answer: ' ' });
 
     for (let i = 0; i < 1; i++) {
       const { temp } = this.state;
@@ -124,7 +121,18 @@ class WriteLearning extends Component {
       }
     }
   }
-  //
+
+  saveStatistics = async () => {
+    await axios({
+      url: `/api/statistics/${this.context.userProfile.plant_id.statistics_id}/updateWordsLearned`,
+      method: 'put',
+      data: {
+        words_learned: this.state.learnedWord,
+      },
+      headers: setHeaders(),
+    }).then((res) => this.setState({ loaded: false }));
+  };
+
   render() {
     const { isGood } = this.state;
     const { showContent } = this.state;
