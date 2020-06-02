@@ -53,15 +53,16 @@ router.get('/:id', async (req, res) => {
 //Updating password
 router.put('/:id/password', async (req, res) => {
   const User = res.locals.models.user;
-  // const { error } = validateUser(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
+  //const { error } = validateUser(req.body);
+  //if (error) return res.status(400).send(error.details[0].message);
 
   let user;
-
+  const salt = await bcrypt.genSalt();
+  let newPassword = await bcrypt.hash(req.body.password, salt);
   user = await User.findByIdAndUpdate(
     req.params.id,
     {
-      password: req.body.password,
+      password: newPassword,
     },
     {
       new: true,

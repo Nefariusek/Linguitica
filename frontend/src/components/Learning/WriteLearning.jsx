@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import setHeaders from '../../utils/setHeaders';
 import { Input, Form, Button } from 'antd';
-import Store from '../../Store';
 import Instruction from './Instruction';
-
-const { Search } = Input;
 
 /* ----- shift - podpowiedz, (trzeba ja wymyslic jeszcze, bo na razie kategoria)
 enter dalej gdy dobra odpowiedz, 
