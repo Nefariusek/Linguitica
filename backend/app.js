@@ -8,6 +8,7 @@ const flashcards = require('./routes/flashcards');
 const auth = require('./routes/auth');
 const quests = require('./routes/quests');
 const statistics = require('./routes/statistics');
+const path = require('path');
 
 const main = async () => {
   const app = express();
