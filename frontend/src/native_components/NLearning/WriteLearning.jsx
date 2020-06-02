@@ -173,11 +173,11 @@ export default class WriteLearning extends Component {
               padding: 15,
             }}
           >
-            <Button iconLeft style={{ width: '40%' }} onPress={this.showAnswer}>
+            <Button iconLeft style={{ width: '40%', backgroundColor: '#1890ff' }} onPress={this.showAnswer}>
               <Icon name="key" />
               <Text>Nie wiem</Text>
             </Button>
-            <Button iconLeft style={{ width: '40%' }} onPress={() => this.updateCard()}>
+            <Button iconLeft style={{ width: '40%', backgroundColor: '#1890ff' }} onPress={() => this.updateCard()}>
               <Icon name="arrow-forward" />
               <Text>Dalej</Text>
             </Button>

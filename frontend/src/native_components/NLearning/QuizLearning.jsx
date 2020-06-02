@@ -388,7 +388,7 @@ export default class QuizLearning extends Component {
             <Text>Podpowiedź</Text>
           </Button>
           <Button
-            style={{ width: '44%', textAlign: 'center', backgroundColor: '#0027ac' }}
+            style={{ width: '44%', textAlign: 'center', backgroundColor: '#1890ff' }}
             iconRight
             onPress={() => this.updateCard()}
           >

@@ -12,7 +12,7 @@ export default class Menu extends Component {
         <Tabs>
           <Tab
             heading={
-              <TabHeading>
+              <TabHeading style={{ backgroundColor: '#1890ff' }}>
                 <Icon name="bookmarks" />
                 <Text>Fiszki</Text>
               </TabHeading>
@@ -22,7 +22,7 @@ export default class Menu extends Component {
           </Tab>
           <Tab
             heading={
-              <TabHeading>
+              <TabHeading style={{ backgroundColor: '#1890ff' }}>
                 <Icon name="create" />
                 <Text>Pisanie</Text>
               </TabHeading>
@@ -32,7 +32,7 @@ export default class Menu extends Component {
           </Tab>
           <Tab
             heading={
-              <TabHeading>
+              <TabHeading style={{ backgroundColor: '#1890ff' }}>
                 <Icon name="paper" />
                 <Text>Quiz</Text>
               </TabHeading>
