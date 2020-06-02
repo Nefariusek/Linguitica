@@ -9,7 +9,6 @@ import Register from '../Register';
 import Guestpage from '../Guestpage';
 import Homepage from '../Homepage';
 import Flashsets from '../Flashsets';
-import Profile from '../Profile';
 import Quests from '../Quests';
 import Flashcards from '../Flashcards';
 import PlantCreation from '../PlantCreation';
@@ -64,7 +63,6 @@ const App = () => {
             <PublicRoute exact path="/login" component={Login} />
             <PrivateRoute exact path="/home" component={Homepage} />
             <PrivateRoute exact path="/flashsets" component={Flashsets} />
-            <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/quests" component={Quests} />
             <PrivateRoute exact path="/flashcards" component={Flashcards} />
             <PrivateRoute exact path="/plantCreation" component={PlantCreation} />

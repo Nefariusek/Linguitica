@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-/* ----- shift - podpowiedz, 
-enter zatwierdza odp + dalej gdy dobra odpowiedz, 
-strzałka góra - pisanko,
-strzałka w lewo - fiszki ------- */
+import Instruction from './Instruction';
 
 class QuizLearning extends Component {
   constructor(props) {
@@ -27,7 +24,6 @@ class QuizLearning extends Component {
     tipON: ' ',
     isGood: ' ',
     randQueue: ' ',
-    focus: ' ',
   };
 
   static contextType = Store;
@@ -63,9 +59,9 @@ class QuizLearning extends Component {
   };
 
   handleKey(event) {
-    if (event.keyCode === 16) {
+    if (event.keyCode === 17) {
       this.setState({
-        //shift
+        //ctrl
         tipON: true,
       });
     } else if (event.keyCode === 13) {
@@ -141,7 +137,6 @@ class QuizLearning extends Component {
             }
           >
             <div className="wordQuiz">{this.state.polish}</div>
-
             <div className="tipQuiz">
               {this.state.randQueue % 4 === 0 ? (
                 <div className="possibleAnswers">
@@ -262,12 +257,12 @@ class QuizLearning extends Component {
                   </div>
                   <div className="singleAnswer">
                     <Button className="odpBtn" onClick={() => this.toggleAnswer(this.state.german)}>
-                      {this.state.german}Focus
+                      {this.state.german}
                     </Button>
                   </div>
                 </div>
               )}
-            </div>
+            </div>{' '}
           </div>
           <div
             className="quizButtons"
@@ -280,19 +275,22 @@ class QuizLearning extends Component {
               width: '100%',
             }}
           >
+            {' '}
             <Button
               tabIndex={1}
               className="clickNextBtn"
-              style={{ width: '130px', fontSize: '1.3em', padding: '0' }}
+              style={{ width: '130px', fontSize: '1.3em', padding: '0', marginRight: '0%' }}
               onClick={() => this.deleteTwo(this.state.tipON)}
             >
               Podpowiedź
             </Button>
-
+            <div style={{ marginTop: '10%' }}>
+              <Instruction style={{ marginLeft: '-50%' }} />
+            </div>
             <Button
               tabIndex={-2}
               className="clickNextBtn"
-              style={{ width: '130px', fontSize: '1.3em' }}
+              style={{ width: '130px', fontSize: '1.3em', marginRight: '5%' }}
               onClick={this.updateCard}
             >
               Dalej

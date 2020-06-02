@@ -5,7 +5,6 @@ import { Button } from 'antd';
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeaders';
 import ProgressBar from './ProgressBar';
-import './ProfileContent.css';
 
 import Statistics from '../Statistics';
 
@@ -160,17 +159,30 @@ class ProfileContent extends Component {
           Irrigation: {this.state.irrigation_points}/{this.state.irrigation_required}
         </div>
         <div className="PlantStats">
-          <h3>Nazwa: {this.state.plantName}</h3>
-          <h3>Poziom: {this.state.level}</h3>
-          <h3>Wytrzymałość: {this.state.toughness}</h3>
-          <h3>Urokliwość: {this.state.charmingness}</h3>
+          <h1>Podstawowe</h1>
+          <div className="StatsLine">
+            <div className="Left"> Nazwa: </div>
+            <div className="Right">{this.state.plantName}</div>
+          </div>
+          <br></br>
+          <div className="StatsLine">
+            <div className="Left"> Poziom: </div>
+            <div className="Right">{this.state.level}</div>
+          </div>
+          <br></br>
+          <div className="StatsLine">
+            <div className="Left"> Wytrzymałość: </div>
+            <div className="Right">{this.state.toughness}</div>
+          </div>
+          <br></br>
+          <div className="StatsLine">
+            <div className="Left"> Urokliwość: </div>
+            <div className="Right">{this.state.charmingness}</div>
+          </div>
         </div>
         <div className="Statistics">
-          <h2>Statystyki nauki</h2>
+          <h1>Statystyki</h1>
           <Statistics />
-        </div>
-        <div className="PasswordChange">
-          <Button>Zmiana hasła</Button>
         </div>
       </div>
     );

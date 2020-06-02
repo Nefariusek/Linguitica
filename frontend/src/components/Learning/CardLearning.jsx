@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-/* ----- shift - obraca fiszkę
-enter nastepna 
-jak sie zahaczy o buttona to spacja w sumie tez przewija do nastepnej fiszki
-strzałka w prawo - quiz,
-strzałka góra - pisanko ------- */
+
+import Instruction from './Instruction';
 
 class CardLearning extends Component {
   constructor(props) {
@@ -35,10 +32,10 @@ class CardLearning extends Component {
     //await this.getFlashcards();
 
     await this.setState({ flashcards: this.context.setToLearn });
-    console.log(this.state.flashcards);
-    const randNum = Math.floor(Math.random() * this.state.flashcards.length);
-    const randCard = this.state.flashcards[randNum].polish;
-    const randGer = this.state.flashcards[randNum].german;
+    console.log(this.state.flashcards[2].polish);
+
+    const randCard = this.state.flashcards[2].polish;
+    const randGer = this.state.flashcards[2].german;
 
     this.setState({ polish: randCard, german: randGer });
 
@@ -46,6 +43,7 @@ class CardLearning extends Component {
       const { temp } = this.state;
       temp[i] = false;
     }
+    console.log(this.state.flashcards);
   };
 
   updateCard(event) {
@@ -63,10 +61,10 @@ class CardLearning extends Component {
     if (event.keyCode === 13) {
       this.updateCard(event);
       this.setState({
-        changeLanguage: Math.floor(Math.random() * 1000),
+        changeLanguage: Math.floor(Math.random() * this.state.flashcards.length),
       });
     }
-    if (event.keyCode === 16) {
+    if (event.keyCode === 17) {
       //shift
       this.state.turn === true
         ? this.setState({
@@ -128,8 +126,9 @@ class CardLearning extends Component {
             </div>
           </div>
         )}
-        <div className="nextBtnContainer">
-          <Button className="clickNextBtn" onClick={this.updateCard}>
+        <div className="nextBtnContainer" style={{ display: 'flex', justifyContent: 'center' }}>
+          <Instruction />
+          <Button className="clickNextBtn" onClick={this.updateCard} style={{ marginLeft: '1%' }}>
             Dalej
           </Button>
         </div>
