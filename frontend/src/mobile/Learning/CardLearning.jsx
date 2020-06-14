@@ -169,26 +169,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-/*   <DeckSwiper
-            ref={(c) => (this._deckSwiper = c)}
-            
-            renderItem={(item) => (
-              <>
-                <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
-                  <Left>
-                    <Body>
-                      <H1 style={[styles.flipText]}>hohoho</H1>
-                    </Body>
-                  </Left>
-                </Animated.View>
-                <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
-                  <Left>
-                    <Thumbnail source={item.text} />
-                    <Body>
-                      <H1 style={[styles.flipText]}>{item.name}</H1>
-                    </Body>
-                  </Left>
-                </Animated.View>
-              </>
-            )}
-          /> */

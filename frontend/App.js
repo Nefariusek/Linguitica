@@ -9,6 +9,8 @@ import Home from '../frontend/src/mobile/Home/Home.js';
 import Login from '../frontend/src/mobile/Login/Login.js';
 import Register from '../frontend/src/mobile/Register/Register.js';
 import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.js';
+import LearningContent from '../frontend/src/mobile/Learning/LearningContent';
+import Statistics from '../frontend/src/mobile/Statistics/Statistics';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -150,6 +152,22 @@ export default class App extends React.Component {
               animationEnabled: false,
             }}
           />
+          <Drawer.Screen
+            name="Nauka"
+            component={LearningContent}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
+          />
+          <Drawer.Screen
+            name="Statytstyki"
+            component={Statistics}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     );
@@ -166,4 +184,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
 });
-
