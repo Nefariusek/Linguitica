@@ -37,6 +37,10 @@ const flashcardSchema = new mongoose.Schema({
     type: [String],
     default: [''],
   },
+  successes: {
+    type: Number,
+    default: 0,
+  },
   level: {
     type: String,
     enum: ['', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
@@ -52,6 +56,7 @@ const validateFlashcard = (flashcard) => {
     german_tips: Joi.string().max(255).trim(),
     category: Joi.string(), //valid()
     tags: Joi.array().items(Joi.string()),
+    successes: Joi.number(),
     level: Joi.string().valid('elementary', 'intermediate', 'advanced'),
   });
 
