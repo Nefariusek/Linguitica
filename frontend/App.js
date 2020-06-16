@@ -12,6 +12,7 @@ import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.jsx';
 import Quests from '../frontend/src/mobile/Quests/Quests.jsx';
 import LearningContent from './src/mobile/NLearning/LearningContent';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import Statistics from '../frontend/src/mobile/Statistics/Statistics';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Button } from 'native-base';
@@ -161,6 +162,14 @@ export default class App extends React.Component {
           <Drawer.Screen
             name="Zadania"
             component={Quests}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
+          />
+          <Drawer.Screen
+            name="Statytstyki"
+            component={Statistics}
             options={{ drawerAnimation: 'none' }}
             options={{
               animationEnabled: false,

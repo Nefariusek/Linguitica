@@ -55,6 +55,7 @@ class WriteLearning extends Component {
       });
     }
   };
+  static contextType = Store;
 
   getFlashcards = async () => {
     const response = await fetch('/api/flashcards', setHeaders());
@@ -142,9 +143,9 @@ class WriteLearning extends Component {
     await axios({
       url: `/api/statistics/${this.state.statistics_ID}/updateWordsLearned`,
       method: 'put',
-      data: {
-        words_learned: this.state.learnedWord,
-      },
+
+      words_learned: this.state.learnedWord,
+
       headers: setHeaders(),
     }).then(
       (res) => {

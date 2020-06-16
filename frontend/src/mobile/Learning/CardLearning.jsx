@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, StyleSheet } from 'react-native';
-import setHeaders from '../../utils/setHeadersMobile';
+import setHeaders from '../../utils/setHeaders';
 import axios from 'axios';
 import { Container, Button, View, DeckSwiper, Thumbnail, Card, Text, Left, Body, Icon, H1 } from 'native-base';
 export default class CardLearning extends Component {
@@ -169,26 +169,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-/*   <DeckSwiper
-            ref={(c) => (this._deckSwiper = c)}
-            
-            renderItem={(item) => (
-              <>
-                <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
-                  <Left>
-                    <Body>
-                      <H1 style={[styles.flipText]}>hohoho</H1>
-                    </Body>
-                  </Left>
-                </Animated.View>
-                <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
-                  <Left>
-                    <Thumbnail source={item.text} />
-                    <Body>
-                      <H1 style={[styles.flipText]}>{item.name}</H1>
-                    </Body>
-                  </Left>
-                </Animated.View>
-              </>
-            )}
-          /> */
