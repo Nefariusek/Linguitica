@@ -30,11 +30,11 @@ export default class Statistics extends Component {
   state = {
     statistics_ID: null,
     plantID: '',
-    words_learned: 10,
-    quest_completed: 5,
+    words_learned: 8,
+    quest_completed: 1,
     tests_passed: '',
-    streak: 124,
-    learning_since: '2020 - 05 - 02',
+    streak: 11,
+    learning_since: '2020 - 06 - 03',
     statistics: '',
     numberOfFlashcards: 1,
     numberofQuests: 1,
@@ -43,7 +43,7 @@ export default class Statistics extends Component {
 
   getStatisticsID = async () => {
     await axios({
-      url: `https://linguitica.herokuapp.com/api/plants`,
+      url: `https://linguitica.herokuapp.com/api/plants/5ed3db66415db20017e14e86`,
       method: 'get',
       headers: setHeaders(),
     }).then(
@@ -64,7 +64,7 @@ export default class Statistics extends Component {
     }).then(
       (response) => {
         let formatted_data = response.data.learning_since.slice(0, 10);
-
+        console.log(response);
         this.setState({
           words_learned: response.data.words_learned,
           tests_passed: response.data.tests_passed,
@@ -114,7 +114,7 @@ export default class Statistics extends Component {
     await this.getStatistics();
     await this.getFlashcards();
     await this.getQuests();
-
+    await console.log(this.state);
     this.setState({
       numberOfFlashcards: this.state.flashcards.length,
       numberofQuests: this.state.quests.length,

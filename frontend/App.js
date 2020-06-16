@@ -10,7 +10,7 @@ import Login from '../frontend/src/mobile/Login/Login.jsx';
 import Register from '../frontend/src/mobile/Register/Register.jsx';
 import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.jsx';
 import Quests from '../frontend/src/mobile/Quests/Quests.jsx';
-import LearningContent from './src/mobile/NLearning/LearningContent';
+import LearningContent from './src/mobile/Learning/LearningContent';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Statistics from '../frontend/src/mobile/Statistics/Statistics';
 import { NavigationContainer } from '@react-navigation/native';
