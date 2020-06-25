@@ -93,7 +93,7 @@ export default class CardLearning extends Component {
     };
 
     return (
-      <Container>
+      <Container style={{ paddingBottom: '10%' }}>
         <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
           <Left>
             <Body>
@@ -108,14 +108,15 @@ export default class CardLearning extends Component {
             </Body>
           </Left>
         </Animated.View>
+
         <View
           style={{
             flexDirection: 'row',
             flex: 1,
             position: 'absolute',
-            bottom: 200,
-            left: 10,
-            right: 10,
+            marginTop: 450,
+            left: '5%',
+            right: '5%',
             justifyContent: 'space-between',
             padding: 10,
           }}

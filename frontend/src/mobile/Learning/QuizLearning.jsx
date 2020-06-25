@@ -117,7 +117,7 @@ export default class QuizLearning extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{ paddingBottom: '10%' }}>
         <View>
           {this.state.randQueue % 4 === 0 ? (
             <Card style={styles.card}>
@@ -376,16 +376,16 @@ export default class QuizLearning extends Component {
             flexDirection: 'row',
             flex: 1,
             position: 'absolute',
-            bottom: 150,
-            left: 10,
-            right: 10,
+            marginTop: 450,
+            left: '5%',
+            right: '5%',
             justifyContent: 'space-between',
             padding: 15,
           }}
         >
           <Button style={{ width: '44%' }} bordered iconLeft onPress={() => this.tipOn(this)}>
             <Icon name="key" />
-            <Text>Podpowiedź</Text>
+            <Text>Pomoc</Text>
           </Button>
           <Button
             style={{ width: '44%', textAlign: 'center', backgroundColor: '#1890ff' }}

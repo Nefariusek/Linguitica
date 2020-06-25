@@ -104,7 +104,7 @@ export default class WriteLearning extends Component {
 
     return (
       <KeyboardAvoidingView behavior={'padding'} style={{ flex: 1 }}>
-        <Container>
+        <Container style={{ paddingBottom: '10%' }}>
           <CardItem
             style={
               this.state.isGood === true
@@ -166,9 +166,9 @@ export default class WriteLearning extends Component {
               flexDirection: 'row',
               flex: 1,
               position: 'absolute',
-              bottom: 150,
-              left: 10,
-              right: 10,
+              marginTop: 450,
+              left: '5%',
+              right: '5%',
               justifyContent: 'space-between',
               padding: 15,
             }}
