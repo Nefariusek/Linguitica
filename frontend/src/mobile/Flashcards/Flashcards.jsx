@@ -71,11 +71,10 @@ export default class Flashcards extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevState.categoryPicker !== this.state.categoryPicker || prevState.levelPicker !== this.state.levelPicker) {
       await this.setState({ categoryPicker: this.state.categoryPicker });
-      console.log('szukana kategoria:', this.state.categoryPicker);
+
       await this.setState({ levelPicker: this.state.levelPicker }, () => {
         this.getFlashcards();
       });
-      console.log('szukany poziom:', this.state.levelPicker);
     }
   };
   componentDidMount = async () => {
@@ -94,7 +93,7 @@ export default class Flashcards extends Component {
     const { selected } = this.state;
     selected[selectedRowKeys] = !selected[selectedRowKeys];
     this.setState({ selected });
-    // console.log('wybrane fiszki: ', this.state.selected);
+
     let counter = 0;
 
     for (let i = 0; i < (await this.state.selected.length); i++) {
@@ -198,7 +197,7 @@ export default class Flashcards extends Component {
                     <Text
                       style={{
                         fontSize: 22,
-                        width: 210,
+                        width: '75%',
                         backgroundColor: 'lightgrey',
                         textAlign: 'center',
                         borderRadius: 10,
@@ -211,7 +210,7 @@ export default class Flashcards extends Component {
                     <Text
                       style={{
                         fontSize: 16,
-                        width: 210,
+                        width: '75%',
                         backgroundColor: '#1890ff',
                         textAlign: 'center',
                         borderRadius: 10,
@@ -226,14 +225,14 @@ export default class Flashcards extends Component {
                   <Button
                     onPress={() => this.onSelectChange(key)}
                     large
-                    style={{ backgroundColor: 'lightgrey', height: 40, marginRight: 20 }}
+                    style={{ backgroundColor: 'lightgrey', height: '70%', marginRight: '5%' }}
                   >
                     <Text style={{ fontSize: 16, color: 'black' }}>{val.level}</Text>
                   </Button>
                   <Button
                     onPress={() => this.onSelectChange(key)}
                     large
-                    style={{ backgroundColor: 'lightgrey', height: 40, maxWidth: 50 }}
+                    style={{ backgroundColor: 'lightgrey', height: '70%', width: '13%' }}
                   >
                     {(val.category === 'pojazdy' && <Icon style={{ color: 'black' }} name="car" />) ||
                       (val.category === 'praca' && <Icon style={{ color: 'black' }} name="hammer" />) ||
@@ -285,7 +284,7 @@ const styles = StyleSheet.create({
   containerPicker: {
     flexDirection: 'row',
     alignSelf: 'flex-start',
-    height: 40,
+    height: 45,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
@@ -296,49 +295,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-/*
-      <List>
-            {chwiloweFiszki.map((val, key) => (
-            
-                <ListItem key={key} onPress={() => (this.selected = !this.selected)}>
-                  <Body>
-                    <Text style={{ fontSize: 22 }}>{val.polish}</Text>
-                    <Text note numberOfLines={3} style={{ fontSize: 16 }}>
-                      {val.german} {val.category}
-                    </Text>
-                  </Body>
-                  <Right>
-                    <Button transparent onPress={() => Alert.alert(val.polish, val.german)}>
-                      <Icon name="add" />
-                    </Button>
-                  </Right>
-                </ListItem>
-             
-            ))}
-          </List> */
-
-/*
-        <List
-            dataArray={this.state.chwiloweFiszki}
-            renderRow={(item, id) => (
-              <ListItem style={styles.button} key={item.polish} onPress={() => this.selectFriend(id)}>
-                <Body>
-                  <Text style={{ fontSize: 22 }}>{item.polish}</Text>
-                  <Text note numberOfLines={3} style={{ fontSize: 16 }}>
-                    {item.german} {item.category}
-                  </Text>
-                </Body>
-                <Right>
-                  <Button transparent onPress={() => Alert.alert(item.polish, item.german)}>
-                    <Icon name="add" />
-                  </Button>
-                </Right>
-              </ListItem>
-            )}
-          ></List> */
-
-/*
-          <Right>   <Button transparent onPress={() => Alert.alert(this.state.flashcards[key].polish)}>
-                      <Icon style={{ color: '#1890ff' }} name="information-circle" />
-                    </Button></Right> */
