@@ -153,7 +153,20 @@ router.post('/:id/updateWordsLearnedWeekly', async (req, res) => {
 
   temp.words_learned_weekly.push(req.body.words_learned_weekly);
 
-  if (temp.words_learned_weekly.size > 7) {
+  let arrayLength = temp.words_learned_weekly.length;
+
+  let tempDate = new Date(req.body.words_learned_weekly.date);
+
+  //Check if there is date
+  // for (var i = 0; i < arrayLength; i++) {
+  //   if (temp.words_learned_weekly[i].date == tempDate) {
+  //     // temp.words_learned_weekly.remove(i); //if true, remove it
+  //     console.log(temp.words_learned_weekly[i].date + '  ' + tempDate);
+  //   }
+  // }
+
+  //Pop first element if there is more than 7
+  if (temp.words_learned_weekly.length > 7) {
     temp.words_learned_weekly.shift();
   }
 
