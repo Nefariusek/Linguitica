@@ -552,15 +552,16 @@ body {
 }
 
 .ant-btn.ant-btn-block {
-  block-size: 90%;
+  block-size: 20%;
   display: block;
   clear: both;
   border: 5px solid #1890ff;
   transition: 0.5s;
+  margin: 5%;
 }
 
 .ant-btn.ant-btn-block:hover {
-  block-size: 90%;
+  block-size: 20%;
   display: block;
   clear: both;
   border-width: 2px;

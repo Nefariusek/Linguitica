@@ -4,13 +4,15 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { ImageBackground, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Flashcards from '../frontend/src/mobile/Flashcards/Flashcards.js';
-import Home from '../frontend/src/mobile/Home/Home.js';
-import Login from '../frontend/src/mobile/Login/Login.js';
-import Register from '../frontend/src/mobile/Register/Register.js';
-import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.js';
-import LearningContent from './src/mobile/NLearning/LearningContent';
+import Flashcards from '../frontend/src/mobile/Flashcards/Flashcards.jsx';
+import Home from '../frontend/src/mobile/Home/Home.jsx';
+import Login from '../frontend/src/mobile/Login/Login.jsx';
+import Register from '../frontend/src/mobile/Register/Register.jsx';
+import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.jsx';
+import Quests from '../frontend/src/mobile/Quests/Quests.jsx';
+import LearningContent from './src/mobile/Learning/LearningContent';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import Statistics from '../frontend/src/mobile/Statistics/Statistics';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Button } from 'native-base';
@@ -152,6 +154,22 @@ export default class App extends React.Component {
           <Drawer.Screen
             name="Nauka"
             component={LearningContent}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
+          />
+          <Drawer.Screen
+            name="Zadania"
+            component={Quests}
+            options={{ drawerAnimation: 'none' }}
+            options={{
+              animationEnabled: false,
+            }}
+          />
+          <Drawer.Screen
+            name="Statytstyki"
+            component={Statistics}
             options={{ drawerAnimation: 'none' }}
             options={{
               animationEnabled: false,

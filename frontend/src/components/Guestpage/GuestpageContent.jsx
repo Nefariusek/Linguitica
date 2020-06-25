@@ -29,8 +29,8 @@ class GuestpageContent extends React.Component {
           <div className="startpage">
             <div className="introduction">
               <div className="intro-text">
-                <h1> Tutaj bedzie Mądre hasło1 </h1>
-                <p>A tu Madre hasło 2</p>
+                <h1> Umiejętności językowe są jak roślina</h1>
+                <p>Pozwól im rozkwitnąć</p>
               </div>
               <div buttons>
                 <Button className="btn-start" onClick={this.handleCLick}>

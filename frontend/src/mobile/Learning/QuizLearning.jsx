@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import setHeaders from '../../utils/setHeadersMobile';
+import setHeaders from '../../utils/setHeaders';
 import axios from 'axios';
 import { Container, Button, View, Card, CardItem, Text, Left, Body, Icon, H1 } from 'native-base';
 import { StyleSheet } from 'react-native';

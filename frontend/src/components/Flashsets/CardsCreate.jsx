@@ -12,6 +12,7 @@ export default class CardsCreate extends Component {
     category: 'pojazdy',
     flashsetID: this.props.flashsetID,
     body: '',
+    successes: 0,
     checked: false,
   };
   handleOpen = () => {
@@ -58,6 +59,7 @@ export default class CardsCreate extends Component {
           polish: this.state.polish,
           german: this.state.german,
           category: this.state.category,
+          successes: this.state.successes,
         },
       },
       headers: setHeaders(),
