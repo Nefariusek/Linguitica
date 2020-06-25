@@ -1,6 +1,6 @@
 import React from 'react';
 import setHeaders from '../../utils/setHeadersMobile';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import {
   Container,
   Header,
@@ -60,47 +60,81 @@ export default class Quests extends React.Component {
                         <Text>Opis: {val.description}</Text>
                       </Body>
                     </CardItem>
+
                     <CardItem bordered style={styles.normal}>
-                      <Button
-                        rounded
+                      <View
                         style={{
                           backgroundColor: '#FFCB47',
-                          maxWidth: 165,
-                          textAlign: 'center',
-                          marginRight: 20,
+                          width: '45%',
+                          height: '120%',
+                          borderRadius: 30,
+                          marginRight: '10%',
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', textAlign: 'center' }}> Priorytet: {val.priority}</Text>
-                        <Icon style={{ color: 'black' }} name="done-all" />
-                      </Button>
-                      <Button
-                        rounded
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontSize: 16,
+                            marginTop: '6%',
+                            marginLeft: '4%',
+                          }}
+                        >
+                          {' '}
+                          PRIORYTET: {val.priority}
+                        </Text>
+                        <Icon style={{ color: 'black', marginTop: '5%', marginLeft: '8%' }} name="done-all" />
+                      </View>
+                      <View
                         style={{
                           backgroundColor: '#B0CFE8',
-                          maxWidth: 165,
-                          textAlign: 'center',
+                          width: '45%',
+                          height: '120%',
+                          borderRadius: 30,
+
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', marginLeft: 0 }}> Długość: {val.duration}</Text>
-                        <Icon style={{ color: 'black' }} name="time" />
-                      </Button>
+                        <Text
+                          style={{
+                            color: 'black',
+                            marginLeft: 0,
+                            fontSize: 16,
+                            marginTop: '6%',
+                            marginLeft: '4%',
+                          }}
+                        >
+                          {' '}
+                          DŁUGOŚĆ: {val.duration}
+                        </Text>
+                        <Icon style={{ color: 'black', marginTop: '5%', marginLeft: '8%' }} name="time" />
+                      </View>
                     </CardItem>
                     <CardItem bordered style={styles.normal}>
-                      <Button
-                        rounded
+                      <View
                         style={{
                           backgroundColor: 'white',
-                          minWidth: 350,
-                          textAlign: 'center',
+                          width: '100%',
+                          height: '120%',
+                          borderRadius: 30,
+
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', textAlign: 'center' }}>
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontSize: 16,
+                            marginTop: '3%',
+                          }}
+                        >
                           {' '}
-                          Data zakończenia: {val.finish_date.slice(0, 10)} {val.finish_date.slice(11, 19)}
+                          DATA ZAKOŃCZENIA: {val.finish_date.slice(0, 10)} {val.finish_date.slice(11, 19)}
                         </Text>
-                        <Icon style={{ color: 'black' }} name="alarm" />
-                      </Button>
+                        <Icon style={{ color: 'black', marginTop: '2%', marginLeft: '3%' }} name="alarm" />
+                      </View>
                     </CardItem>
+
                     <CardItem footer bordered style={styles.inProgress}>
                       <Text style={styles.textFooter}>STATUS: W TRAKCIE</Text>
                     </CardItem>
@@ -117,36 +151,60 @@ export default class Quests extends React.Component {
                       </Body>
                     </CardItem>
                     <CardItem bordered style={styles.normal}>
-                      <Button
-                        rounded
+                      <View
                         style={{
                           backgroundColor: '#FFCB47',
-                          maxWidth: 165,
-                          textAlign: 'center',
-                          marginRight: 20,
+                          width: '45%',
+                          height: '120%',
+                          borderRadius: 30,
+                          marginRight: '10%',
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', textAlign: 'center' }}> Priorytet: {val.priority}</Text>
-                        <Icon style={{ color: 'black' }} name="done-all" />
-                      </Button>
-                      <Button
-                        rounded
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontSize: 16,
+                            marginTop: '6%',
+                            marginLeft: '4%',
+                          }}
+                        >
+                          {' '}
+                          PRIORYTET: {val.priority}
+                        </Text>
+                        <Icon style={{ color: 'black', marginTop: '5%', marginLeft: '8%' }} name="done-all" />
+                      </View>
+                      <View
                         style={{
                           backgroundColor: '#B0CFE8',
-                          maxWidth: 165,
-                          textAlign: 'center',
+                          width: '45%',
+                          height: '120%',
+                          borderRadius: 30,
+
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', marginLeft: 0 }}> Długość: {val.duration}</Text>
-                        <Icon style={{ color: 'black' }} name="time" />
-                      </Button>
+                        <Text
+                          style={{
+                            color: 'black',
+                            marginLeft: 0,
+                            fontSize: 16,
+                            marginTop: '6%',
+                            marginLeft: '4%',
+                          }}
+                        >
+                          {' '}
+                          DŁUGOŚĆ: {val.duration}
+                        </Text>
+                        <Icon style={{ color: 'black', marginTop: '5%', marginLeft: '8%' }} name="time" />
+                      </View>
                     </CardItem>
                     <CardItem footer bordered style={styles.failed}>
                       <Text style={styles.textFooter}>STATUS: NIEPOWODZENIE</Text>
                     </CardItem>
                   </Card>
                 )) || (
-                  <Card key={key} style={{ marginBottom: 20 }}>
+                  <Card key={key}>
                     <CardItem header bordered style={styles.normal}>
                       <Text style={styles.textHeader}>Cel: {val.goal}</Text>
                     </CardItem>
@@ -156,45 +214,77 @@ export default class Quests extends React.Component {
                       </Body>
                     </CardItem>
                     <CardItem bordered style={styles.normal}>
-                      <Button
-                        rounded
+                      <View
                         style={{
                           backgroundColor: '#FFCB47',
-                          maxWidth: 165,
-                          textAlign: 'center',
-                          marginRight: 20,
+                          width: '45%',
+                          height: '120%',
+                          borderRadius: 30,
+                          marginRight: '10%',
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', textAlign: 'center' }}> Priorytet: {val.priority}</Text>
-                        <Icon style={{ color: 'black' }} name="done-all" />
-                      </Button>
-                      <Button
-                        rounded
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontSize: 16,
+                            marginTop: '6%',
+                            marginLeft: '4%',
+                          }}
+                        >
+                          {' '}
+                          PRIORYTET: {val.priority}
+                        </Text>
+                        <Icon style={{ color: 'black', marginTop: '5%', marginLeft: '8%' }} name="done-all" />
+                      </View>
+                      <View
                         style={{
                           backgroundColor: '#B0CFE8',
-                          maxWidth: 165,
-                          textAlign: 'center',
+                          width: '45%',
+                          height: '120%',
+                          borderRadius: 30,
+
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', marginLeft: 0 }}> Długość: {val.duration}</Text>
-                        <Icon style={{ color: 'black' }} name="time" />
-                      </Button>
+                        <Text
+                          style={{
+                            color: 'black',
+                            marginLeft: 0,
+                            fontSize: 16,
+                            marginTop: '6%',
+                            marginLeft: '4%',
+                          }}
+                        >
+                          {' '}
+                          DŁUGOŚĆ: {val.duration}
+                        </Text>
+                        <Icon style={{ color: 'black', marginTop: '5%', marginLeft: '8%' }} name="time" />
+                      </View>
                     </CardItem>
                     <CardItem bordered style={styles.normal}>
-                      <Button
-                        rounded
+                      <View
                         style={{
                           backgroundColor: 'white',
-                          minWidth: 350,
-                          textAlign: 'center',
+                          width: '100%',
+                          height: '120%',
+                          borderRadius: 30,
+
+                          flexDirection: 'row',
                         }}
                       >
-                        <Text style={{ color: 'black', textAlign: 'center' }}>
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontSize: 16,
+                            marginTop: '3%',
+                          }}
+                        >
                           {' '}
-                          Data zakończenia: {val.finish_date.slice(0, 10)} {val.finish_date.slice(11, 19)}
+                          DATA ZAKOŃCZENIA: {val.finish_date.slice(0, 10)} {val.finish_date.slice(11, 19)}
                         </Text>
-                        <Icon style={{ color: 'black' }} name="alarm" />
-                      </Button>
+                        <Icon style={{ color: 'black', marginTop: '2%', marginLeft: '3%' }} name="alarm" />
+                      </View>
                     </CardItem>
                     <CardItem footer bordered style={styles.completed}>
                       <Text style={styles.textFooter}>STATUS: UKOŃCZONO!</Text>
@@ -218,7 +308,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0AFFBA',
   },
   inProgress: {
-    backgroundColor: '#FFA85C',
+    backgroundColor: '#41C5DC',
   },
   failed: {
     backgroundColor: '#FF3F00',
