@@ -143,4 +143,33 @@ router.put('/:id/resetStreak', async (req, res) => {
   res.send('Streak reseted');
 });
 
+//Update words learned weekly
+router.post('/:id/updateWordsLearnedWeekly', async (req, res) => {
+  const Stats = res.locals.models.statistics;
+
+  let stats;
+
+  let temp = await Stats.findById(req.params.id);
+
+  temp.words_learned_weekly.push(req.body.words_learned_weekly);
+
+  if (temp.words_learned_weekly.size > 7) {
+    temp.words_learned_weekly.shift();
+  }
+
+  stats = await Stats.findByIdAndUpdate(
+    req.params.id,
+    {
+      words_learned_weekly: temp.words_learned_weekly,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!stats) return res.status(404).send(`Statistics with id ${req.params.id} was not found.`);
+
+  res.send('Words learned weekly changed');
+});
+
 module.exports = router;

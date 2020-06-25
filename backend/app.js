@@ -16,7 +16,7 @@ const main = async () => {
   const connection = await db.connect();
   const models = db.load(connection);
 
-  //[WARNING] Uncommenting lines below will drop your current database and initialize default one.
+  // [WARNING] Uncommenting lines below will drop your current database and initialize default one.
   // if (process.env.NODE_ENV === 'dev') {
   //   await connection.dropDatabase();
   //   await db.initialize(models);
