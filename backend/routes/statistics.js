@@ -143,4 +143,46 @@ router.put('/:id/resetStreak', async (req, res) => {
   res.send('Streak reseted');
 });
 
+//Update words learned weekly
+router.post('/:id/updateWordsLearnedWeekly', async (req, res) => {
+  const Stats = res.locals.models.statistics;
+
+  let stats;
+
+  let temp = await Stats.findById(req.params.id);
+
+  temp.words_learned_weekly.push(req.body.words_learned_weekly);
+
+  let arrayLength = temp.words_learned_weekly.length;
+
+  let tempDate = new Date(req.body.words_learned_weekly.date);
+
+  //Check if there is date
+  // for (var i = 0; i < arrayLength; i++) {
+  //   if (temp.words_learned_weekly[i].date == tempDate) {
+  //     // temp.words_learned_weekly.remove(i); //if true, remove it
+  //     console.log(temp.words_learned_weekly[i].date + '  ' + tempDate);
+  //   }
+  // }
+
+  //Pop first element if there is more than 7
+  if (temp.words_learned_weekly.length > 7) {
+    temp.words_learned_weekly.shift();
+  }
+
+  stats = await Stats.findByIdAndUpdate(
+    req.params.id,
+    {
+      words_learned_weekly: temp.words_learned_weekly,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!stats) return res.status(404).send(`Statistics with id ${req.params.id} was not found.`);
+
+  res.send('Words learned weekly changed');
+});
+
 module.exports = router;

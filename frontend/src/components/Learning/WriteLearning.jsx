@@ -141,7 +141,7 @@ class WriteLearning extends Component {
   saveStatistics = async () => {
     await this.getStatisticsID();
     await axios({
-      url: `/api/statistics/${this.context.userProfile.plant_id}/updateWordsLearned`,
+      url: `/api/statistics/${this.state.statistics_ID}/updateWordsLearned`,
       method: 'put',
 
       words_learned: this.state.learnedWord,
