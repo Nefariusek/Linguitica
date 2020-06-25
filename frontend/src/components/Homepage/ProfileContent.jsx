@@ -35,6 +35,7 @@ import dandelion3 from '../../images/dandelion/mlecz3.PNG';
 import dandelion4 from '../../images/dandelion/mlecz4.PNG';
 import dandelion5 from '../../images/dandelion/mlecz5.PNG';
 import dandelion6 from '../../images/dandelion/mlecz6.PNG';
+import StatisticsContent from '../Statistics/StatisticsContent';
 
 const plantStages = {
   first: {
@@ -182,7 +183,10 @@ class ProfileContent extends Component {
         </div>
         <div className="Statistics">
           <h1>Statystyki</h1>
-          <Statistics />
+
+          <div>
+            <Statistics />
+          </div>
         </div>
       </div>
     );
