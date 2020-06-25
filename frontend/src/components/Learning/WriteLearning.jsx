@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import setHeaders from '../../utils/setHeaders';
 import { Input, Form, Button } from 'antd';
-import Store from '../../Store';
 import Instruction from './Instruction';
+import Store from '../../Store';
 import axios from 'axios';
 
 const { Search } = Input;
@@ -23,7 +23,9 @@ class WriteLearning extends Component {
     showAnswer: false,
     isGood: ' ',
     learnedWord: 0,
+    statistics_ID: '',
   };
+  static contextType = Store;
 
   updateAnswer(e) {
     e.preventDefault();
@@ -121,8 +123,23 @@ class WriteLearning extends Component {
       }
     }
   }
+  getStatisticsID = async () => {
+    await axios({
+      url: `/api/plants/${this.context.userProfile.plant_id}`,
+      method: 'get',
+      headers: setHeaders(),
+    }).then(
+      (response) => {
+        this.setState({ statistics_ID: response.data.statistics_id });
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
 
   saveStatistics = async () => {
+    await this.getStatisticsID();
     await axios({
       url: `/api/statistics/${this.context.userProfile.plant_id}/updateWordsLearned`,
       method: 'put',
@@ -130,7 +147,14 @@ class WriteLearning extends Component {
       words_learned: this.state.learnedWord,
 
       headers: setHeaders(),
-    }).then((res) => this.setState({ loaded: false }));
+    }).then(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
   };
 
   render() {

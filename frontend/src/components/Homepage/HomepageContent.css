@@ -1,3 +1,65 @@
+.Wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1em auto;
+  grid-gap: 10px;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+  .HomeProfile {
+    grid-column: 2/12;
+    grid-row: 2/21;
+  }
+  .HomeButtons {
+    grid-column: 2/12;
+    grid-row: 21/25;
+  }
+  .ProfilePlantImage {
+    grid-column: 2/12;
+    grid-row: 2/10;
+  }
+  .ProgressBars {
+    grid-column: 2/12;
+    grid-row: 10/12;
+  }
+  .PlantStats {
+    grid-column: 2/12;
+    grid-row: 12/16;
+  }
+  .Statistics {
+    grid-column: 2/12;
+    grid-row: 16/20;
+  }
+}
+
+@media (min-width: 768px) {
+  .HomeProfile {
+    grid-column: 1/9;
+    grid-row: 2/6;
+  }
+  .HomeButtons {
+    grid-column: 9/12;
+    grid-row: 2/10;
+  }
+  .ProfilePlantImage {
+    grid-column: 2/6;
+    grid-row: 2/6;
+  }
+  .ProgressBars {
+    grid-column: 2/6;
+    grid-row: 7/9;
+  }
+  .PlantStats {
+    grid-column: 7/11;
+    grid-row: 2/6;
+  }
+  .Statistics {
+    grid-column: 7/11;
+    grid-row: 5/10;
+  }
+}
+
 .no-plant {
   font-size: 30px;
   margin-top: 15vh;
@@ -11,4 +73,33 @@
   border-radius: 30px;
   border: 3px solid black;
   background-color: rgb(255, 255, 255);
+}
+
+.ProfilePlantImage {
+  background-color: #fff;
+}
+
+.ProfilePlantImage img {
+  zoom: 2;
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.StatsLine {
+  margin-top: 5%;
+  font-size: 1rem;
+}
+
+.Left {
+  float: left;
+  text-align: left;
+  font-weight: bold;
+}
+.Right {
+  float: right;
+  text-align: right;
 }

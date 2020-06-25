@@ -64,11 +64,30 @@ class StatisticsContent extends Component {
   render() {
     return (
       <div>
-        <h3>Z nami od: {this.state.learning_since}</h3>
-        <h3>Streak: {this.state.streak}</h3>
-        <h3>Liczba nauczonych słówek: {this.state.words_learned} </h3>
-        <h3>Słówka ukończonych testów: {this.state.tests_passed}</h3>
-        <h3>Liczba ukończonych misji: {this.state.quest_completed} </h3>
+        <div className="StatsLine">
+          <div className="Left"> Z nami od: </div>
+          <div className="Right">{this.state.learning_since}</div>
+        </div>
+        <br></br>
+        <div className="StatsLine">
+          <div className="Left">Streak: </div>
+          <div className="Right">{this.state.streak}</div>
+        </div>
+        <br></br>
+        <div className="StatsLine">
+          <div className="Left">Nauczone słówka: </div>
+          <div className="Right">{this.state.words_learned}</div>
+        </div>
+        <br></br>
+        <div className="StatsLine">
+          <div className="Left">Ukończone testy: </div>
+          <div className="Right">{this.state.tests_passed}</div>
+        </div>
+        <br></br>
+        <div className="StatsLine">
+          <div className="Left">Ukończone zadania: </div>
+          <div className="Right">{this.state.quest_completed}</div>
+        </div>
       </div>
     );
   }
