@@ -133,7 +133,7 @@ export default class Flashcards extends Component {
                           <Text
                             style={{
                               fontSize: 22,
-                              width: 210,
+                              width: '75%',
                               backgroundColor: 'lightgrey',
                               textAlign: 'center',
                               borderRadius: 10,
@@ -146,7 +146,7 @@ export default class Flashcards extends Component {
                           <Text
                             style={{
                               fontSize: 16,
-                              width: 210,
+                              width: '75%',
                               backgroundColor: '#1890ff',
                               textAlign: 'center',
                               borderRadius: 10,
@@ -161,7 +161,7 @@ export default class Flashcards extends Component {
                         <Button
                           onPress={() => this.onSelectChange(key)}
                           large
-                          style={{ backgroundColor: 'lightgrey', height: 40 }}
+                          style={{ backgroundColor: 'lightgrey', height: '70%' }}
                         >
                           {(val.category === 'pojazdy' && <Icon style={{ color: 'black' }} name="car" />) ||
                             (val.category === 'praca' && <Icon style={{ color: 'black' }} name="hammer" />) ||
