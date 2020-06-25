@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import setHeaders from '../../utils/setHeaders';
 import { Input, Form, Button } from 'antd';
 import Store from '../../Store';
+import Instruction from './Instruction';
+
+const { Search } = Input;
+
 /* ----- shift - podpowiedz, (trzeba ja wymyslic jeszcze, bo na razie kategoria)
 enter dalej gdy dobra odpowiedz, 
 shift trzeba zmienic, bo jak sie da duza literke to sie włącza podpowiedz 
@@ -20,17 +24,13 @@ class WriteLearning extends Component {
   state = {
     flashcards: [],
     temp: [],
-    category: this.props.category,
-    level: this.props.level,
     showContent: false,
     showAnswer: false,
-    answer: ' ',
     isGood: ' ',
   };
 
-  static contextType = Store;
-
   updateAnswer(e) {
+    e.preventDefault();
     this.setState({
       answer: e.target.value,
     });
@@ -68,7 +68,8 @@ class WriteLearning extends Component {
     // await this.getFlashcards();
     await this.setState({ flashcards: this.context.setToLearn });
     console.log(this.state.flashcards);
-    const randNum = Math.floor(Math.random() * this.state.flashcards.length);
+    const numRows = this.state.flashcards.length;
+    const randNum = Math.floor(Math.random() * numRows);
     const randCard = this.state.flashcards[randNum].polish;
     const randGer = this.state.flashcards[randNum].german;
     const randTip = this.state.flashcards[randNum].level;
@@ -99,26 +100,38 @@ class WriteLearning extends Component {
       showContent: false,
       showAnswer: false,
       level: this.state.flashcards[randNum].level,
-      answer: ' ',
+      answer: '',
     });
   }
 
   handleKey(event) {
-    if (event.keyCode === 16) {
+    if (event.keyCode === 17) {
       this.setState({
         showContent: true,
       });
     } else if (event.keyCode === 13) {
+      if (this.state.answer === this.state.german) {
+        this.setState({
+          showAnswer: true,
+          isGood: true,
+        });
+      } else {
+        this.setState({
+          isGood: false,
+          answer: '',
+        });
+      }
       if (this.state.isGood === true || this.state.showContent === true) {
-        //    console.log('mozeenter');
         this.updateCard(event);
       }
     }
   }
+
   render() {
     const { isGood } = this.state;
     const { showContent } = this.state;
     const { showAnswer } = this.state;
+
     return (
       <>
         <div className="writeRow" style={{ display: 'flex' }} tabIndex={1} onKeyDown={this.handleKey}>
@@ -136,30 +149,29 @@ class WriteLearning extends Component {
 
             <div className="wordContent">
               <div className="word">{this.state.polish}</div>
-              <div className="tip" style={{ visibility: 'false' }}>
-                {showContent === true ? (
-                  <div style={{ display: 'flex', marginTop: '10%', whiteSpace: 'pre' }}>
-                    <h1 style={{ fontWeight: 'bold', color: '#0070ad' }}>{this.state.german}</h1>
-                  </div>
-                ) : (
-                  ' '
-                )}
-              </div>
-              <div className="word" style={{ visibility: 'false', marginTop: '5%', color: '#65e616' }}>
-                {showAnswer === true ? <div> {this.state.german}</div> : ' '}
-              </div>
+
+              {showContent === true ? <div className="tip">{this.state.german}</div> : ' '}
+
+              {showAnswer === true ? (
+                <div className="word" style={{ color: '#65e616' }}>
+                  {' '}
+                  {this.state.german}
+                </div>
+              ) : (
+                ' '
+              )}
             </div>
           </div>
           <div className="asnwerDiv">
             <div className="translateDiv">
-              <Form>
+              <Form className="form">
                 <Input
-                  ref={(ref) => (this.answerInput = ref)}
                   type="text"
-                  className="answerInput"
+                  //  className="answerInput"
                   id="answerInput"
                   placeholder="Podaj odpowiedź"
-                  value={this.setState.answer}
+                  //value={this.setState.answer}
+                  value={this.state.answer}
                   onChange={this.updateAnswer}
                   // onfocus="this.value=''"
                   autoComplete="off"
@@ -179,9 +191,9 @@ class WriteLearning extends Component {
             </div>
           </div>
         </div>
-
-        <div className="nextBtnContainer">
-          <Button className="clickNextBtn" onClick={this.updateCard}>
+        <div className="nextBtnContainer" style={{ display: 'flex', justifyContent: 'center' }}>
+          <Instruction />
+          <Button className="clickNextBtn" onClick={this.updateCard} style={{ marginLeft: '1%' }}>
             Dalej
           </Button>
         </div>
