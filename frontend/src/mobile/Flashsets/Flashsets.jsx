@@ -1,6 +1,6 @@
-import React, { Component, useEffect } from 'react';
-import { Alert, StyleSheet, TouchableHighlight, AppRegistry } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Store from '../../Store';
 import setHeaders from '../../utils/setHeadersMobile';
 import {
@@ -23,7 +23,6 @@ import {
   Tabs,
   ScrollableTab,
   TabHeading,
-  Fab,
 } from 'native-base';
 
 export default class Flashcards extends Component {
@@ -43,8 +42,6 @@ export default class Flashcards extends Component {
   static contextType = Store;
   changeTab = async (props) => {
     await this.setState({ currentTab: props.i });
-    // console.log(this.state.currentTab);
-    console.log(this.state.currentTab);
   };
   onSelectChange = async (selectedRowKeys) => {
     this.setState({ selectedFlashcards: [] });
@@ -53,7 +50,6 @@ export default class Flashcards extends Component {
     const { selected } = this.state;
     selected[selectedRowKeys] = !selected[selectedRowKeys];
     this.setState({ selected });
-    // console.log('wybrane fiszki: ', this.state.selected);
     let counter = 0;
 
     for (let i = 0; i < (await this.state.selected.length); i++) {
@@ -137,7 +133,7 @@ export default class Flashcards extends Component {
                           <Text
                             style={{
                               fontSize: 22,
-                              width: 210,
+                              width: '75%',
                               backgroundColor: 'lightgrey',
                               textAlign: 'center',
                               borderRadius: 10,
@@ -150,12 +146,13 @@ export default class Flashcards extends Component {
                           <Text
                             style={{
                               fontSize: 16,
-                              width: 210,
+                              width: '75%',
                               backgroundColor: '#1890ff',
                               textAlign: 'center',
                               borderRadius: 10,
                               borderWidth: 1,
                               borderColor: '#fff',
+                              color: 'white',
                             }}
                           >
                             {val.german}
@@ -164,7 +161,7 @@ export default class Flashcards extends Component {
                         <Button
                           onPress={() => this.onSelectChange(key)}
                           large
-                          style={{ backgroundColor: 'lightgrey', height: 40 }}
+                          style={{ backgroundColor: 'lightgrey', height: '70%' }}
                         >
                           {(val.category === 'pojazdy' && <Icon style={{ color: 'black' }} name="car" />) ||
                             (val.category === 'praca' && <Icon style={{ color: 'black' }} name="hammer" />) ||

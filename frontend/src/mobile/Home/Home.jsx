@@ -1,6 +1,6 @@
 import React from 'react';
-import { StatusBar, ImageBackground } from 'react-native';
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from 'native-base';
+import { ImageBackground } from 'react-native';
+import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text } from 'native-base';
 import Logo from '../../images/logo_mobile.png';
 export default class HomeScreen extends React.Component {
   render() {
