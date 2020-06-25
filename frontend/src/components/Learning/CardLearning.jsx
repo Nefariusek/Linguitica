@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
-/* ----- shift - obraca fiszkę
-enter nastepna 
-jak sie zahaczy o buttona to spacja w sumie tez przewija do nastepnej fiszki
-strzałka w prawo - quiz,
-strzałka góra - pisanko ------- */
+
 import Instruction from './Instruction';
+
 class CardLearning extends Component {
   constructor(props) {
     super(props);
@@ -35,13 +32,10 @@ class CardLearning extends Component {
     //await this.getFlashcards();
 
     await this.setState({ flashcards: this.context.setToLearn });
-    console.log(this.state.flashcards);
-    const numRows = 1;
+    //console.log(this.state.flashcards[2].polish);
 
-    const randNum = Math.floor(Math.random() * numRows);
-
-    const randCard = this.state.flashcards[randNum].polish;
-    const randGer = this.state.flashcards[randNum].german;
+    const randCard = this.state.flashcards[0].polish;
+    const randGer = this.state.flashcards[0].german;
 
     this.setState({ polish: randCard, german: randGer });
 
@@ -49,6 +43,7 @@ class CardLearning extends Component {
       const { temp } = this.state;
       temp[i] = false;
     }
+    console.log(this.state.flashcards);
   };
 
   updateCard(event) {
@@ -61,7 +56,6 @@ class CardLearning extends Component {
       german: randId,
       polish: this.state.flashcards[randNum].polish,
     });
-    console.log(this.state.flashcards[randNum].statistics);
   }
   handleKey(event) {
     if (event.keyCode === 13) {
@@ -70,8 +64,8 @@ class CardLearning extends Component {
         changeLanguage: Math.floor(Math.random() * this.state.flashcards.length),
       });
     }
-    if (event.keyCode === 17) {
-      //shift
+    if (event.keyCode === 38) {
+      //arrowup
       this.state.turn === true
         ? this.setState({
             turn: false,

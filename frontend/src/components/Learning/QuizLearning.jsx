@@ -3,10 +3,6 @@ import { Button } from 'antd';
 import setHeaders from '../../utils/setHeaders';
 import Store from '../../Store';
 import Instruction from './Instruction';
-/* ----- shift - podpowiedz, 
-enter zatwierdza odp + dalej gdy dobra odpowiedz, 
-strzałka góra - pisanko,
-strzałka w lewo - fiszki ------- */
 
 class QuizLearning extends Component {
   constructor(props) {
@@ -63,7 +59,7 @@ class QuizLearning extends Component {
   };
 
   handleKey(event) {
-    if (event.keyCode === 17) {
+    if (event.keyCode === 38) {
       this.setState({
         //ctrl
         tipON: true,
@@ -261,7 +257,7 @@ class QuizLearning extends Component {
                   </div>
                   <div className="singleAnswer">
                     <Button className="odpBtn" onClick={() => this.toggleAnswer(this.state.german)}>
-                      {this.state.german}Focus
+                      {this.state.german}
                     </Button>
                   </div>
                 </div>
