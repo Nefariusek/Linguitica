@@ -32,10 +32,10 @@ class CardLearning extends Component {
     //await this.getFlashcards();
 
     await this.setState({ flashcards: this.context.setToLearn });
-    console.log(this.state.flashcards[2].polish);
+    //console.log(this.state.flashcards[2].polish);
 
-    const randCard = this.state.flashcards[2].polish;
-    const randGer = this.state.flashcards[2].german;
+    const randCard = this.state.flashcards[0].polish;
+    const randGer = this.state.flashcards[0].german;
 
     this.setState({ polish: randCard, german: randGer });
 
@@ -64,8 +64,8 @@ class CardLearning extends Component {
         changeLanguage: Math.floor(Math.random() * this.state.flashcards.length),
       });
     }
-    if (event.keyCode === 17) {
-      //shift
+    if (event.keyCode === 38) {
+      //arrowup
       this.state.turn === true
         ? this.setState({
             turn: false,
