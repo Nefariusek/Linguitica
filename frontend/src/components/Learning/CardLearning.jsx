@@ -64,8 +64,8 @@ class CardLearning extends Component {
         changeLanguage: Math.floor(Math.random() * this.state.flashcards.length),
       });
     }
-    if (event.keyCode === 17) {
-      //shift
+    if (event.keyCode === 38) {
+      //arrowup
       this.state.turn === true
         ? this.setState({
             turn: false,

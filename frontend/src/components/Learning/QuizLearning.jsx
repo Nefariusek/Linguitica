@@ -59,7 +59,7 @@ class QuizLearning extends Component {
   };
 
   handleKey(event) {
-    if (event.keyCode === 17) {
+    if (event.keyCode === 38) {
       this.setState({
         //ctrl
         tipON: true,

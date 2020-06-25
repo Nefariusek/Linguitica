@@ -100,7 +100,7 @@ class WriteLearning extends Component {
   }
 
   handleKey(event) {
-    if (event.keyCode === 17) {
+    if (event.keyCode === 38) {
       this.setState({
         showContent: true,
       });

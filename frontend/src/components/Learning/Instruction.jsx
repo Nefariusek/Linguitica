@@ -34,8 +34,8 @@ class Instruction extends React.Component {
       <div>
         <h3>
           1 -> Fiszki
-          <br></br> 2 -> Tryb pisania <br></br> 3 -> Quiz <br></br>
-          Ctrl -> Prawidłowa odpowiedź / podpowiedź <br></br>
+          <br></br> 2 -> Tryb pisania <br></br> 3 -> Quiz <br></br> ArrowUp -> Prawidłowa odpowiedź / podpowiedź{' '}
+          <br></br>
           Enter -> Zatwierdź / dalej
         </h3>
       </div>
