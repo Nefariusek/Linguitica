@@ -3,8 +3,8 @@ import axios from 'axios';
 import { ImageBackground } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text } from 'native-base';
-//import Plant from '../../images/rose/rose6.PNG';
-//import Plant from '../../images/rose/rose6.PNG';
+import Plant from '../../images/rose6.png';
+
 export default class HomeScreen extends React.Component {
   state = {
     plantName: '',
@@ -12,8 +12,8 @@ export default class HomeScreen extends React.Component {
     level: 0,
     health: 0,
     max_health: 0,
-    toughness: 0,
-    charmingness: 0,
+    toughness: 15,
+    charmingness: 10,
     irrigation_points: 0,
     irrigation_required: 0,
     stage: 'first',
@@ -61,27 +61,32 @@ export default class HomeScreen extends React.Component {
           </Body>
         </Header>
         <Content>
-          <ImageBackground style={styles.image} />
+          <ImageBackground source={Plant} style={styles.image} />
           <Text style={styles.textSection}>Informacje</Text>
-          <Text>
+          <Text style={styles.textLine}>
             <Text style={styles.textLine}>Nazwa: </Text>
             <Text style={styles.textLine}> {this.state.plantName}</Text>
           </Text>
-          <Text>
+          <Text style={styles.textLine}>
             <Text style={styles.textLine}>Poziom: </Text>
             <Text style={styles.textLine}> {this.state.level}</Text>
           </Text>
-          <Text>
+          <Text style={styles.textLine}>
             <Text style={styles.textLine}>Wytrzymałość: </Text>
             <Text style={styles.textLine}> {this.state.toughness}</Text>
           </Text>
-          <Text>
+          <Text style={styles.textLine}>
             <Text style={styles.textLine}>Urokliwość: </Text>
             <Text style={styles.textLine}> {this.state.charmingness}</Text>
           </Text>
           <Text style={styles.textLine}>Życie:</Text>
-
-          <br></br>
+          <Text style={styles.textLineCenter}>
+            {this.state.health}/{this.state.max_health}
+          </Text>
+          <Text style={styles.textLine}>Nawodnienie:</Text>
+          <Text style={styles.textLineCenter}>
+            {this.state.irrigation_points}/{this.state.irrigation_required}
+          </Text>
         </Content>
       </Container>
     );
@@ -91,10 +96,9 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   textSection: {
     marginTop: 10,
-    width: '50%',
+    width: '100%',
     fontSize: 25,
     textAlign: 'center',
-    marginLeft: 20,
   },
   textLine: {
     marginTop: 20,
@@ -102,6 +106,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'left',
     marginLeft: 20,
+  },
+  textLineCenter: {
+    marginTop: 20,
+    width: '100%',
+    fontSize: 20,
+    textAlign: 'center',
   },
   textLineLeft: {
     textAlign: 'left',

@@ -5,16 +5,15 @@ import * as Font from 'expo-font';
 import { ImageBackground, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import Flashcards from '../frontend/src/mobile/Flashcards/Flashcards.js';
-import Home from '../frontend/src/mobile/Home/Home.js';
-import Login from '../frontend/src/mobile/Login/Login.js';
-import Register from '../frontend/src/mobile/Register/Register.js';
-import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.js';
+import Flashcards from '../frontend/src/mobile/Flashcards/Flashcards.jsx';
+import Home from '../frontend/src/mobile/Home/Home.jsx';
+import Login from '../frontend/src/mobile/Login/Login.jsx';
+import Register from '../frontend/src/mobile/Register/Register.jsx';
+import Flashsets from '../frontend/src/mobile/Flashsets/Flashsets.jsx';
 import LearningContent from '../frontend/src/mobile/Learning/LearningContent';
 import Statistics from '../frontend/src/mobile/Statistics/Statistics';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import Quests from '../frontend/src/mobile/Quests/Quests.jsx';
-
 
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
